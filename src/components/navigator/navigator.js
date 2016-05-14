@@ -3,6 +3,8 @@ define(['knockout', 'text!./navigator.html', 'knockout-postbox', 'bootstrap'], f
     function ViewModel(params) {
         var self = this;
         
+        self.route = params.route;
+        
         self.assemblies = ko.observableArray([]).publishOn('assemblies');
         self.assembly = ko.observable().publishOn('assembly');
         self.binSets = ko.observableArray([]).publishOn('binSets');
