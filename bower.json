@@ -1,0 +1,17 @@
+{
+  "name": "corebin-www",
+  "authors": [
+    "Mo Char <mocharrout@gmail.com>"
+  ],
+  "description": "CoReBIN - Comparison and Refinement of Metagenomic Bins",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

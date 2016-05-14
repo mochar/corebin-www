@@ -1,0 +1,51 @@
+<div class="row">
+    <div class="col-xs-2">
+        <a href="#" class="btn btn-default">
+            <span class="fa fa-home fa-lg"></span>
+        </a>
+    </div>
+    <div class="col-xs-10">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="btn-group" data-bind="visible: assemblies().length > 0">
+                    <a href="#assembly" role="button" class="btn btn-default" data-bind="text: assembly"></a>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <!-- ko foreach: assemblies().filter(function(a) { return a != assembly() }) -->
+                            <li>
+                                <a href="#assembly" 
+                                   data-bind="text: $data, click: $parent.selectAssembly"></a>
+                            </li>
+                        <!-- /ko -->
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Add</a></li>
+                    </ul>
+                </div>
+                <button class="btn btn-success" data-bind="visible: assemblies().length == 0">
+                    <span class="fa fa-plus"></span> Assembly
+                </button>
+            </div>
+            
+            <div class="col-xs-6">
+                <div class="btn-group">
+                    <a href="#bin-set" role="button" class="btn btn-default" data-bind="text: binSet"></a>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <!-- ko foreach: binSets().filter(function(b) { return b != binSet() }) -->
+                            <li>
+                                <a href="#bin-set" 
+                                   data-bind="text: $data, click: $parent.selectBinSet"></a>
+                            </li>
+                        <!-- /ko -->
+                        <li role="separator" class="divider"></li>
+                        <li><a href="#">Add</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

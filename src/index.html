@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CoReBIN</title>
+    
+    <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet">
+    
+    <script src="/app/require.config.js"></script>
+    <script data-main="app/startup" src="/bower_components/requirejs/require.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid" id="content">
+        <div class="row">
+            <div class="col-xs-8">
+                <div id="page" data-bind="component: { name: route().page, params: route }"></div>
+            </div>
+            <div class="col-xs-4">
+                <navigator params="route: route"></navigator>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
