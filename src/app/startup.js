@@ -13,5 +13,9 @@ define(['knockout', './router'], function(ko, router) {
     ko.components.register('bin-set-page', {require: 'components/bin-set-page/bin-set-page'});
     ko.components.register('bin-set-sidebar', {require: 'components/bin-set-sidebar/bin-set-sidebar'});
     
+    ko.components.register('overview-tab', {require: 'components/overview-tab/overview-tab'});
+    ko.components.register('compare-tab', {require: 'components/compare-tab/compare-tab'});
+    ko.components.register('refine-tab', {require: 'components/refine-tab/refine-tab'});
+    
     ko.applyBindings({route: router.currentRoute, sidebar: router.currentSidebar});
 });

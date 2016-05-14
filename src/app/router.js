@@ -3,7 +3,7 @@ define(['knockout', 'crossroads', 'hasher'], function(ko, crossroads, hasher) {
         routes: [
             { url: '', params: { page: 'home-page' } },
             { url: 'assembly', params: { page: 'assembly-page' } },
-            { url: 'bin-set', params: { page: 'bin-set-page' } }
+            { url: 'bin-set/:tab:', params: { page: 'bin-set-page' } }
         ]
     });
 

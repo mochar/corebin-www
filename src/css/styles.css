@@ -11,3 +11,7 @@
 #sidebar {
     margin-top: 10px;
 }
+
+#tab .panel {
+    border-top-style: hidden;
+}

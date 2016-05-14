@@ -1,1 +1,14 @@
-<h1>Bin set: <span data-bind="text: binSet"></span></h1>
+<ul class="nav nav-tabs">
+  <li role="presentation" data-bind="css: {active: tab() === 'overview'}">
+      <a href="#bin-set/overview"><span class="fa fa-eye"></span> Overview</a>
+  </li>
+  <li role="presentation" data-bind="css: {active: tab() === 'compare'}">
+      <a href="#bin-set/compare"><span class="fa fa-balance-scale"></span> Compare</a>
+  </li>
+  <li role="presentation" data-bind="css: {active: tab() === 'refine'}">
+      <a href="#bin-set/refine"><span class="fa fa-cog"></span> Refine</a>
+  </li>
+</ul>
+
+
+<div id="tab" data-bind="component: { name: tab() + '-tab' }"></div>
