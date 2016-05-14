@@ -9,6 +9,10 @@ define(['knockout', 'crossroads', 'hasher'], function(ko, crossroads, hasher) {
 
     function Router(config) {
         var currentRoute = this.currentRoute = ko.observable({});
+        this.currentSidebar = ko.computed(function() {
+            if (this.currentRoute().page === undefined) return;
+            return this.currentRoute().page.split('-page')[0] + '-sidebar';
+        }, this)
 
         ko.utils.arrayForEach(config.routes, function(route) {
             crossroads.addRoute(route.url, function(requestParams) {

@@ -1,4 +1,4 @@
-define(['knockout', 'text!./home-page.html'], function(ko, template) {
+define(['knockout', 'text!./home-sidebar.html'], function(ko, template) {
 
     function ViewModel(params) {
         var self = this;

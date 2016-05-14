@@ -23,6 +23,9 @@
             </div>
             <div class="col-xs-4">
                 <navigator params="route: route"></navigator>
+                <!-- ko if: sidebar -->
+                <div id="sidebar" data-bind="component: { name: sidebar, params: route }"></div>
+                <!-- /ko -->
             </div>
         </div>
     </div>
