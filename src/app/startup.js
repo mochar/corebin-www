@@ -9,9 +9,11 @@ define(['knockout', './router'], function(ko, router) {
     ko.components.register('assembly-page', {require: 'components/assembly-page/assembly-page'});
     ko.components.register('assembly-sidebar', {require: 'components/assembly-sidebar/assembly-sidebar'});
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});
+    ko.components.register('assembly-modal', {require: 'components/assembly-modal/assembly-modal'});
     
     ko.components.register('bin-set-page', {require: 'components/bin-set-page/bin-set-page'});
     ko.components.register('bin-set-sidebar', {require: 'components/bin-set-sidebar/bin-set-sidebar'});
+    ko.components.register('bin-set-modal', {require: 'components/bin-set-modal/bin-set-modal'});
     
     ko.components.register('overview-tab', {require: 'components/overview-tab/overview-tab'});
     ko.components.register('compare-tab', {require: 'components/compare-tab/compare-tab'});

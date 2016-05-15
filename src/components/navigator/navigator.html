@@ -5,14 +5,14 @@
         </a>
     </div>
     
-    <div class="col-xs-8 col-xs-offset-1" data-bind="visible: !assembly()">
-        <button class="btn btn-success btn-block">
+    <div class="col-xs-8 col-xs-offset-1" data-bind="visible: assemblies().length === 0">
+        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal">
             <span class="fa fa-plus"></span> 
             <strong>Add an assembly to begin</strong>
         </button>
     </div>
     
-    <div class="col-xs-5" data-bind="visible: assembly">
+    <div class="col-xs-5" data-bind="visible: assemblies().length > 0">
         <div class="btn-group btn-block">
             <a href="#assembly" role="button" class="btn btn-default col-xs-10" 
                 data-bind="text: assembly, css: { active: route().page === 'assembly-page'}"></a>
@@ -31,14 +31,15 @@
         </div>
     </div>
     
-    <div class="col-xs-5" data-bind="visible: !binSet()">
-        <button class="btn btn-success btn-block">
+    <div class="col-xs-5" data-bind="visible: binSetButtonVisible">
+        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#bin-set-modal"
+                data-bind="css: { disabled : !assembly() }">
             <span class="fa fa-plus"></span> 
             <strong>Add bin set</strong>
         </button>
     </div>
     
-    <div class="col-xs-5" data-bind="visible: binSet() && assembly()">
+    <div class="col-xs-5" data-bind="visible: binSets().length > 0">
         <div class="btn-group btn-block">
             <a href="#bin-set" role="button" class="btn btn-default col-xs-10"
                 data-bind="text: binSet, css: { active: route().page === 'bin-set-page'}"></a>

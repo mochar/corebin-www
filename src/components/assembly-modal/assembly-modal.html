@@ -1,0 +1,40 @@
+<div class="modal fade" tabindex="-1" role="dialog" id="assembly-modal">
+<div class="modal-dialog">
+<form name="assembly-form" method="post"
+    enctype="multipart/form-data" data-bind="submit: uploadAssembly">
+    <div class="modal-content">
+    
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
+            <h4 class="modal-title">Upload assembly</h4>
+        </div>
+        
+        <div class="modal-body">
+            <div class="form-group">
+                <label for="name">Assembly name</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+                <label for="fasta">Contigs (fasta)</label>
+                <input type="file" name="fasta">
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" name="fourmers"> Calculate tetranucleotide frequencies
+                </label>
+            </div>
+            <div class="form-group">
+                <label for="fasta">Filters</label>
+                <p class="help-block">Contigs you want to ignore.</p>
+            </div>
+        </div>
+      
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-primary">Save assembly</button>
+        </div>
+      
+    </div>
+</form>
+</div>
+</div>
