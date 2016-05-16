@@ -1,4 +1,10 @@
-define(['knockout', 'text!./navigator.html', 'knockout-postbox', 'bootstrap'], function(ko, template) {
+define([
+    'knockout',
+    'text!./navigator.html',
+    'jquery',
+    'knockout-postbox',
+    'bootstrap'
+], function(ko, template, $) {
     
     function ViewModel(params) {
         var self = this;
@@ -29,8 +35,12 @@ define(['knockout', 'text!./navigator.html', 'knockout-postbox', 'bootstrap'], f
         });
         
         // Get data from server
-        // self.assemblies(['Synthetic', 'Bioreactor']);
-        // self.binSets(['CONCOCT', 'MetaBat', 'GroopM']);
+        $.getJSON('/a', function(data) { 
+            self.assemblies(data.assemblies); 
+            $.getJSON('/a/' + data.assemblies[0].id + '/bs', function(data) { 
+                self.binSets(data.binSets); 
+            });
+        });
     };
     
     return { viewModel: ViewModel, template: template };

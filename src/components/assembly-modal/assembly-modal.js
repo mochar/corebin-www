@@ -16,9 +16,6 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                 success: function(data) {
                     self.assemblies.push(data);
                 },
-                complete: function() {
-                    self.assemblies.push(formData.get('name'));
-                },
                 cache: false,
                 contentType: false,
                 processData: false

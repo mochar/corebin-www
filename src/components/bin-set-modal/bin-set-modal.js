@@ -4,19 +4,20 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
         var self = this;
         
         self.binSets = ko.observableArray([]).syncWith('binSets');
+        self.assembly = ko.observable().subscribeTo('assembly');
         
         self.uploadBinSet = function(formElement) {
             var formData = new FormData(formElement);
             formElement.reset();
+            var assembly = self.assembly();
+            if (!assembly) return;
             $.ajax({
-                url: '/bs',
+                url: '/a/' + assembly.id + '/bs',
                 type: 'POST',
                 data: formData,
                 async: false,
                 success: function(data) {
-                },
-                complete: function() {
-                    self.binSets.push(formData.get('name'));
+                    self.binSets.push(data);
                 },
                 cache: false,
                 contentType: false,
