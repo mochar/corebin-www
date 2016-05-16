@@ -12,7 +12,7 @@ define(['knockout', 'text!./assembly-table.html', 'knockout-postbox'], function(
                 self.contigs(data.contigs);
                 self.loading(false);
             })
-        });
+        }, true);
     };
     
     return {
