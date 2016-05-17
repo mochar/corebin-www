@@ -24,8 +24,21 @@
                 </label>
             </div>
             <div class="form-group">
-                <label for="fasta">Filters</label>
-                <p class="help-block">Contigs you want to ignore.</p>
+                <label for="fasta">Sample coverage</label>
+                <div class="row">
+                    <div class="col-xs-6">
+                        <input type="file" name="coverage" 
+                            data-bind="event: { change: function() { onFileChange($element.files[0]) } }">
+                    </div>
+                    <div class="col-xs-6" data-bind="visible: samples().length > 0">
+                        <label>
+                            <input type="checkbox" data-bind="checked: hasHeaders"> Headers
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="row" data-bind="foreach: samples">
+                <div class="col-xs-4"><input type="text" data-bind="value: $data"></div>
             </div>
         </div>
       

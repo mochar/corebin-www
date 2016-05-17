@@ -16,8 +16,13 @@ define([
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.binSet = ko.observable().publishOn('binSet');
         
-        self.selectAssembly = function(assembly) { self.assembly(assembly); };
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
+        self.selectAssembly = function(assembly) { 
+            self.assembly(assembly); 
+            $.getJSON('/a/' + assembly.id + '/bs', function(data) { 
+                self.binSets(data.binSets); 
+            });
+        };
         
         self.binSetButtonVisible = ko.computed(function() {
             if (self.assemblies().length == 0) return false;
