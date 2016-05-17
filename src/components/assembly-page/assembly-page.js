@@ -1,4 +1,4 @@
-define(['knockout', 'text!./assembly-page.html', 'knockout-postbox'], function(ko, template) {
+define(['knockout', 'text!./assembly-page.html', 'knockout-postbox', 'app/bindings'], function(ko, template) {
 
     function ViewModel(params) {
         var self = this;
