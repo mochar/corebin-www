@@ -1,4 +1,6 @@
-define(['knockout', './router'], function(ko, router) {
+define(['knockout', './router', './bindings'], function(ko, router, bindings) {
+    require(bindings);
+    
     ko.components.register('navigator', {require: 'components/navigator/navigator'});
     
     ko.components.register('home-page', {

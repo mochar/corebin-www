@@ -25,6 +25,7 @@
     "knockout-postbox": "^0.5.2",
     "knockout": "^3.4.0",
     "requirejs": "^2.2.0",
-    "text": "requirejs-text#^2.0.15"
+    "text": "requirejs-text#^2.0.15",
+    "c3": "^0.4.11"
   }
 }
