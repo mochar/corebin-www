@@ -1,0 +1,19 @@
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <strong>Bin sets</strong>
+        <span class="pull-right" style="cursor: pointer">
+            <span class="fa fa-lg fa-plus" data-bind="click: function() { $('#bin-set-modal').modal() }"></span>
+        </span>
+    </div>
+    
+    <ul class="list-group" data-bind="foreach: binSets">
+        <li class="list-group-item bin-set-item" data-bind="style: { 'border-left-color': color }">
+            <span data-bind="text: name"></span>
+            <span class="badge" data-bind="text: bins.length + ' bins'"></span>
+        </li>
+    </ul>
+    
+    <div style="text-align: center" data-bind="if: loading">
+        <span class="fa fa-refresh fa-spin fa-lg"></span>
+    </div>
+</div>

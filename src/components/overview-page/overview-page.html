@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-xs-8">
+        <div class="row">
+            <div class="col-xs-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Length</div>
+                    <div class="panel-body">
+                        <div data-bind="histChart: lengthData" id="lengthChart"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-6">
+                <div class="panel panel-default">
+                    <div class="panel-heading">GC</div>
+                    <div class="panel-body" id="gc-chart">
+                        <div data-bind="histChart: gcData" id="gcChart"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">Tetranucleotide frequencies</div>
+            <div class="panel-body"></div>
+        </div>
+    </div>
+    
+    <div class="col-xs-4">
+        <bin-sets-panel></bin-sets-panel>
+        <assembly-table></assembly-table>
+    </div>
+</div>

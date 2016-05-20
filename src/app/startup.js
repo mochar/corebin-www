@@ -6,20 +6,17 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     ko.components.register('home-page', {
         template: { require: 'text!components/home-page/home-page.html' }
     });
-    ko.components.register('home-sidebar', {require: 'components/home-sidebar/home-sidebar'});
     
     ko.components.register('assembly-page', {require: 'components/assembly-page/assembly-page'});
-    ko.components.register('assembly-sidebar', {require: 'components/assembly-sidebar/assembly-sidebar'});
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});
     ko.components.register('assembly-modal', {require: 'components/assembly-modal/assembly-modal'});
     
-    ko.components.register('bin-set-page', {require: 'components/bin-set-page/bin-set-page'});
-    ko.components.register('bin-set-sidebar', {require: 'components/bin-set-sidebar/bin-set-sidebar'});
     ko.components.register('bin-set-modal', {require: 'components/bin-set-modal/bin-set-modal'});
+    ko.components.register('bin-sets-panel', {require: 'components/bin-sets-panel/bin-sets-panel'});
     
-    ko.components.register('overview-tab', {require: 'components/overview-tab/overview-tab'});
-    ko.components.register('compare-tab', {require: 'components/compare-tab/compare-tab'});
-    ko.components.register('refine-tab', {require: 'components/refine-tab/refine-tab'});
+    ko.components.register('overview-page', {require: 'components/overview-page/overview-page'});
+    ko.components.register('compare-page', {require: 'components/compare-page/compare-page'});
+    ko.components.register('refine-page', {require: 'components/refine-page/refine-page'});
     
-    ko.applyBindings({route: router.currentRoute, sidebar: router.currentSidebar});
+    ko.applyBindings({ route: router.currentRoute });
 });

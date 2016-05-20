@@ -2,18 +2,15 @@ define(['knockout', 'crossroads', 'hasher'], function(ko, crossroads, hasher) {
     return new Router({
         routes: [
             { url: '', params: { page: 'home-page' } },
-            { url: 'assembly', params: { page: 'assembly-page' } },
-            { url: 'bin-set/:tab:', params: { page: 'bin-set-page' } }
+            { url: 'home', params: { page: 'home-page' } },
+            { url: 'overview', params: { page: 'overview-page' } },
+            { url: 'compare', params: { page: 'compare-page' } },
+            { url: 'refine', params: { page: 'refine-page' } }
         ]
     });
 
     function Router(config) {
         var currentRoute = this.currentRoute = ko.observable({});
-        this.currentSidebar = ko.computed(function() {
-            if (this.currentRoute().page === undefined) return;
-            return this.currentRoute().page.split('-page')[0] + '-sidebar';
-        }, this)
-
         ko.utils.arrayForEach(config.routes, function(route) {
             crossroads.addRoute(route.url, function(requestParams) {
                 currentRoute(ko.utils.extend(requestParams, route.params));

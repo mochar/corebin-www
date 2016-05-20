@@ -1,4 +1,4 @@
-define(['knockout', 'text!./overview-tab.html', 'knockout-postbox'], function(ko, template) {
+define(['knockout', 'text!./refine-page.html', 'knockout-postbox'], function(ko, template) {
 
     function ViewModel(params) {
         var self = this;

@@ -17,21 +17,12 @@
 </head>
 
 <body>
-    <div class="container-fluid" id="content">
-        <div class="row">
-            <div class="col-xs-8">
-                <div id="page" data-bind="component: { name: route().page, params: route }"></div>
-            </div>
-            <div class="col-xs-4">
-                <navigator params="route: route"></navigator>
-                <!-- ko if: sidebar -->
-                <div id="sidebar" data-bind="component: { name: sidebar, params: route }"></div>
-                <!-- /ko -->
-            </div>
-        </div>
-        
-        <assembly-modal></assembly-modal>
-        <bin-set-modal></bin-set-modal>
+    <assembly-modal></assembly-modal>
+    <bin-set-modal></bin-set-modal>    
+    
+    <div class="container" id="content">
+        <navigator params="route: route"></navigator>
+        <div id="page" data-bind="component: { name: route().page, params: route }"></div>
     </div>
 </body>
 

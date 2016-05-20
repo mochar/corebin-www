@@ -1,62 +1,45 @@
 <div class="row">
-    <div class="col-xs-2">
-        <a href="#" class="btn btn-default">
-            <span class="fa fa-home fa-lg"></span>
-        </a>
+    <div class="col-xs-10">
+        <ul class="nav nav-tabs">
+        <li role="presentation" data-bind="css: {active: route().page === 'home-page'}">
+            <a href="#home"><span class="fa fa-lg fa-home"></span></a>
+        </li>
+        <li role="presentation" data-bind="css: {active: route().page === 'overview-page',
+                                                 disabled: !assembly()}">
+            <a href="#overview"><span class="fa fa-eye"></span> Overview</a>
+        </li>
+        <li role="presentation" data-bind="css: {active: route().page === 'compare-page',
+                                                 disabled: !assembly()}">
+            <a href="#compare"><span class="fa fa-balance-scale"></span> Compare</a>
+        </li>
+        <li role="presentation" data-bind="css: {active: route().page === 'refine-page',
+                                                 disabled: !assembly()}">
+            <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
+        </li>
+        </ul>
     </div>
     
-    <div class="col-xs-8 col-xs-offset-1" data-bind="visible: assemblies().length === 0">
-        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal">
+    <div class="col-xs-2">
+        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal"
+                data-bind="visible: assemblies().length === 0">
             <span class="fa fa-plus"></span> 
             <strong>Add an assembly to begin</strong>
         </button>
-    </div>
-    
-    <div class="col-xs-5" data-bind="visible: assemblies().length > 0">
-        <div class="btn-group btn-block">
-            <a href="#assembly" role="button" class="btn btn-default col-xs-10"
-                data-bind="text: assembly() ? assembly().name : '', 
-                           css: { active: route().page === 'assembly-page'}"></a>
-            <button type="button" class="btn btn-default dropdown-toggle col-xs-2" data-toggle="dropdown">
-                <span class="caret"></span>
+        
+        <div class="btn-group btn-block" role="group" data-bind="visible: assemblies().length > 0">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span data-bind="text: assembly() ? assembly().name : ''"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" data-bind="foreach: assemblies().filter(function(a) { return a != assembly() })">
+                    <li><a href="#overview" data-bind="text: name, click: $parent.selectAssembly"></a></li>
+                </ul>
+            </div>
+            
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assembly-modal">
+                <span class="fa fa-plus"></span>
             </button>
-            <ul class="dropdown-menu">
-                <!-- ko foreach: assemblies().filter(function(a) { return a != assembly() }) -->
-                    <li>
-                        <a href="#" data-bind="text: name, click: $parent.selectAssembly"></a>
-                    </li>
-                <!-- /ko -->
-                <li role="separator" class="divider"></li>
-                <li><a href="#" data-toggle="modal" data-target="#assembly-modal">Add</a></li>
-            </ul>
-        </div>
-    </div>
-    
-    <div class="col-xs-5" data-bind="visible: binSetButtonVisible">
-        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#bin-set-modal"
-                data-bind="css: { disabled : !assembly() }">
-            <span class="fa fa-plus"></span> 
-            <strong>Add bin set</strong>
-        </button>
-    </div>
-    
-    <div class="col-xs-5" data-bind="visible: binSets().length > 0, css: { disabled : !assembly() }">
-        <div class="btn-group btn-block">
-            <a href="#bin-set" role="button" class="btn btn-default col-xs-10"
-                data-bind="text: binSet() ? binSet().name : '', 
-                           css: { active: route().page === 'bin-set-page'}"></a>
-            <button type="button" class="btn btn-default dropdown-toggle col-xs-2" data-toggle="dropdown">
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu">
-                <!-- ko foreach: binSets().filter(function(b) { return b != binSet() }) -->
-                    <li>
-                        <a href="#" data-bind="text: name, click: $parent.selectBinSet"></a>
-                    </li>
-                <!-- /ko -->
-                <li role="separator" class="divider"></li>
-                <li><a href="#" data-toggle="modal" data-target="#bin-set-modal">Add</a></li>
-            </ul>
         </div>
     </div>
 </div>

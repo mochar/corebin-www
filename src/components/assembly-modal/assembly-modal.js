@@ -4,6 +4,7 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
         var self = this;
         
         self.assemblies = ko.observableArray([]).syncWith('assemblies');
+        self.assembly = ko.observable().syncWith('assembly');
         
         self.resetForm = function() {
             self.hasHeaders = ko.observable(true);
@@ -53,6 +54,7 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                 async: false,
                 success: function(data) {
                     self.assemblies.push(data);
+                    self.assembly(data);
                 },
                 cache: false,
                 contentType: false,
