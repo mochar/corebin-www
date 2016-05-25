@@ -7,9 +7,10 @@
     </div>
     
     <ul class="list-group" data-bind="foreach: binSets">
-        <li class="list-group-item bin-set-item" data-bind="style: { 'border-left-color': color }">
-            <span data-bind="text: name"></span>
+        <li class="list-group-item">
             <span class="badge" data-bind="text: bins.length + ' bins'"></span>
+            <span data-bind="text: name, visible: isSelected"></span>
+            <a href="#" data-bind="text: name, click: $parent.selectBinSet, visible: !isSelected()"></a>
         </li>
     </ul>
     
