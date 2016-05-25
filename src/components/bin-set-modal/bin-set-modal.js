@@ -5,6 +5,7 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
         
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.assembly = ko.observable().subscribeTo('assembly');
+        self.binSet = ko.observable().subscribeTo('binSet');
         
         self.uploadBinSet = function(formElement) {
             var formData = new FormData(formElement);
@@ -17,6 +18,10 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
                 data: formData,
                 async: false,
                 success: function(data) {
+                    data.isSelected = ko.computed(function() {
+                        var binSet = self.binSet();
+                        return binSet && binSet.id == bs.id;
+                    });
                     self.binSets.push(data);
                 },
                 cache: false,

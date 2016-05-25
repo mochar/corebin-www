@@ -5,29 +5,20 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 bindto: element,
                 data: {
                     x: 'x',
-                    columns: [['x'], ['frequency']],
-                    type: 'bar'
+                    columns: [['data'], ['x']],
+                    type: 'bar',
+                    groups: [['data']]
                 },
-                bar: {
-                    width: {
-                        ratio: 0.8
-                    }
-                },
-                axis: {
-                    x: {
-                        type: 'category'
-                    }
-                },
-                legend: {
-                    show: false
-                }
+                legend: { show: false },
+                axis: { x: { type: 'category' } }
             });
             $(element).data('chart', chart);
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var data = valueAccessor()();
             var chart = $(element).data('chart');
-            chart.load({ columns: data });
+            chart.load({ unload: true, columns: data.columns || [['data'], ['x']] });
+            chart.groups(data.groups || [['data']]);
         }
     }
 });

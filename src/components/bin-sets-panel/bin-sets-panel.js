@@ -4,8 +4,8 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         var self = this;
         
         self.loading = ko.observable(true);
-        self.binSets = ko.observableArray([]).publishOn('binSets');
-        self.binSet = ko.observable().publishOn('binSet', true);
+        self.binSets = ko.observableArray([]).syncWith('binSets');
+        self.binSet = ko.observable().publishOn('binSet');
         
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
         

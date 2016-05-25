@@ -11,45 +11,62 @@ define([
     function ViewModel(params) {
         var self = this;
         
+        self.assembly = ko.observable();
         self.lengthData = ko.observable({});
-        self.gcData = ko.observable([]);
+        self.gcData = ko.observable({});
+        
+        self.updateCharts = function(binSetId) {
+            var assembly = self.assembly();
+            var url = '/a/' + assembly.id + '/c/plot';
+            
+            if (binSetId) {
+                $.getJSON(url, {bs: binSetId}, function(data) {
+                    // Length plot
+                    var binSets = Object.keys(data.length);
+                    var x = Object.keys(data.length[binSets[0]]);
+                    var columns = binSets.map(function(binSet) {
+                        var d = x.map(function(v) { return data.length[binSet][v]; });
+                        return [binSet].concat(d);
+                    });
+                    columns.push(['x'].concat(x));
+                    self.lengthData({ columns: columns, groups: [binSets] });
+                    
+                    // GC plot
+                    var binSets = Object.keys(data.gc);
+                    var x = Object.keys(data.gc[binSets[0]]);
+                    var columns = binSets.map(function(binSet) {
+                        var d = x.map(function(v) { return data.gc[binSet][v]; });
+                        return [binSet].concat(d);
+                    });
+                    columns.push(['x'].concat(x));
+                    self.gcData({ columns: columns, groups: [binSets] });
+                });
+            } else {
+                $.getJSON(url, function(data) {
+                    // Length plot
+                    var x = Object.keys(data.length);
+                    var d = ['data'].concat(x.map(function(v) { return data.length[v] }));
+                    var columns = [['x'].concat(x), d];
+                    self.lengthData({ columns: columns });
+                    
+                    // GC plot
+                    var x = Object.keys(data.gc);
+                    var d = ['data'].concat(x.map(function(v) { return data.gc[v] }));
+                    var columns = [['x'].concat(x), d];
+                    self.gcData({ columns: columns });
+                });
+            }
+        }
         
         ko.postbox.subscribe('assembly', function(assembly) {
             if (!assembly) return;
-            var url = '/a/' + assembly.id + '/c';
-            $.getJSON(url, {fields: 'gc', items: 10000}, function(data) {
-                var gc = data.contigs.map(function(c) { return c.gc; });
-                var x = [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1];
-                var hist = d3.layout.histogram().bins(x)(gc);
-                var lengths = hist.map(function(bin) { return bin.length; });
-                self.gcData([['x'].concat(x.slice(0, -1)), 
-                             ['frequency'].concat(lengths)]);
-            });
-            
-            $.getJSON(url, {fields: 'length', items: 10000}, function(data) {
-                var x = ['< 1.0 kb', '1.0 - 3.5 kb', '3.5 - 7.0 kb', '7.0 - 15.0 kb', 
-                         '15.0 - 30.0 kb', '30.0 - 60.0 kb', '> 60.kb'];
-                var frequency = [0, 0, 0, 0, 0, 0, 0];
-                data.contigs.forEach(function(c) { 
-                    if (c.length < 1000) {
-                        frequency[0]++;
-                    } else if (c.length < 3500) {
-                        frequency[1]++;
-                    } else if (c.length < 7000) {
-                        frequency[2]++;
-                    } else if (c.length < 15000) {
-                        frequency[3]++;
-                    } else if (c.length < 30000) {
-                        frequency[4]++;
-                    } else if (c.length < 60000) {
-                        frequency[5]++;
-                    } else {
-                        frequency[6]++;
-                    }
-                });
-                self.lengthData([['x'].concat(x), 
-                                 ['frequency'].concat(frequency)]);
-            });
+            self.assembly(assembly);
+            if (assembly.bin_sets.length == 0) self.updateCharts();
+        }, true);
+        
+        ko.postbox.subscribe('binSet', function(binSet) {
+            if (!binSet) return;
+            self.updateCharts(binSet.id);
         }, true);
     };
     
