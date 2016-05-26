@@ -19,6 +19,7 @@ define([
             var assembly = self.assembly();
             var url = '/a/' + assembly.id + '/c/plot';
             
+            binSetId = null; // Bin set plot slow, normal plot for now
             if (binSetId) {
                 $.getJSON(url, {bs: binSetId}, function(data) {
                     // Length plot
@@ -61,12 +62,13 @@ define([
         ko.postbox.subscribe('assembly', function(assembly) {
             if (!assembly) return;
             self.assembly(assembly);
-            if (assembly.bin_sets.length == 0) self.updateCharts();
+            // if (assembly.bin_sets.length == 0) self.updateCharts();
+            self.updateCharts();
         }, true);
         
         ko.postbox.subscribe('binSet', function(binSet) {
             if (!binSet) return;
-            self.updateCharts(binSet.id);
+            // self.updateCharts(binSet.id);
         }, true);
     };
     
