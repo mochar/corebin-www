@@ -4,6 +4,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         var self = this;
         
         self.loading = ko.observable(true);
+        self.panning = ko.observable(true);
         self.bins = ko.observableArray([]);
         self.selectedContigs = ko.observableArray([]);
         self.selectedBins = ko.observableArray([]);
@@ -19,7 +20,6 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         // Get the contigs on bin selection change
         self.selectedBins.subscribe(function(changes) {
             changes.forEach(function(change) {
-                console.log(change);
                 if (change.status === 'added') { // Plot new contigs
                     self.getContigs(change.value)
                 } else if (change.status === 'deleted') { // Remove plotted contigs
@@ -29,7 +29,6 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         }, null, 'arrayChange');
         
         self.getContigs = function(bin) {
-            console.log('getting contigs');
             self.loading(true);
             var payload = {
                 fields: 'id,length,gc,name',
@@ -38,17 +37,16 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
                 items: self.assembly().size
             };
             $.getJSON('/a/' + self.binSet().assembly + '/c', payload, function(data) {
-                self.contigs(data.contigs.map(function(contig) {
+                self.contigs(self.contigs().concat(data.contigs.map(function(contig) {
                     contig.color = bin.color;
                     contig.bin = bin.id;
                     return contig;
-                }));
+                })));
                 self.loading(false);
             });
         };
         
         self.removeContigs = function(bin) {
-            console.log('removing contigs');
             self.contigs(self.contigs().filter(function(contig) {
                 return contig.bin != bin.id;
             }));

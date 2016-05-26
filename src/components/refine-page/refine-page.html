@@ -31,7 +31,19 @@
         </div>
     </div>
     <div class="col-xs-6">
-        <div data-bind="scatterPlot: contigs, x: x, y: y"></div>
+        <div class="text-center">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-default btn-sm" 
+                        data-bind="css: { active: panning }, click: function() { panning(true) }">
+                    <span class="fa fa-arrows"></span>
+                </button>
+                <button type="button" class="btn btn-default btn-sm" 
+                        data-bind="css: { active: !panning() }, click: function() { panning(false) }">
+                    <span class="fa fa-heart-o"></span>
+                </button>
+            </div>
+        </div>
+        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning"></div>
     </div>
     <div class="col-xs-4">
         <div class="panel panel-default">
