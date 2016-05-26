@@ -11,12 +11,10 @@ define([
     function ViewModel(params) {
         var self = this;
         
-        self.assembly = ko.observable();
         self.lengthData = ko.observable({});
         self.gcData = ko.observable({});
         
-        self.updateCharts = function(binSetId) {
-            var assembly = self.assembly();
+        self.updateCharts = function(assembly, binSetId) {
             var url = '/a/' + assembly.id + '/c/plot';
             
             binSetId = null; // Bin set plot slow, normal plot for now
@@ -61,14 +59,7 @@ define([
         
         ko.postbox.subscribe('assembly', function(assembly) {
             if (!assembly) return;
-            self.assembly(assembly);
-            // if (assembly.bin_sets.length == 0) self.updateCharts();
-            self.updateCharts();
-        }, true);
-        
-        ko.postbox.subscribe('binSet', function(binSet) {
-            if (!binSet) return;
-            // self.updateCharts(binSet.id);
+            self.updateCharts(assembly);
         }, true);
     };
     
