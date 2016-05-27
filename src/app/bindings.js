@@ -38,7 +38,7 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 .attr('class', 'tooltip')
                 .style('opacity', 0);
             
-            var rect = svg.append('rect')
+            svg.append('rect')
                 .attr('width', width)
                 .attr('height', height)
                 .style('fill', 'none')
@@ -49,21 +49,6 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 .classed("container", true)
                 .attr("width", width)
                 .attr("height", height);
-                
-            container.append("svg:line")
-                .classed("axisLine hAxisLine", true)
-                .attr("x1", 0)
-                .attr("y1", 0)
-                .attr("x2", width)
-                .attr("y2", 0)
-                .attr("transform", "translate(0," + height + ")");
-
-            container.append("svg:line")
-                .classed("axisLine vAxisLine", true)
-                .attr("x1", 0)
-                .attr("y1", 0)
-                .attr("x2", 0)
-                .attr("y2", height);
 
             // axes
             svg.append('g')
@@ -122,7 +107,7 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 .on('zoom', function() {
                     svg.select('.x.axis').call(xAxis);
                     svg.select('.y.axis').call(yAxis);
-                    svg.selectAll('.dot').attr('transform', transform);
+                    svg.selectAll('circle').attr('transform', transform);
                 });
             svg.call(zoom);
 
