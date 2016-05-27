@@ -23,7 +23,7 @@
                 </button>
             </div>
         </div>
-        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning"></div>
+        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs"></div>
     </div>
     <div class="col-xs-4">
         <div class="panel panel-default">
@@ -57,5 +57,10 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="col-xs-2">
+        <!-- ko foreach: selectedContigs -->
+        <p data-bind="text: name"></p>
+        <!-- /ko -->
     </div>
 </div>

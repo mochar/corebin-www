@@ -33,6 +33,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .append('g')
                     .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
 
+            var selected = allBindings.get('selected');
+
             // add the tooltip area
             d3.select(element).append('div')
                 .attr('class', 'tooltip')
@@ -80,7 +82,14 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .items(container.selectAll('.dot'))
                 .area(rect)
                 .on('start', function() {
-                    console.log('Lasso started.');
+                    lasso.items()
+                        .style('opacity', 0.5);
+                })
+                .on('end', function() {
+                    var _selected = lasso.items()
+                        .filter(function(d) {return d.selected})
+                        .style('opacity', 1);
+                    selected(_selected.data());
                 });
             svg.call(lasso);
             $(element).data('lasso', lasso);
@@ -119,23 +128,6 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
             // don't want dots overlapping axis, so add in buffer to data domain
             xScale.domain([d3.min(contigs, xValue), d3.max(contigs, xValue)]);
             yScale.domain([d3.min(contigs, yValue), d3.max(contigs, yValue)]);
-            
-            // Update zoom and lasso behavior
-            zoom.x(xScale).y(yScale).on('zoom', function() {
-                    svg.select('.x.axis').call(xAxis);
-                    svg.select('.y.axis').call(yAxis);
-                    svg.selectAll('.dot').attr('transform', transform);
-                });
-            if (panning) {
-                rect.on(".dragstart", null);
-                rect.on(".drag", null);
-                rect.on(".dragend", null);
-                svg.select('g.lasso').remove();
-                svg.call(zoom);
-            } else {
-                svg.on('mousedown.zoom', null);
-                svg.call(lasso);
-            }
 
             // axes
             svg.select('.x').transition().duration(500).call(xAxis);
@@ -176,6 +168,24 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .style('fill', function(d) { return d.color; })
                 .attr('r', 4)
                 .attr('transform', transform);
+            
+            // Update zoom and lasso behavior
+            zoom.x(xScale).y(yScale).on('zoom', function() {
+                    svg.select('.x.axis').call(xAxis);
+                    svg.select('.y.axis').call(yAxis);
+                    svg.selectAll('.dot').attr('transform', transform);
+                });
+            lasso.items(container.selectAll('.dot'));
+            if (panning) {
+                rect.on(".dragstart", null);
+                rect.on(".drag", null);
+                rect.on(".dragend", null);
+                svg.select('g.lasso').remove();
+                svg.call(zoom);
+            } else {
+                svg.on('mousedown.zoom', null);
+                svg.call(lasso);
+            }
                 
             function transform(d) {
                 return "translate(" + xMap(d) + "," + yMap(d) + ")";
