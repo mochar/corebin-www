@@ -38,7 +38,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .attr('class', 'tooltip')
                 .style('opacity', 0);
             
-            svg.append('rect')
+            // container for events
+            var rect = svg.append('rect')
                 .attr('width', width)
                 .attr('height', height)
                 .style('fill', 'none')
@@ -68,6 +69,21 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .attr('y', 6)
                 .attr('dy', '.71em')
                 .style('text-anchor', 'end');
+                
+            // setup zoom
+            var zoom = d3.behavior.zoom().scaleExtent([0, 500]);
+            svg.call(zoom);
+            $(element).data('zoom', zoom);
+            
+            // setup lasso
+            var lasso = d3.lasso()
+                .items(container.selectAll('.dot'))
+                .area(rect)
+                .on('start', function() {
+                    console.log('Lasso started.');
+                });
+            svg.call(lasso);
+            $(element).data('lasso', lasso);
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var contigs = valueAccessor()(),
@@ -83,6 +99,9 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 rect = svg.select('rect'),
                 tooltip = d3.select(element).select('.tooltip');
 
+            var zoom = $(element).data('zoom'),
+                lasso = $(element).data('lasso');
+             
             // setup x
             var xValue = function(d) { return d[x.data()];}, // data -> value
                 xScale = x.log() ? d3.scale.log().range([0, width]) : // value -> display
@@ -101,29 +120,22 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
             xScale.domain([d3.min(contigs, xValue), d3.max(contigs, xValue)]);
             yScale.domain([d3.min(contigs, yValue), d3.max(contigs, yValue)]);
             
-            // setup zoom
-            var zoom = d3.behavior.zoom()
-                .x(xScale)
-                .y(yScale)
-                .scaleExtent([0, 500])
-                .on('zoom', function() {
-                    if (!panning) return;
+            // Update zoom and lasso behavior
+            zoom.x(xScale).y(yScale).on('zoom', function() {
                     svg.select('.x.axis').call(xAxis);
                     svg.select('.y.axis').call(yAxis);
                     svg.selectAll('.dot').attr('transform', transform);
                 });
-            svg.call(zoom);
-            
-            // setup lasso
-            var lasso = d3.lasso()
-                .items(container.selectAll('.dot'))
-                .area(rect)
-                .on('start', function() {
-                    console.log('Lasso started.');
-                    return false;
-                });
-            // if (panning) lasso = d3.lasso();
-            svg.call(lasso);
+            if (panning) {
+                rect.on(".dragstart", null);
+                rect.on(".drag", null);
+                rect.on(".dragend", null);
+                svg.select('g.lasso').remove();
+                svg.call(zoom);
+            } else {
+                svg.on('mousedown.zoom', null);
+                svg.call(lasso);
+            }
 
             // axes
             svg.select('.x').transition().duration(500).call(xAxis);
