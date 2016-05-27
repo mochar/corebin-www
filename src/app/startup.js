@@ -2,6 +2,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     require(bindings);
     
     ko.components.register('navigator', {require: 'components/navigator/navigator'});
+    ko.components.register('axis-parameter', {require: 'components/axis-parameter/axis-parameter'});
     
     ko.components.register('home-page', {
         template: { require: 'text!components/home-page/home-page.html' }

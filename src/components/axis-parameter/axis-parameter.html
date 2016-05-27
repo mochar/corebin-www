@@ -1,0 +1,20 @@
+<div class="dropdown">
+    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+        <strong><span data-bind="text: name"></span>:</strong>
+        <span data-bind="text: data"></span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu">
+        <li class="dropdown-header">Sequence</li>
+        <li><a href="#" data-bind="click: function() { data('gc') }">GC</a></li>
+        <li><a href="#" data-bind="click: function() { data('length') }">Length</a></li>
+        
+        <li class="dropdown-header">Coverage</li>
+        <!-- ko foreach: samples -->
+        <li><a href="#" data-bind="click: function() { $parent.data($data) }, text: $data"></a></li>
+        <!-- /ko -->
+        
+        <li role="separator" class="divider"></li>
+        <li><a href="#">Logarithmic</a></li>
+    </ul>
+</div>
