@@ -82,8 +82,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 .items(container.selectAll('.dot'))
                 .area(rect)
                 .on('start', function() {
-                    lasso.items()
-                        .style('opacity', 0.5);
+                    lasso.items().style('opacity', 0.5);
+                    selected([]);
                 })
                 .on('end', function() {
                     var _selected = lasso.items()
@@ -98,7 +98,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
             var contigs = valueAccessor()(),
                 panning = allBindings.get('panning')(),
                 x = allBindings.get('x')(),
-                y = allBindings.get('y')();
+                y = allBindings.get('y')(),
+                selected = allBindings.get('selected');
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = 550 - margin.left - margin.right,
@@ -162,6 +163,9 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                         .style('opacity', 0);
                 })
                 .on('click', function(d) {
+                    d.selected = d.selected ? false : true;
+                    d3.select(this).style('opacity', d.selected ? 1 : 0.5);
+                    d.selected ? selected.push(d) : selected.remove(d);
                 });
 
             dots.transition()
