@@ -10,9 +10,11 @@ var require = {
         'signals': 'bower_components/js-signals/dist/signals.min',
         'knockout-postbox': 'bower_components/knockout-postbox/build/knockout-postbox',
         'd3': 'bower_components/d3/d3',
-        'c3': 'bower_components/c3/c3'
+        'c3': 'bower_components/c3/c3',
+        'd3-lasso': 'lib/D3-Lasso-Plugin/lasso'
     },
     shim: {
-        'bootstrap': { deps: ['jquery'] }
+        'bootstrap': { deps: ['jquery'] },
+        'd3-lasso': ['d3']
     }
 };

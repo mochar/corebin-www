@@ -1,4 +1,4 @@
-define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
+define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
     ko.bindingHandlers.histChart = {
         init: function(element, valueAccessor, allBindings) {
             var chart = c3.generate({
@@ -79,6 +79,8 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 width = 550 - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom,
                 svg = d3.select(element).select('g'),
+                container = svg.select('svg.container'),
+                rect = svg.select('rect'),
                 tooltip = d3.select(element).select('.tooltip');
 
             // setup x
@@ -105,11 +107,23 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 .y(yScale)
                 .scaleExtent([0, 500])
                 .on('zoom', function() {
+                    if (!panning) return;
                     svg.select('.x.axis').call(xAxis);
                     svg.select('.y.axis').call(yAxis);
-                    svg.selectAll('circle').attr('transform', transform);
+                    svg.selectAll('.dot').attr('transform', transform);
                 });
             svg.call(zoom);
+            
+            // setup lasso
+            var lasso = d3.lasso()
+                .items(container.selectAll('.dot'))
+                .area(rect)
+                .on('start', function() {
+                    console.log('Lasso started.');
+                    return false;
+                });
+            // if (panning) lasso = d3.lasso();
+            svg.call(lasso);
 
             // axes
             svg.select('.x').transition().duration(500).call(xAxis);
@@ -118,7 +132,6 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
             svg.select('.y').select('.label').text(y.data());
 
             // draw dots
-            var container = svg.select('svg.container');
             var dots = container.selectAll('.dot').data(contigs, function(d) { return d.id; });
 
             dots.exit()
