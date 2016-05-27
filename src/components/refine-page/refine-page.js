@@ -1,5 +1,11 @@
 define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], function(ko, template, $) {
 
+    function Axis(data) {
+        var self = this;
+        self.data = ko.observable(data.data);
+        self.log = ko.observable(data.log);
+    }
+
     function ViewModel(params) {
         var self = this;
         
@@ -14,8 +20,8 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         
         // Plot options
         self.contigs = ko.observableArray([]);
-        self.x = ko.observable('gc');
-        self.y = ko.observable('length');
+        self.x = ko.observable(new Axis({data: 'gc', log: false}));
+        self.y = ko.observable(new Axis({data: 'length', log: false}));
         
         // Get the contigs on bin selection change
         self.selectedBins.subscribe(function(changes) {

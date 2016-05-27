@@ -1,45 +1,25 @@
 <div class="row">
-    <div class="col-xs-2">
-        <div class="panel panel-default">
-            <div class="panel-heading">Parameters</div>
-            <div class="panel-body">
-                <div class="form-group">
-                    <label for="x-axis">x-axis</label>
-                    <select id="x-axis" class="form-control" data-bind="value: x">
-                        <option value="gc">GC</option>
-                        <option value="length">Length</option>
-                        <!-- ko if: assembly -->
-                        <!-- ko foreach: assembly().samples -->
-                            <option data-bind="value: $data, text: $data"></option>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="y-axis">y-axis</label>
-                    <select id="y-axis" class="form-control" data-bind="value: y">
-                        <option value="gc">GC</option>
-                        <option value="length">Length</option>
-                        <!-- ko if: assembly -->
-                        <!-- ko foreach: assembly().samples -->
-                            <option data-bind="value: $data, text: $data"></option>
-                        <!-- /ko -->
-                        <!-- /ko -->
-                    </select>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="col-xs-6">
-        <div class="text-center">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default btn-sm" 
-                        data-bind="css: { active: panning }, click: function() { panning(true) }">
-                    <span class="fa fa-arrows"></span>
-                </button>
-                <button type="button" class="btn btn-default btn-sm" 
-                        data-bind="css: { active: !panning() }, click: function() { panning(false) }">
-                    <span class="fa fa-heart-o"></span>
+        <div class="btn-toolbar" role="toolbar">
+            <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
+            </axis-parameter>
+            <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
+            </axis-parameter>
+        
+            <div class="pull-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-default" 
+                            data-bind="css: { active: panning }, click: function() { panning(true) }">
+                        <span class="fa fa-arrows"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" 
+                            data-bind="css: { active: !panning() }, click: function() { panning(false) }">
+                        <span class="fa fa-heart-o"></span>
+                    </button>
+                </div>
+                
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="fa fa-floppy-o"></span>
                 </button>
             </div>
         </div>

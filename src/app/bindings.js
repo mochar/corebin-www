@@ -87,10 +87,8 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var contigs = valueAccessor()(),
                 panning = allBindings.get('panning')(),
-                xData = allBindings.get('x')(),
-                yData = allBindings.get('y')(),
-                xLogarithmic = false,
-                yLogarithmic = false;
+                x = allBindings.get('x')(),
+                y = allBindings.get('y')();
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = 550 - margin.left - margin.right,
@@ -99,16 +97,16 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
                 tooltip = d3.select(element).select('.tooltip');
 
             // setup x
-            var xValue = function(d) { return d[xData];}, // data -> value
-                xScale = xLogarithmic ? d3.scale.log().range([0, width]) : // value -> display
-                                        d3.scale.linear().range([0, width]),
+            var xValue = function(d) { return d[x.data()];}, // data -> value
+                xScale = x.log() ? d3.scale.log().range([0, width]) : // value -> display
+                                   d3.scale.linear().range([0, width]),
                 xMap = function(d) { return xScale(xValue(d));}, // data -> display
                 xAxis = d3.svg.axis().scale(xScale).orient('bottom');
 
             // setup y
-            var yValue = function(d) { return d[yData];},
-                yScale = yLogarithmic ? d3.scale.log().range([height, 0]) :
-                                        d3.scale.linear().range([height, 0]),
+            var yValue = function(d) { return d[y.data()];},
+                yScale = y.log() ? d3.scale.log().range([height, 0]) :
+                                   d3.scale.linear().range([height, 0]),
                 yMap = function(d) { return yScale(yValue(d));},
                 yAxis = d3.svg.axis().scale(yScale).orient('left');
 
@@ -130,9 +128,9 @@ define(['jquery', 'knockout', 'd3', 'c3'], function($, ko, d3, c3) {
 
             // axes
             svg.select('.x').transition().duration(500).call(xAxis);
-            svg.select('.x').select('.label').text(xData);
+            svg.select('.x').select('.label').text(x.data());
             svg.select('.y').transition().duration(500).call(yAxis);
-            svg.select('.y').select('.label').text(yData);
+            svg.select('.y').select('.label').text(y.data());
 
             // draw dots
             var container = svg.select('svg.container');
