@@ -25,7 +25,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
     ko.bindingHandlers.scatterPlot = {
         init: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
-                width = 550 - margin.left - margin.right,
+                width = parseInt(d3.select(element).style('width'), 10)
+                width = width - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom,
                 svg = d3.select(element).append('svg')
                     .attr('width', width + margin.left + margin.right)
@@ -102,7 +103,8 @@ define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
                 selected = allBindings.get('selected');
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
-                width = 550 - margin.left - margin.right,
+                width = parseInt(d3.select(element).style('width'), 10)
+                width = width - margin.left - margin.right,
                 height = 500 - margin.top - margin.bottom,
                 svg = d3.select(element).select('g'),
                 container = svg.select('svg.container'),
