@@ -14,8 +14,12 @@
         <li><a href="#" data-bind="click: function() { $parent.axis().data($data) }, text: $data"></a></li>
         <!-- /ko -->
         
+        <li class="dropdown-header">PCA</li>
+        <li><a href="#" data-bind="click: function() { axis().data('pc_1') }">PC 1</a></li>
+        <li><a href="#" data-bind="click: function() { axis().data('pc_2') }">PC 2</a></li>
+        <li><a href="#" data-bind="click: function() { axis().data('pc_3') }">PC 3</a></li>
+        
         <li role="separator" class="divider"></li>
-        <!--<li><a href="#">Logarithmic</a></li>-->
         <li>
             <a href="#" data-bind="click: toggleLog">
                 <span class="fa" data-bind="css: axis().log() ? 'fa-check-square-o' : 'fa-square-o'"></span>
