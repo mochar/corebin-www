@@ -1,24 +1,66 @@
-define(['jquery', 'knockout', 'd3', 'c3', 'd3-lasso'], function($, ko, d3, c3) {
-    ko.bindingHandlers.histChart = {
+define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
+    ko.bindingHandlers.histPlot = {
         init: function(element, valueAccessor, allBindings) {
-            var chart = c3.generate({
-                bindto: element,
-                data: {
-                    x: 'x',
-                    columns: [['data'], ['x']],
-                    type: 'bar',
-                    groups: [['data']]
-                },
-                legend: { show: false },
-                axis: { x: { type: 'category' } }
-            });
-            $(element).data('chart', chart);
+            var margin = {top: 5, right: 5, bottom: 18, left: 40},
+                width = parseInt(d3.select(element).style('width'), 10)
+                width = width - margin.left - margin.right,
+                height = parseInt(d3.select(element).style('width'), 10) * 0.6
+                height = height - margin.top - margin.bottom,
+                svg = d3.select(element).append('svg')
+                    .attr('width', width + margin.left + margin.right)
+                    .attr('height', height + margin.top + margin.bottom)
+                .append('g')
+                    .attr('transform', 'translate(' + margin.left + ',' + margin.top + ')');
+            
+            svg.append("g")
+                .attr("class", "x axis hist-axis")
+                .attr("transform", "translate(0," + height + ")");
+            
+            svg.append("g")
+                .attr("class", "y axis hist-axis");
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var data = valueAccessor()();
-            var chart = $(element).data('chart');
-            chart.load({ unload: true, columns: data.columns || [['data'], ['x']] });
-            chart.groups(data.groups || [['data']]);
+            var margin = {top: 5, right: 5, bottom: 18, left: 40},
+                width = parseInt(d3.select(element).style('width'), 10)
+                width = width - margin.left - margin.right,
+                height = parseInt(d3.select(element).style('width'), 10) * 0.6
+                height = height - margin.top - margin.bottom,
+                svg = d3.select(element).select('g');
+                
+            var data = valueAccessor()(),
+                bins = data.bins,
+                data = data.hist;
+                
+            if (!data) return;
+            
+            // Setup x and y
+            var x = d3.scale.linear().range([0, width]).domain([0, bins.length]);
+            var y = d3.scale.linear().range([height, 0]).domain([0, d3.max(data)]);
+            var xAxis = d3.svg.axis().scale(x).orient('bottom');//.tickValues(bins);
+            var yAxis = d3.svg.axis().scale(y).orient('left');
+            svg.select('.x').call(xAxis);
+            svg.select('.y').call(yAxis);
+            
+            // Remove all bars
+            svg.selectAll('.bar').remove();
+            
+            // Update with new bars
+            var bar = svg.selectAll('.bar').data(data);
+            
+            bar.enter().append('g')
+                .attr('class', 'bar')
+                .attr("transform", function(d, i) { 
+                    return "translate(" + x(i) + "," + y(d) + ")"; 
+                });
+                
+            bar.append('rect')
+                .attr('x', 1)
+                .attr('y', height)
+                .attr('width', function(d, i) { return width / bins.length - 1; })
+                .attr('height', function(d) { return height - y(d); });
+                
+            bar.selectAll('rect').transition()
+                .attr('y', 0);
         }
     };
     

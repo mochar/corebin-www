@@ -3,16 +3,15 @@ define([
     'text!./overview-page.html',
     'jquery',
     'd3',
-    'c3',
     'knockout-postbox',
     'app/bindings'
-], function(ko, template, $, d3, c3) {
+], function(ko, template, $, d3) {
 
     function ViewModel(params) {
         var self = this;
         
-        self.lengthData = ko.observable({});
-        self.gcData = ko.observable({});
+        self.lengthData = ko.observable({'data': [], 'bins': []});
+        self.gcData = ko.observable({'data': [], 'bins': []});
         
         self.updateCharts = function(assembly, binSetId) {
             var url = '/a/' + assembly.id + '/c/plot';
@@ -42,17 +41,8 @@ define([
                 });
             } else {
                 $.getJSON(url, function(data) {
-                    // Length plot
-                    var x = Object.keys(data.length);
-                    var d = ['data'].concat(x.map(function(v) { return data.length[v] }));
-                    var columns = [['x'].concat(x), d];
-                    self.lengthData({ columns: columns });
-                    
-                    // GC plot
-                    var x = Object.keys(data.gc);
-                    var d = ['data'].concat(x.map(function(v) { return data.gc[v] }));
-                    var columns = [['x'].concat(x), d];
-                    self.gcData({ columns: columns });
+                    self.lengthData(data.length);
+                    self.gcData(data.gc);
                 });
             }
         }

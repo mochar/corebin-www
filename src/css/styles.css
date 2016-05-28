@@ -26,7 +26,7 @@
     border-color: rgba(0,0,0,.2);
 }
 
-/* Scatterplot */
+/*D3 axis*/
 .axis path,
 .axis line {
   fill: none;
@@ -34,6 +34,7 @@
   shape-rendering: crispEdges;
 }
 
+/* Scatterplot */
 .dot {
   stroke: #000;
 }
@@ -65,4 +66,18 @@
 .lasso .origin {
   fill:#3399FF;
   fill-opacity:.5;
+}
+
+/*histogram*/
+.bar rect {
+  fill: steelblue;
+  shape-rendering: crispEdges;
+}
+
+.bar text {
+  fill: #fff;
+}
+
+.hist-axis text {
+  font-size: 10px;
 }
