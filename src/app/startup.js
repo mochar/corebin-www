@@ -3,6 +3,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     
     ko.components.register('navigator', {require: 'components/navigator/navigator'});
     ko.components.register('axis-parameter', {require: 'components/axis-parameter/axis-parameter'});
+    ko.components.register('contig-table', {require: 'components/contig-table/contig-table'});
     
     ko.components.register('home-page', {
         template: { require: 'text!components/home-page/home-page.html' }

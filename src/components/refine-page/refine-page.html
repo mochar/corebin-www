@@ -1,31 +1,5 @@
 <div class="row">
-    <div class="col-xs-6">
-        <div class="btn-toolbar" role="toolbar">
-            <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
-            </axis-parameter>
-            <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
-            </axis-parameter>
-        
-            <div class="pull-right">
-                <div class="btn-group btn-group-sm" role="group">
-                    <button type="button" class="btn btn-default" 
-                            data-bind="css: { active: panning }, click: function() { panning(true) }">
-                        <span class="fa fa-arrows"></span>
-                    </button>
-                    <button type="button" class="btn btn-default" 
-                            data-bind="css: { active: !panning() }, click: function() { panning(false) }">
-                        <span class="fa fa-pencil"></span>
-                    </button>
-                </div>
-                
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="fa fa-floppy-o"></span>
-                </button>
-            </div>
-        </div>
-        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs"></div>
-    </div>
-    <div class="col-xs-4">
+    <div class="col-xs-3">
         <div class="panel panel-default">
             <table class="table table-condensed table-hover">
                 <thead>
@@ -58,9 +32,33 @@
             </table>
         </div>
     </div>
-    <div class="col-xs-2">
-        <!-- ko foreach: selectedContigs -->
-        <p data-bind="text: name"></p>
-        <!-- /ko -->
+    <div class="col-xs-6">
+        <div class="btn-toolbar" role="toolbar">
+            <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
+            </axis-parameter>
+            <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
+            </axis-parameter>
+        
+            <div class="pull-right">
+                <div class="btn-group btn-group-sm" role="group">
+                    <button type="button" class="btn btn-default" 
+                            data-bind="css: { active: panning }, click: function() { panning(true) }">
+                        <span class="fa fa-arrows"></span>
+                    </button>
+                    <button type="button" class="btn btn-default" 
+                            data-bind="css: { active: !panning() }, click: function() { panning(false) }">
+                        <span class="fa fa-pencil"></span>
+                    </button>
+                </div>
+                
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="fa fa-floppy-o"></span>
+                </button>
+            </div>
+        </div>
+        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs"></div>
+    </div>
+    <div class="col-xs-3">
+        <contig-table params="contigs: selectedContigs, bins: bins"></contig-table>
     </div>
 </div>

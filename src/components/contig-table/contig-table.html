@@ -1,0 +1,45 @@
+<div class="panel panel-default">
+    <div class="panel-body">
+        <div class="btn-toolbar" data-bind="visible: !action()">
+            <button class="btn btn-info btn-sm" type="button"
+                    data-bind="click: function() { action('move') }">Move</button>
+            <button class="btn btn-danger btn-sm" type="button"
+                    data-bind="click: function() { action('delete') }">Delete</button>
+                    
+            <div class="pull-right">
+                <button class="btn btn-default btn-sm" type="button"
+                        data-bind="click: function() { contigs([]) }">Deselect</button>
+            </div>
+        </div>
+        <div class="row" data-bind="visible: action() == 'move'">
+            <div class="col-xs-10">
+                <select class="form-control input-sm"
+                        data-bind="options: bins,
+                                optionsText: 'name',
+                                value: toBin,
+                                optionsCaption: 'Move to bin..'">
+                </select>
+            </div>
+            <div class="col-xs-2">
+                <button class="btn btn-primary btn-sm" type="button"
+                        data-bind="click: move, css: {'disabled': !toBin()}">Move</button>
+            </div>
+        </div>
+    </div>
+    <table class="table table-condensed table-hover">
+        <thead>
+            <tr>
+                <th width="60%">Contig</th>
+                <th width="20%">GC</th>
+                <th width="20%">Length</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: contigs">
+            <tr>
+                <td data-bind="text: name" width="60%"></td>
+                <td data-bind="text: gc" width="20%"></td>
+                <td data-bind="text: length" width="20%"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
