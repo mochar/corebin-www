@@ -12,6 +12,10 @@ define(['knockout', 'text!./contig-table.html', 'knockout-postbox'], function(ko
             self.action(null);
             self.toBin(null);
         }
+        
+        self.remove = function() {
+            self.action(null);
+        }
     };
     
     return {

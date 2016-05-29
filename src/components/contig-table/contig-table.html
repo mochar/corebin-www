@@ -12,17 +12,24 @@
             </div>
         </div>
         <div class="row" data-bind="visible: action() == 'move'">
-            <div class="col-xs-10">
+            <div class="col-xs-8">
                 <select class="form-control input-sm"
                         data-bind="options: bins,
-                                optionsText: 'name',
-                                value: toBin,
-                                optionsCaption: 'Move to bin..'">
+                                   optionsText: 'name',
+                                   value: toBin,
+                                   optionsCaption: 'Move to bin..'">
                 </select>
             </div>
-            <div class="col-xs-2">
+            <div class="col-xs-4">
                 <button class="btn btn-primary btn-sm" type="button"
                         data-bind="click: move, css: {'disabled': !toBin()}">Move</button>
+            </div>
+        </div>
+        <div class="row" data-bind="visible: action() == 'delete'">
+            <div class="col-xs-8"> Delete from bin? </div>
+            <div class="col-xs-4">
+                <button class="btn btn-primary btn-sm" type="button" 
+                        data-bind="click: remove">Delete</button>
             </div>
         </div>
     </div>
