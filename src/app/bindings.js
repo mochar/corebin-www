@@ -125,7 +125,11 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .items(container.selectAll('.dot'))
                 .area(rect)
                 .on('start', function() {
-                    lasso.items().style('opacity', 0.5);
+                    lasso.items()
+                        .style('opacity', 0.5)
+                        .forEach(function(d) {
+                            d.selected = false;
+                        });
                     selected([]);
                 })
                 .on('end', function() {
@@ -233,6 +237,13 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             } else {
                 svg.on('mousedown.zoom', null);
                 svg.call(lasso);
+            }
+            if (selected().length === 0) { 
+                lasso.items()
+                    .style('opacity', 0.5)
+                    .forEach(function(d) {
+                        d.selected = false;
+                    });
             }
                 
             function transform(d) {
