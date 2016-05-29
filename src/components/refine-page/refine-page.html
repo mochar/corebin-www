@@ -45,6 +45,18 @@
             </axis-parameter>
             <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
             </axis-parameter>
+            
+            <div class="btn-group btn-group-sm">
+                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <strong>Color: </strong>
+                    <span data-bind="text: color"></span>
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a href="#" data-bind="click: function() { color('bin') }">Bin</a></li>
+                    <li><a href="#" data-bind="click: function() { color('gc') }">GC</a></li>
+                </ul>
+            </div>
         
             <div class="pull-right">
                 <div class="btn-group btn-group-sm" role="group">
@@ -63,7 +75,7 @@
                 </button>
             </div>
         </div>
-        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs"></div>
+        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs, color: color"></div>
     </div>
     <div class="col-xs-3">
         <contig-table params="contigs: selectedContigs, bins: bins"></contig-table>

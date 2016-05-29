@@ -146,7 +146,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 panning = allBindings.get('panning')(),
                 x = allBindings.get('x')(),
                 y = allBindings.get('y')(),
-                selected = allBindings.get('selected');
+                selected = allBindings.get('selected'),
+                colorMethod = allBindings.get('color')();
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = parseInt(d3.select(element).style('width'), 10)
@@ -190,6 +191,11 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .text(y.data())
                 .attr('visibility', y.label() ? 'visible' : 'hidden');
 
+            // color gradient scale for gc-content
+            var colorScale = d3.scale.linear()
+                .range(['lightgreen', 'red']) 
+                .domain([0.4, 0.6]); 
+            
             // draw dots
             var dots = container.selectAll('.dot').data(contigs, function(d) { return d.id; });
 
@@ -202,7 +208,9 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .attr('class', 'dot')
                 .attr('r', 0)
                 .style('opacity', 0.5)
-                .style('fill', function(d) { return d.color; })
+                .style('fill', function(d) { 
+                    return colorMethod === 'gc' ? colorScale(d.gc) : d.color; 
+                })
                 .on('mouseover', function(d) {
                     tooltip.transition()
                         .duration(200)
@@ -223,7 +231,9 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 });
 
             dots.transition()
-                .style('fill', function(d) { return d.color; })
+                .style('fill', function(d) { 
+                    return colorMethod === 'gc' ? colorScale(d.gc) : d.color; 
+                })
                 .attr('r', 4)
                 .attr('transform', transform);
             
