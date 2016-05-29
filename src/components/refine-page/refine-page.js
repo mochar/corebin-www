@@ -16,9 +16,11 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.bins = ko.observableArray([]);
         self.selectedBins = ko.observableArray([]);
         self.selectedContigs = ko.observableArray([]);
+        self.colorBinSet = ko.observable({name: '', id: 0});
         
         self.assembly = ko.observable().subscribeTo('assembly', true);
         self.binSet = ko.observable().subscribeTo('binSet', true);
+        self.binSets = ko.observableArray([]).subscribeTo('binSets', true);
         
         // Plot options
         self.contigs = ko.observableArray([]);
@@ -38,15 +40,17 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         
         self.getContigs = function(bin) {
             self.loading(true);
-            var payload = {
-                fields: 'id,length,gc,name',
-                bins: bin.id,
-                coverages: true,
-                items: self.assembly().size
-            };
-            $.getJSON('/a/' + self.binSet().assembly + '/c', payload, function(data) {
+            var binSet = self.binSet()
+                colorBinSet = self.colorBinSet();
+                payload = {
+                    fields: 'id,length,gc,name',
+                    bins: bin.id,
+                    coverages: true,
+                    colors: true,
+                    items: self.assembly().size
+                };
+            $.getJSON('/a/' + binSet.assembly + '/c', payload, function(data) {
                 self.contigs(self.contigs().concat(data.contigs.map(function(contig) {
-                    contig.color = bin.color;
                     contig.bin = bin.id;
                     return contig;
                 })));
@@ -66,6 +70,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
             if (!binSet) return;
             $.getJSON('/a/' + binSet.assembly + '/bs/' + binSet.id + '/b', function(data) {
                 self.bins(data.bins);
+                self.colorBinSet(binSet);
                 self.loading(false);
             })
         }, true);

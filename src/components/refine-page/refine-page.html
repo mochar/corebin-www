@@ -17,8 +17,8 @@
                         <td width="5%">
                             <input type="checkbox" 
                                 data-bind="checkedValue: $data, 
-                                            checked: $parent.selectedBins,
-                                            attr: { disabled: $parent.loading }">
+                                           checked: $parent.selectedBins,
+                                           attr: { disabled: $parent.loading }">
                         </td>
                         <td data-bind="text: name" width="25%"></td>
                         <td data-bind="text: size" width="20%"></td>
@@ -39,44 +39,56 @@
             </div>
         </form>
     </div>
+    
     <div class="col-xs-6">
-        <div class="btn-toolbar" role="toolbar">
-            <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
-            </axis-parameter>
-            <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
-            </axis-parameter>
-            
-            <div class="btn-group btn-group-sm">
-                <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                    <strong>Color: </strong>
-                    <span data-bind="text: color"></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a href="#" data-bind="click: function() { color('bin') }">Bin</a></li>
-                    <li><a href="#" data-bind="click: function() { color('gc') }">GC</a></li>
-                </ul>
-            </div>
-        
-            <div class="pull-right">
-                <div class="btn-group btn-group-sm" role="group">
-                    <button type="button" class="btn btn-default" 
-                            data-bind="css: { active: panning }, click: function() { panning(true) }">
-                        <span class="fa fa-arrows"></span>
+        <div class="panel panel-default panel-toolbar"><div class="panel-body">
+            <div class="btn-toolbar" role="toolbar">
+                <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
+                </axis-parameter>
+                <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
+                </axis-parameter>
+                
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <strong>Color: </strong>
+                        <span data-bind="text: color() == 'gc' ? 'GC' : colorBinSet().name"></span>
+                        <span class="caret"></span>
                     </button>
-                    <button type="button" class="btn btn-default" 
-                            data-bind="css: { active: !panning() }, click: function() { panning(false) }">
-                        <span class="fa fa-pencil"></span>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown-header">Property</li>
+                        <li><a href="#" data-bind="click: function() { color('bin') }">Bin</a></li>
+                        <li><a href="#" data-bind="click: function() { color('gc') }">GC</a></li>
+                        
+                        <li class="dropdown-header">Bin set</li>
+                        <!-- ko foreach: binSets -->
+                        <li><a href="#" data-bind="click: function() { $parent.colorBinSet($data) },
+                                                text: name"></a></li>
+                        <!-- /ko -->
+                    </ul>
+                </div>
+            
+                <div class="pull-right">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button type="button" class="btn btn-default" 
+                                data-bind="css: { active: panning }, click: function() { panning(true) }">
+                            <span class="fa fa-arrows"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" 
+                                data-bind="css: { active: !panning() }, click: function() { panning(false) }">
+                            <span class="fa fa-pencil"></span>
+                        </button>
+                    </div>
+                    
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="fa fa-floppy-o"></span>
                     </button>
                 </div>
-                
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="fa fa-floppy-o"></span>
-                </button>
             </div>
-        </div>
-        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs, color: color"></div>
+        </div></div>
+        <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs, 
+                        color: color, colorBinSet: colorBinSet"></div>
     </div>
+    
     <div class="col-xs-3">
         <contig-table params="contigs: selectedContigs, bins: bins"></contig-table>
     </div>

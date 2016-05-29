@@ -16,6 +16,10 @@
     border-top-style: hidden;
 }
 
+.panel-toolbar .panel-body {
+  padding: 1px;
+}
+
 .colorBox {
     float: left;
     width: 15px;

@@ -147,7 +147,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 x = allBindings.get('x')(),
                 y = allBindings.get('y')(),
                 selected = allBindings.get('selected'),
-                colorMethod = allBindings.get('color')();
+                colorMethod = allBindings.get('color')(),
+                colorBinSet = allBindings.get('colorBinSet')();
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = parseInt(d3.select(element).style('width'), 10)
@@ -209,7 +210,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .attr('r', 0)
                 .style('opacity', 0.5)
                 .style('fill', function(d) { 
-                    return colorMethod === 'gc' ? colorScale(d.gc) : d.color; 
+                    return colorMethod === 'gc' ? colorScale(d.gc) : d['color_' + colorBinSet.id]; 
                 })
                 .on('mouseover', function(d) {
                     tooltip.transition()
@@ -232,7 +233,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             dots.transition()
                 .style('fill', function(d) { 
-                    return colorMethod === 'gc' ? colorScale(d.gc) : d.color; 
+                    return colorMethod === 'gc' ? colorScale(d.gc) : d['color_' + colorBinSet.id]; 
                 })
                 .attr('r', 4)
                 .attr('transform', transform);
