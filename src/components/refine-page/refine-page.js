@@ -4,6 +4,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         var self = this;
         self.data = ko.observable(data.data);
         self.log = ko.observable(data.log);
+        self.label = ko.observable(true);
     }
 
     function ViewModel(params) {

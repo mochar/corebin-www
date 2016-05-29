@@ -11,6 +11,11 @@ define(['knockout', 'text!./axis-parameter.html', 'knockout-postbox'], function(
             var axis = self.axis();
             self.axis().log(axis.log() ? false : true);
         }
+        
+        self.toggleLabel = function() {
+            var axis = self.axis();
+            self.axis().label(axis.label() ? false : true);
+        }
     };
     
     return {

@@ -180,9 +180,15 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             // axes
             svg.select('.x').transition().duration(500).call(xAxis);
-            svg.select('.x').select('.label').text(x.data());
             svg.select('.y').transition().duration(500).call(yAxis);
-            svg.select('.y').select('.label').text(y.data());
+            svg.select('.x')
+                .select('.label')
+                .text(x.data())
+                .attr('visibility', x.label() ? 'visible' : 'hidden');
+            svg.select('.y')
+                .select('.label')
+                .text(y.data())
+                .attr('visibility', y.label() ? 'visible' : 'hidden');
 
             // draw dots
             var dots = container.selectAll('.dot').data(contigs, function(d) { return d.id; });
