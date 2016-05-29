@@ -20,7 +20,7 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
                 success: function(data) {
                     data.isSelected = ko.computed(function() {
                         var binSet = self.binSet();
-                        return binSet && binSet.id == bs.id;
+                        return binSet && binSet.id == data.id;
                     });
                     self.binSets.push(data);
                 },
