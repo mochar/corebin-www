@@ -1,53 +1,7 @@
 <div class="row">
     <div class="col-xs-3">
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                <strong>Bins</strong>
-                <div class="pull-right">
-                    <button class="btn btn-success btn-xs" data-bind="toggleClick: newBin">
-                        <span class="fa fa-plus"></span>
-                    </button>
-                </div>
-            </div>
-            <div class="panel-body" data-bind="visible: newBin">
-                <form class="form-inline" method="post" enctype="multipart/form-data" 
-                      data-bind="submit: createBin">
-                    <div class="form-group">
-                        <input type="text" name="name" class="form-control input-sm" placeholder="New bin..">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-sm">Add</button>
-                </form>
-            </div>
-            <table class="table table-condensed table-hover">
-                <thead>
-                    <tr>
-                        <th width="5%"></th>
-                        <th width="25%">Bin</th>
-                        <th width="20%">Contigs</th>
-                        <th width="20%">GC</th>
-                        <th width="20%">N50</th>
-                        <th width="10%">Color</th>
-                    </tr>
-                </thead>
-                <tbody data-bind="foreach: bins">
-                    <tr>
-                        <td width="5%">
-                            <input type="checkbox" 
-                                data-bind="checkedValue: $data, 
-                                           checked: $parent.selectedBins,
-                                           attr: { disabled: $parent.loading }">
-                        </td>
-                        <td data-bind="text: name" width="25%"></td>
-                        <td data-bind="text: size" width="20%"></td>
-                        <td data-bind="text: gc" width="20%"></td>
-                        <td data-bind="text: n50" width="20%"></td>
-                        <td width="10%">
-                            <button data-bind="style: { 'background-color': color }" class="colorBox"></button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        <bin-table params="bins: bins, selectedBins: selectedBins, binSet: binSet, 
+                           loading: loading"></bin-table>
     </div>
     
     <div class="col-xs-6">
