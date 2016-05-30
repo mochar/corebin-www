@@ -21,6 +21,7 @@ define(['knockout', 'text!./bin-table.html', 'knockout-postbox'], function(ko, t
                 success: function(data) {
                     self.bins.push(data);
                     formElement.reset();
+                    self.newBin(false);
                 },
                 cache: false,
                 contentType: false,
