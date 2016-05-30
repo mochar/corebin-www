@@ -56,7 +56,6 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .domain([0, 1])
                 .range([0, width]);
                 
-            console.log(gc);
             svg.select('rect.gc-border').transition()
                 .attr('width', x(gc));
             svg.select('text.gc-label').transition()
@@ -327,6 +326,16 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             function transform(d) {
                 return "translate(" + xMap(d) + "," + yMap(d) + ")";
             }
+        }
+    };
+    
+    ko.bindingHandlers.toggleClick = {
+        init: function (element, valueAccessor) {
+            var value = valueAccessor();
+
+            ko.utils.registerEventHandler(element, "click", function () {
+                value(!value());
+            });
         }
     };
 });

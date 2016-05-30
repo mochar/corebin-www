@@ -12,6 +12,8 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         
         self.loading = ko.observable(true);
         self.panning = ko.observable(true);
+        self.newBin = ko.observable(false);
+        
         self.color = ko.observable('bin');
         self.bins = ko.observableArray([]);
         self.selectedBins = ko.observableArray([]);
@@ -26,6 +28,26 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.contigs = ko.observableArray([]);
         self.x = ko.observable(new Axis({data: 'gc', log: false}));
         self.y = ko.observable(new Axis({data: 'length', log: false}));
+        
+        // Create new bin
+        self.createBin = function(formElement) {
+            var binSet = self.binSet();
+            if (!binSet) return;
+            var formData = new FormData(formElement);
+            $.ajax({
+                url: '/a/' + binSet.assembly + '/bs/' + binSet.id + '/b',
+                type: 'POST',
+                data: formData,
+                async: false,
+                success: function(data) {
+                    self.bins.push(data);
+                    formElement.reset();
+                },
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+        }
         
         // Get the contigs on bin selection change
         self.selectedBins.subscribe(function(changes) {
