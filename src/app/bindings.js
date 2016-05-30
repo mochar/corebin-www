@@ -1,4 +1,69 @@
 define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
+    ko.bindingHandlers.contigVis = {
+        init: function(element, valueAccessor, allBindings) {
+            var width = parseInt(d3.select(element).style('width'), 10),
+                height = width / 8,
+                svg = d3.select(element).append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                    .attr('border', 1);
+            
+            svg.append('rect')
+                .attr("x", 0)
+       			.attr("y", 0)
+       			.attr("height", height)
+       			.attr("width", width)
+       			.style("stroke", 'black')
+       			.style("fill", "none")
+       			.style("stroke-width", 2);
+       
+            svg.append('rect')
+                .attr('class', 'gc-border')
+                .attr("x", 0)
+       			.attr("y", 0)
+       			.attr("height", height)
+       			.attr("width", 0)
+       			.style("stroke", 'black')
+       			.style("fill", "yellow")
+                .style('opacity', 0.4)
+       			.style("stroke-width", 2);
+                   
+            svg.append('text')
+                .text('GC')
+                .attr('x', 3)
+                .attr("y", height / 2)
+                .attr('dy', '.35em')
+                .attr('font-weight', 'bold')
+                .style('text-anchor', 'begin');
+                
+            svg.append('text')
+                .attr('class', 'gc-label')
+                .attr('x', width - 3)
+                .attr("y", height / 2)
+                .attr('dy', '.35em')
+                .style('text-anchor', 'end');
+        },
+        update: function(element, valueAccessor, allBindings) {
+            var width = parseInt(d3.select(element).style('width'), 10),
+                height = width / 8,
+                svg = d3.select(element).select('svg');
+            
+            var contigs = valueAccessor()(),
+                gc = d3.mean(contigs, function(contig) { return contig.gc; }) || 0,
+                length = d3.mean(contigs, function(contig) { return contig.length; }) || 0;
+            
+            var x = d3.scale.linear()
+                .domain([0, 1])
+                .range([0, width]);
+                
+            console.log(gc);
+            svg.select('rect.gc-border').transition()
+                .attr('width', x(gc));
+            svg.select('text.gc-label').transition()
+                .text(d3.format('.2f')(gc))
+                .attr('x', x(gc) - 3);
+        }
+    }
     ko.bindingHandlers.histPlot = {
         init: function(element, valueAccessor, allBindings) {
             var margin = {top: 5, right: 5, bottom: 18, left: 40},
