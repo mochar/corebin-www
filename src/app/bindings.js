@@ -2,15 +2,18 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
     ko.bindingHandlers.contigVis = {
         init: function(element, valueAccessor, allBindings) {
             var width = parseInt(d3.select(element).style('width'), 10),
-                height = width / 8,
+                height = width / 16,
                 svg = d3.select(element).append('svg')
                     .attr('width', width)
                     .attr('height', height)
                     .attr('border', 1);
             
             svg.append('rect')
+                .attr('class', 'contig-rect')
                 .attr("x", 0)
        			.attr("y", 0)
+                .attr("rx", 5)
+       			.attr("ry", 5)
        			.attr("height", height)
        			.attr("width", width)
        			.style("stroke", 'black')
@@ -18,7 +21,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
        			.style("stroke-width", 2);
        
             svg.append('rect')
-                .attr('class', 'gc-border')
+                .attr('class', 'gc-rect')
                 .attr("x", 0)
        			.attr("y", 0)
        			.attr("height", height)
@@ -38,6 +41,13 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 
             svg.append('text')
                 .attr('class', 'gc-label')
+                .attr('x', 0)
+                .attr("y", height / 2)
+                .attr('dy', '.35em')
+                .style('text-anchor', 'end');
+                
+            svg.append('text')
+                .attr('class', 'length-label')
                 .attr('x', width - 3)
                 .attr("y", height / 2)
                 .attr('dy', '.35em')
@@ -45,22 +55,35 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
         },
         update: function(element, valueAccessor, allBindings) {
             var width = parseInt(d3.select(element).style('width'), 10),
-                height = width / 8,
-                svg = d3.select(element).select('svg');
+                height = width / 16,
+                svg = d3.select(element).select('svg'),
+                contigs = ko.utils.unwrapObservable(valueAccessor());
             
-            var contigs = valueAccessor()(),
-                gc = d3.mean(contigs, function(contig) { return contig.gc; }) || 0,
-                length = d3.mean(contigs, function(contig) { return contig.length; }) || 0;
+            if ($.isArray(contigs)) {
+                var gc = d3.mean(contigs, function(contig) { return contig.gc; }) || 0;
+                var length = d3.mean(contigs, function(contig) { return contig.length; }) || 0;
+            } else {
+                var gc = contigs.gc;
+                var length = contigs.length;
+            }
             
-            var x = d3.scale.linear()
+            var lengthScale = d3.scale.log()
+                .domain([10000, 200000])
+                .range([width, width]);
+            
+            var gcScale = d3.scale.linear()
                 .domain([0, 1])
-                .range([0, width]);
+                .range([0, lengthScale(length)]);
                 
-            svg.select('rect.gc-border').transition()
-                .attr('width', x(gc));
+            svg.select('rect.contig-rect').transition()
+                .attr('width', lengthScale(length));
+            svg.select('rect.gc-rect').transition()
+                .attr('width', gcScale(gc));
             svg.select('text.gc-label').transition()
                 .text(d3.format('.2f')(gc))
-                .attr('x', x(gc) - 3);
+                .attr('x', gcScale(gc) - 3);
+            svg.select('text.length-label').transition()
+                .text(length + "bp");
         }
     }
     ko.bindingHandlers.histPlot = {
