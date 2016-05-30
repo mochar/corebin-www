@@ -124,19 +124,15 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             var lasso = d3.lasso()
                 .items(container.selectAll('.dot'))
                 .area(rect)
-                .on('start', function() {
-                    lasso.items()
-                        .style('opacity', 0.5)
-                        .forEach(function(d) {
-                            d.selected = false;
-                        });
-                    selected([]);
-                })
                 .on('end', function() {
                     var _selected = lasso.items()
                         .filter(function(d) {return d.selected})
                         .style('opacity', 1);
-                    selected(_selected.data());
+                    var allSelected = selected().concat(_selected.data());
+                    var unique = allSelected.filter(function(value, i, arr) { 
+                        return arr.indexOf(value) === i; 
+                    });
+                    selected(unique);
                 });
             svg.call(lasso);
             $(element).data('lasso', lasso);
@@ -226,9 +222,9 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                         .style('opacity', 0);
                 })
                 .on('click', function(d) {
-                    d.selected = d.selected ? false : true;
-                    d3.select(this).style('opacity', d.selected ? 1 : 0.5);
-                    d.selected ? selected.push(d) : selected.remove(d);
+                    var isSelected = selected.indexOf(d) > -1; 
+                    d3.select(this).style('opacity', isSelected ? 0.5 : 1);
+                    isSelected ? selected.remove(d) : selected.push(d);
                 });
 
             dots.transition()
