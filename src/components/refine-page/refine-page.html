@@ -1,10 +1,25 @@
 <div class="row">
-    <div class="col-xs-3">
-        <bin-table params="bins: bins, selectedBins: selectedBins, binSet: binSet, 
-                           loading: loading"></bin-table>
+    <div class="col-xs-5">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" style="margin-bottom: 13px">
+            <li class="active"><a href="#bins-section" data-toggle="tab">Bins</a></li>
+            <li><a href="#selection-section" data-toggle="tab">Selection</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+            <div class="tab-pane active" id="bins-section">
+                <bin-table params="bins: bins, selectedBins: selectedBins, binSet: binSet, 
+                                   loading: loading"></bin-table>
+            </div>
+            <div class="tab-pane" id="selection-section">
+                <contig-table params="contigs: selectedContigs, bins: bins, selectedBins: selectedBins, 
+                                      loading: loading, allContigs: contigs"></contig-table>
+            </div>
+        </div>
     </div>
     
-    <div class="col-xs-6">
+    <div class="col-xs-7">
         <div class="panel panel-default panel-toolbar"><div class="panel-body">
             <div class="btn-toolbar" role="toolbar">
                 <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
@@ -52,10 +67,5 @@
         </div></div>
         <div data-bind="scatterPlot: contigs, x: x, y: y, panning: panning, selected: selectedContigs, 
                         color: color, colorBinSet: colorBinSet"></div>
-    </div>
-    
-    <div class="col-xs-3">
-        <contig-table params="contigs: selectedContigs, bins: bins, selectedBins: selectedBins, 
-                              loading: loading, allContigs: contigs"></contig-table>
     </div>
 </div>

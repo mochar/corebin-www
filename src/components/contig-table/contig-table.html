@@ -34,20 +34,30 @@
             </div>
         </div>
     </div>
-    <table class="table table-condensed table-hover">
-        <thead>
-            <tr>
-                <th width="60%">Contig</th>
-                <th width="20%">GC</th>
-                <th width="20%">Length</th>
-            </tr>
-        </thead>
-        <tbody data-bind="foreach: contigs">
-            <tr>
-                <td data-bind="text: name" width="60%"></td>
-                <td data-bind="text: gc" width="20%"></td>
-                <td data-bind="text: length" width="20%"></td>
-            </tr>
-        </tbody>
-    </table>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-body" data-bind="with: pagination">
+        <!-- ko foreach: showContigs -->
+        <div class="row contig-vis" style="border-left: 4px solid"
+             data-bind="style: { 'border-left-color': $data['color_' + $parents[1].binSet().id] }">
+            <div class="col-xs-4">
+                <span data-bind="text: name"></span>
+            </div>
+            <div class="col-xs-8">
+                <div data-bind="contigVis: $data, binSet: $parents[1].binSet"></div>
+            </div>
+        </div>
+        <!-- /ko -->
+        <nav>
+            <ul class="pager pager-contigs">
+                <li data-bind="css: { disabled: !canPrev() }">
+                    <a href="#" data-bind="click: prev">&larr;</a>
+                </li>
+                <li data-bind="css: { disabled: !canNext() }">
+                    <a href="#" data-bind="click: next">&rarr;</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
 </div>

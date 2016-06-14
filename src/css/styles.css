@@ -30,6 +30,14 @@
     border-color: rgba(0,0,0,.2);
 }
 
+.contig-vis {
+}
+
+.pager-contigs {
+  margin: 0 !important;
+  text-align: right;
+}
+
 /*D3 axis*/
 .axis path,
 .axis line {
@@ -41,15 +49,6 @@
 /* Scatterplot */
 .dot {
   stroke: #000;
-}
-
-.tooltip {
-    position: absolute;
-    width: 200px;
-    height: 28px;
-    pointer-events: none;
-    border: 1px solid black;
-    background-color: white;
 }
 
 /* Lasso */

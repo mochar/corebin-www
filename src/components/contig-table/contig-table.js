@@ -1,14 +1,36 @@
 define(['knockout', 'text!./contig-table.html', 'knockout-postbox'], function(ko, template) {
 
+    function Pagination(contigs) {
+        var self = this;
+        self.contigs = contigs;
+        self.items = 15;
+        self.page = ko.observable(1);
+        self.pages = ko.computed(function() {
+            return Math.ceil(self.contigs().length / self.items);
+        });
+        self.offset = ko.computed(function() {
+            return (self.page() - 1) * self.items;
+        });
+        self.showContigs = ko.computed(function() {
+            var offset = self.offset();
+            return self.contigs().slice(offset, offset + self.items + 1);
+        });
+        self.prev = function() { if (self.canPrev()) self.page(self.page() - 1); };
+        self.next = function() { if (self.canNext()) self.page(self.page() + 1); };
+        self.canPrev = ko.computed(function() { return self.page() > 1; });
+        self.canNext = ko.computed(function() { return self.page() < self.pages(); });
+    }
+
     function ViewModel(params) {
         var self = this;
         
         self.contigs = params.contigs; // selected contigs
-        self.allContigs = params.allContigs; // All contigs
+        self.allContigs = params.allContigs; // all contigs
         self.bins = params.bins;
         self.selectedBins = params.selectedBins;
         self.loading = params.loading;
         self.action = ko.observable('');
+        self.pagination = new Pagination(self.contigs);
         self.toBin = ko.observable();
         self.binSet = ko.observable().subscribeTo('binSet', true);
         

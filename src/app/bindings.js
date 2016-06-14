@@ -16,7 +16,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
        			.attr("ry", 5)
        			.attr("height", height)
        			.attr("width", width)
-       			.style("stroke", 'black')
+       			.style("stroke", '#ddd')
        			.style("fill", "none")
        			.style("stroke-width", 2);
        
@@ -26,8 +26,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
        			.attr("y", 0)
        			.attr("height", height)
        			.attr("width", 0)
-       			.style("stroke", 'black')
-       			.style("fill", "yellow")
+       			.style("stroke", '#ddd')
+       			.style("fill", "#337ab7")
                 .style('opacity', 0.4)
        			.style("stroke-width", 2);
                    
@@ -75,9 +75,14 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .domain([0, 1])
                 .range([0, lengthScale(length)]);
                 
+            var colorScale = d3.scale.linear()
+                .domain([0.3, 0.7])
+                .range(['blue', 'red']);
+                
             svg.select('rect.contig-rect').transition()
                 .attr('width', lengthScale(length));
             svg.select('rect.gc-rect').transition()
+                .style('fill', colorScale(gc))
                 .attr('width', gcScale(gc));
             svg.select('text.gc-label').transition()
                 .text(d3.format('.2f')(gc))
@@ -165,11 +170,6 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             var selected = allBindings.get('selected');
 
-            // add the tooltip area
-            d3.select(element).append('div')
-                .attr('class', 'tooltip')
-                .style('opacity', 0);
-            
             // container for events
             var rect = svg.append('rect')
                 .attr('width', width)
@@ -239,8 +239,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 height = 500 - margin.top - margin.bottom,
                 svg = d3.select(element).select('g'),
                 container = svg.select('svg.container'),
-                rect = svg.select('rect'),
-                tooltip = d3.select(element).select('.tooltip');
+                rect = svg.select('rect');
 
             var zoom = $(element).data('zoom'),
                 lasso = $(element).data('lasso');
@@ -277,8 +276,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             // color gradient scale for gc-content
             var colorScale = d3.scale.linear()
-                .range(['lightgreen', 'red']) 
-                .domain([0.4, 0.6]); 
+                .domain([0.3, 0.7])
+                .range(['blue', 'red']);
             
             // draw dots
             var dots = container.selectAll('.dot').data(contigs, function(d) { return d.id; });
@@ -296,17 +295,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                     return colorMethod === 'gc' ? colorScale(d.gc) : d['color_' + colorBinSet.id]; 
                 })
                 .on('mouseover', function(d) {
-                    tooltip.transition()
-                        .duration(200)
-                        .style('opacity', 0.9);
-                    tooltip.html(d.name)
-                        .style('left', (d3.event.pageX + 5) + 'px')
-                        .style('top', (d3.event.pageY - 28) + 'px');
                 })
                 .on('mouseout', function(d) {
-                    tooltip.transition()
-                        .duration(500)
-                        .style('opacity', 0);
                 })
                 .on('click', function(d) {
                     var isSelected = selected.indexOf(d) > -1; 
