@@ -12,6 +12,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         
         self.loading = ko.observable(true);
         self.panning = ko.observable(true);
+        self.tab = ko.observable('bin-table'); 
         self.color = ko.observable('bin');
         self.bins = ko.observableArray([]);
         self.selectedBins = ko.observableArray([]);

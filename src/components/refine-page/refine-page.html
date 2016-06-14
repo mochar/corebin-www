@@ -1,22 +1,17 @@
 <div class="row">
     <div class="col-xs-5">
-        <!-- Nav tabs -->
         <ul class="nav nav-tabs" style="margin-bottom: 13px">
-            <li class="active"><a href="#bins-section" data-toggle="tab">Bins</a></li>
-            <li><a href="#selection-section" data-toggle="tab">Selection</a></li>
+            <li data-bind="css: { active: tab() == 'bin-table' }">
+                <a href="#" data-bind="click: function() {tab('bin-table')}">Bins</a>
+            </li>
+            <li data-bind="css: { active: tab() == 'contig-table' }">
+                <a href="#" data-bind="click: function() {tab('contig-table')}">Selection</a>
+            </li>
         </ul>
 
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div class="tab-pane active" id="bins-section">
-                <bin-table params="bins: bins, selectedBins: selectedBins, binSet: binSet, 
-                                   loading: loading"></bin-table>
-            </div>
-            <div class="tab-pane" id="selection-section">
-                <contig-table params="contigs: selectedContigs, bins: bins, selectedBins: selectedBins, 
-                                      loading: loading, allContigs: contigs"></contig-table>
-            </div>
-        </div>
+        <div data-bind="component: { name: tab, params: {bins: bins, 
+                        selectedBins: selectedBins, binSet: binSet, loading: loading,
+                        contigs: selectedContigs, allContigs: contigs} }"></div>
     </div>
     
     <div class="col-xs-7">
