@@ -6,9 +6,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     ko.components.register('contig-table', {require: 'components/contig-table/contig-table'});
     ko.components.register('bin-table', {require: 'components/bin-table/bin-table'});
     
-    ko.components.register('home-page', {
-        template: { require: 'text!components/home-page/home-page.html' }
-    });
+    ko.components.register('home-page', {require: 'components/home-page/home-page'});
     
     ko.components.register('assembly-page', {require: 'components/assembly-page/assembly-page'});
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});

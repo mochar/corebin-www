@@ -1,45 +1,17 @@
-<div class="row">
-    <div class="col-xs-10">
-        <ul class="nav nav-tabs">
-        <li role="presentation" data-bind="css: {active: route().page === 'home-page'}">
-            <a href="#home"><span class="fa fa-lg fa-home"></span></a>
-        </li>
-        <li role="presentation" data-bind="css: {active: route().page === 'overview-page',
-                                                 disabled: !assembly()}">
-            <a href="#overview"><span class="fa fa-eye"></span> Overview</a>
-        </li>
-        <li role="presentation" data-bind="css: {active: route().page === 'compare-page',
-                                                 disabled: !assembly()}">
-            <a href="#compare"><span class="fa fa-balance-scale"></span> Compare</a>
-        </li>
-        <li role="presentation" data-bind="css: {active: route().page === 'refine-page',
-                                                 disabled: !assembly()}">
-            <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
-        </li>
-        </ul>
-    </div>
-    
-    <div class="col-xs-2">
-        <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal"
-                data-bind="visible: assemblies().length === 0">
-            <span class="fa fa-plus"></span> 
-            <strong>Add an assembly to begin</strong>
-        </button>
-        
-        <div class="btn-group btn-block" role="group" data-bind="visible: assemblies().length > 0">
-            <div class="btn-group" role="group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                    <span data-bind="text: assembly() ? assembly().name : ''"></span>
-                    <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" data-bind="foreach: assemblies().filter(function(a) { return a != assembly() })">
-                    <li><a href="#overview" data-bind="text: name, click: $parent.selectAssembly"></a></li>
-                </ul>
-            </div>
-            
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#assembly-modal">
-                <span class="fa fa-plus"></span>
-            </button>
-        </div>
-    </div>
-</div>
+<ul class="nav nav-tabs">
+    <li role="presentation" data-bind="css: {active: route().page === 'home-page'}">
+        <a href="#home"><span class="fa fa-lg fa-home"></span></a>
+    </li>
+    <li role="presentation" data-bind="css: {active: route().page === 'overview-page',
+                                             disabled: !assembly()}">
+        <a href="#overview"><span class="fa fa-eye"></span> Overview</a>
+    </li>
+    <li role="presentation" data-bind="css: {active: route().page === 'compare-page',
+                                             disabled: !assembly()}">
+        <a href="#compare"><span class="fa fa-balance-scale"></span> Compare</a>
+    </li>
+    <li role="presentation" data-bind="css: {active: route().page === 'refine-page',
+                                             disabled: !assembly()}">
+        <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
+    </li>
+</ul>

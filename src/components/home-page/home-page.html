@@ -43,14 +43,48 @@
 </div>
 
 <div class="col-xs-2">
-    <div class="panel panel-info">
-        <div class="panel-heading"> 
-            <span class="fa fa-newspaper-o fa-lg pull-left"></span> Updates
+    <script type="text/html" id="assembly-template">
+        <div class="panel panel-default" style="margin-top: 7px"
+             data-bind="with: $data">
+            <div class="panel-body">
+                <!-- ko if: $component.assembly() === $data -->
+                <p style="font-size: 1.5em" class="text-center" 
+                   data-bind="text: name"></p>
+                <!-- /ko -->
+                <!-- ko if: $component.assembly() !== $data -->
+                <a style="font-size: 1.5em" class="text-center" href="#"
+                   data-bind="text: name, click: $component.selectAssembly"></a>
+                <!-- /ko -->
+            </div>
+            <ul class="list-group">
+                <li class="list-group-item">
+                    <i style="color: #777">Contigs</i>
+                    <div class="pull-right">
+                        <p data-bind="text: size"></p>
+                    </div>
+                </li>
+                <li class="list-group-item">
+                    <i style="color: #777">Bin sets</i>
+                    <div class="pull-right">
+                        <p data-bind="text: binSets.length"></p>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div class="panel-body">
-            *updates*
-        </div>
-    </div>
+    </script> 
+    
+    <!-- ko if: assembly -->
+    <div data-bind="template: { name: 'assembly-template', data: assembly }"></div>
+    <hr>
+    <!-- /ko -->
+    
+    <div data-bind="template: { name: 'assembly-template', 
+                                foreach: unselectedAssemblies }"></div>
+    
+    <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal">
+        <span class="fa fa-plus"></span> 
+        <strong>Add an assembly</strong>
+    </button>
 </div>
 
 </div>
