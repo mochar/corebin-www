@@ -44,8 +44,7 @@
 
 <div class="col-xs-2">
     <script type="text/html" id="assembly-template">
-        <div class="panel panel-default" style="margin-top: 7px"
-             data-bind="with: $data">
+        <div class="panel panel-default" data-bind="with: $data">
             <div class="panel-body">
                 <!-- ko if: $component.assembly() === $data -->
                 <p style="font-size: 1.5em" class="text-center" 
@@ -72,6 +71,22 @@
             </ul>
         </div>
     </script> 
+    <script type="text/html" id="assembly-job-template">
+        <div class="panel panel-default" data-bind="with: $data.meta">
+            <div class="panel-body">
+                <p style="font-size: 1.5em" class="text-center" 
+                   data-bind="text: name"></p>
+            </div>
+            <ul class="list-group" style="font-size: 90%">
+                <li class="list-group-item">
+                    <i style="color: #777" data-bind="text: status"></i>
+                    <div class="pull-right">
+                        <span class="fa fa-refresh fa-spin fa-lg"></span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </script> 
     
     <!-- ko if: assembly -->
     <div data-bind="template: { name: 'assembly-template', data: assembly }"></div>
@@ -80,6 +95,8 @@
     
     <div data-bind="template: { name: 'assembly-template', 
                                 foreach: unselectedAssemblies }"></div>
+    <div data-bind="template: { name: 'assembly-job-template', 
+                                foreach: assemblyJobs }"></div>
     
     <button class="btn btn-success btn-block" data-toggle="modal" data-target="#assembly-modal">
         <span class="fa fa-plus"></span> 

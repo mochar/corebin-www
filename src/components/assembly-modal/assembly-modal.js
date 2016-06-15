@@ -3,7 +3,7 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
     function ViewModel(params) {
         var self = this;
         
-        self.assemblies = ko.observableArray([]).syncWith('assemblies');
+        self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs');
         self.assembly = ko.observable().syncWith('assembly');
         
         self.resetForm = function() {
@@ -53,8 +53,8 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                 data: formData,
                 async: false,
                 success: function(data) {
-                    self.assemblies.push(data);
-                    self.assembly(data);
+                    data.meta.status = ko.observable(data.meta.status);
+                    self.assemblyJobs.push(data);
                 },
                 cache: false,
                 contentType: false,
