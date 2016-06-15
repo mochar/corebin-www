@@ -54,7 +54,7 @@ define([
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

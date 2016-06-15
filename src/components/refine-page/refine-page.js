@@ -78,7 +78,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

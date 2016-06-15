@@ -29,7 +29,7 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

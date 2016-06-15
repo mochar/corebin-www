@@ -9,8 +9,7 @@ define([
     function ViewModel(params) {
         var self = this;
         
-        self.route = params.route;
-        
+        self.route = ko.observable({}).subscribeTo('route');
         self.assemblies = ko.observableArray([]).syncWith('assemblies');
         self.assembly = ko.observable().syncWith('assembly');
         
@@ -28,5 +27,8 @@ define([
         });
     };
     
-    return { viewModel: ViewModel, template: template };
+    return { 
+        viewModel: { instance: new ViewModel() }, 
+        template: template 
+    };
 });

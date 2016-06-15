@@ -5,7 +5,7 @@ define(['knockout', 'text!./compare-page.html', 'knockout-postbox'], function(ko
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

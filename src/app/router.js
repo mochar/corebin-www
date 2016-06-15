@@ -1,4 +1,4 @@
-define(['knockout', 'crossroads', 'hasher'], function(ko, crossroads, hasher) {
+define(['knockout', 'crossroads', 'hasher', 'knockout-postbox'], function(ko, crossroads, hasher) {
     return new Router({
         routes: [
             { url: '', params: { page: 'home-page' } },
@@ -10,7 +10,7 @@ define(['knockout', 'crossroads', 'hasher'], function(ko, crossroads, hasher) {
     });
 
     function Router(config) {
-        var currentRoute = this.currentRoute = ko.observable({});
+        var currentRoute = this.currentRoute = ko.observable({}).publishOn('route');
         ko.utils.arrayForEach(config.routes, function(route) {
             crossroads.addRoute(route.url, function(requestParams) {
                 currentRoute(ko.utils.extend(requestParams, route.params));

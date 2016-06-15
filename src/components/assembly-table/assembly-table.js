@@ -17,7 +17,7 @@ define(['knockout', 'text!./assembly-table.html', 'knockout-postbox'], function(
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });
