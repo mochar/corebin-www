@@ -8,7 +8,6 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     
     ko.components.register('home-page', {require: 'components/home-page/home-page'});
     
-    ko.components.register('assembly-page', {require: 'components/assembly-page/assembly-page'});
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});
     ko.components.register('assembly-modal', {require: 'components/assembly-modal/assembly-modal'});
     
