@@ -1,1 +1,30 @@
-Compare
+
+<div class="row">
+    <div class="col-xs-8">
+        <div class="panel panel-default panel-toolbar"><div class="panel-body">
+            <div class="btn-toolbar" role="toolbar">
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <strong>Bin set: </strong>
+                        <!-- ko with: otherBinSet -->
+                        <span data-bind="text: name"></span>
+                        <!-- /ko -->
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" data-bind="foreach: binSets">
+                        <li><a href="#" data-bind="click: function() { $parent.otherBinSet($data) },
+                                                text: name"></a></li>
+                    </ul>
+                </div>
+                
+                <div class="pull-right">
+                    <button class="btn btn-primary btn-sm" data-bind="click: plot">Visualise</button>
+                </div>
+            </div>
+        </div></div>
+        <div class="well" data-bind="chordPlot: dirty"></div>
+    </div>
+    <div class="col-xs-4">
+        <p>blabla</p>
+    </div>
+</div>

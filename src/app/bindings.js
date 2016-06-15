@@ -1,4 +1,92 @@
 define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
+    ko.bindingHandlers.chordPlot = {
+        init: function(element, valueAccessor, allBindings) {
+            var margin = {top: 5, right: 30, bottom: 60, left: 30},
+                fullWidth = parseInt(d3.select(element).style('width'), 10),
+                width = fullWidth - margin.left - margin.right,
+                height = fullWidth - margin.top - margin.bottom,
+                svg = d3.select(element).append('svg')
+                    .attr('width', width)
+                    .attr('height', height)
+                  .append('g')
+                    .attr('transform', 'translate(' + width / 2 + ',' + height / 2 + ')');
+
+            svg.append('g').attr('id', 'group');
+            svg.append('g').attr('id', 'chord');
+        },
+        update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
+            var dirty = valueAccessor()(),
+                matrix = viewModel.matrix;
+            viewModel.dirty(false);
+            
+            var margin = {top: 5, right: 30, bottom: 60, left: 30},
+                fullWidth = parseInt(d3.select(element).style('width'), 10),
+                width = fullWidth - margin.left - margin.right,
+                height = fullWidth - margin.top - margin.bottom,
+                svg = d3.select(element).select('g'),
+                innerRadius = Math.min(width, height) * .41,
+                outerRadius = innerRadius * 1.1,
+                arc = d3.svg.arc()
+                    .innerRadius(outerRadius * 1.03).outerRadius(outerRadius * 1.06),
+                chord = d3.layout.chord().padding(.05).matrix(matrix);
+                
+            function fade(opacity) {
+                return function(g, i) {
+                    svg.selectAll("#chord path")
+                        .filter(function(d) { return d.source.index != i && d.target.index != i; })
+                        .transition()
+                        .style("opacity", opacity);
+                };
+            }
+            
+            // Update groups
+            var groupPaths = svg.select('#group').selectAll('path')
+                .data(chord.groups(), function(d) { return d.index; });
+
+            groupPaths.enter().append("path")
+                .style("stroke", '#000000')
+                .style('opacity', 0)
+                .on("mouseover", function(d, i) {
+                    fade(.1)(d, i);
+                })
+                .on("mouseout", function(d, i) {
+                    fade(1)(d, i);
+                })
+                .on('click', function(d, i) {
+                });
+
+            groupPaths.transition()
+                .style("fill", function(d) {
+                    return '#12s123'
+                })
+                .style('opacity', 1)
+                .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
+
+            groupPaths.exit()
+                .transition()
+                .remove();
+
+            // Update chords
+            var chordPaths = svg.select('#chord').selectAll('path')
+                .data(chord.chords());
+
+            chordPaths.enter()
+                .append('path')
+                .style('opacity', 0);
+
+            chordPaths.transition()
+                .style("fill", function(d) {
+                    return '#12s123'
+                })
+                .style('opacity', 1)
+                .attr('d', d3.svg.chord().radius(innerRadius));
+
+            chordPaths.exit()
+                .transition()
+                .remove();
+            }
+    };
+
     ko.bindingHandlers.contigVis = {
         init: function(element, valueAccessor, allBindings) {
             var width = parseInt(d3.select(element).style('width'), 10),
@@ -91,6 +179,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .text(length + "bp");
         }
     }
+    
     ko.bindingHandlers.histPlot = {
         init: function(element, valueAccessor, allBindings) {
             var margin = {top: 5, right: 5, bottom: 18, left: 40},
