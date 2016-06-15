@@ -10,18 +10,18 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
     function ViewModel(params) {
         var self = this;
         
-        self.loading = ko.observable(true);
+        self.loading = ko.observable(false);
         self.panning = ko.observable(true);
         self.tab = ko.observable('bin-table'); 
         self.color = ko.observable('bin');
-        self.bins = ko.observableArray([]);
+        self.bins = ko.observableArray([]).syncWith('bins', true);
         self.selectedBins = ko.observableArray([]);
         self.selectedContigs = ko.observableArray([]);
-        self.colorBinSet = ko.observable({name: '', id: 0});
         
         self.assembly = ko.observable().subscribeTo('assembly', true);
         self.binSet = ko.observable().subscribeTo('binSet', true);
         self.binSets = ko.observableArray([]).subscribeTo('binSets', true);
+        self.colorBinSet = ko.observable(self.binSet());
         
         // Plot options
         self.contigs = ko.observableArray([]);
@@ -65,21 +65,10 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
             }));
         }
         
-        // New bin set selected
-        ko.postbox.subscribe('binSet', function(binSet) {
-            self.loading(true);
-            if (!binSet) { 
-                self.bins([]);
-                self.colorBinSet({name: '', id: 0});
-                self.loading(false);
-            } else {
-                $.getJSON('/a/' + binSet.assembly + '/bs/' + binSet.id + '/b', function(data) {
-                    self.bins(data.bins);
-                    self.colorBinSet(binSet);
-                    self.loading(false);
-                })
-            }
-        }, true);
+        ko.computed(function() {
+            var binSet = self.binSet();
+            self.colorBinSet(binSet);
+        });
     };
     
     return {
