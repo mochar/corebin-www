@@ -13,6 +13,7 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         ko.postbox.subscribe('assembly', function(assembly) {
             self.loading(true);
             self.binSets([]);
+            self.binSet(null);
             if (!assembly) return;
             $.getJSON('/a/' + assembly.id + '/bs', function(data) {
                 self.loading(false);

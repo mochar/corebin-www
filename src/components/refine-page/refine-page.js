@@ -68,12 +68,17 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         // New bin set selected
         ko.postbox.subscribe('binSet', function(binSet) {
             self.loading(true);
-            if (!binSet) return;
-            $.getJSON('/a/' + binSet.assembly + '/bs/' + binSet.id + '/b', function(data) {
-                self.bins(data.bins);
-                self.colorBinSet(binSet);
+            if (!binSet) { 
+                self.bins([]);
+                self.colorBinSet({name: '', id: 0});
                 self.loading(false);
-            })
+            } else {
+                $.getJSON('/a/' + binSet.assembly + '/bs/' + binSet.id + '/b', function(data) {
+                    self.bins(data.bins);
+                    self.colorBinSet(binSet);
+                    self.loading(false);
+                })
+            }
         }, true);
     };
     
