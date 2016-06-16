@@ -20,6 +20,14 @@
   padding: 1px;
 }
 
+.panel-container .panel {
+  margin-bottom: 0;
+}
+
+.panel-container .panel:not(:first-child) {
+  border-top: 0;
+}
+
 .colorBox {
     float: left;
     width: 15px;
