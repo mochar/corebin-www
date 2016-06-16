@@ -71,7 +71,7 @@
   fill-opacity:.5;
 }
 
-/*histogram*/
+/* Histogram */
 .bar rect {
   fill: steelblue;
   shape-rendering: crispEdges;
@@ -83,4 +83,16 @@
 
 .hist-axis text {
   font-size: 10px;
+}
+
+/* Chord */
+#chord path {
+    fill-opacity: .67;
+    stroke: #000;
+    stroke-width: .5px;
+}
+
+.list-group-condensed .list-group-item {
+    padding-top: 3px;
+    padding-bottom: 3px;
 }

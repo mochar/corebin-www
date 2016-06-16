@@ -25,6 +25,15 @@
         <div class="well" data-bind="chordPlot: dirty"></div>
     </div>
     <div class="col-xs-4">
-        <p>blabla</p>
+        <ul class="list-group" data-bind="foreach: binsIndices">
+            <!-- ko with: $parent.bins()[$data] -->
+            <li class="list-group-item" data-bind="text: name, borderColor: color"></li>
+            <!-- /ko -->
+        </ul>
+        <ul class="list-group" data-bind="foreach: otherBinsIndices">
+            <!-- ko with: $parent.otherBins()[$data] -->
+            <li class="list-group-item" data-bind="text: name, borderColor: color"></li>
+            <!-- /ko -->
+        </ul>
     </div>
 </div>

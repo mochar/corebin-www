@@ -16,7 +16,12 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var dirty = valueAccessor()(),
-                matrix = viewModel.matrix;
+                matrix = viewModel.matrix,
+                bins = viewModel.bins.peek(),
+                otherBins = viewModel.otherBins.peek(),
+                binsIndices = viewModel.binsIndices.peek(),
+                otherBinsIndices = viewModel.otherBinsIndices.peek();
+            if (!dirty) return;
             viewModel.dirty(false);
             
             var margin = {top: 5, right: 30, bottom: 60, left: 30},
@@ -39,6 +44,11 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 };
             }
             
+            function indexToBin(index) {
+                if (index < bins.length) return bins[binsIndices[index]];
+                return otherBins[otherBinsIndices[index - bins.length]];
+            }
+            
             // Update groups
             var groupPaths = svg.select('#group').selectAll('path')
                 .data(chord.groups(), function(d) { return d.index; });
@@ -57,7 +67,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             groupPaths.transition()
                 .style("fill", function(d) {
-                    return '#12s123'
+                    return indexToBin(d.index).color;
                 })
                 .style('opacity', 1)
                 .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius));
@@ -76,7 +86,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             chordPaths.transition()
                 .style("fill", function(d) {
-                    return '#12s123'
+                    return indexToBin(d.source.index).color;
                 })
                 .style('opacity', 1)
                 .attr('d', d3.svg.chord().radius(innerRadius));
@@ -438,6 +448,15 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             ko.utils.registerEventHandler(element, "click", function () {
                 value(!value());
             });
+        }
+    };
+    
+
+    ko.bindingHandlers.borderColor = {
+        update: function(element, valueAccessor) {
+            var color = ko.unwrap(valueAccessor());
+            $(element).css('border-left-color', color);
+            $(element).css('border-left-width', '4px');
         }
     };
 });
