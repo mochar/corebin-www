@@ -1,4 +1,4 @@
-<div class="panel panel-primary">
+<div class="panel panel-default">
     <div class="panel-heading">
         <strong>Bin sets</strong>
         <span class="pull-right" style="cursor: pointer">
@@ -13,6 +13,25 @@
             <a href="#" data-bind="text: name, click: $parent.selectBinSet, visible: !isSelected()"></a>
         </li>
     </ul>
+    
+    <table class="table table-condensed table-striped">
+        <thead>
+            <tr>
+                <th>Bin</th>
+                <th>GC</th>
+                <th>N50</th>
+                <th>Contigs</th>
+            </tr>
+        </thead>
+        <tbody data-bind="visible: !loading(), foreach: bins">
+            <tr>
+                <td data-bind="text: name"></td>
+                <td data-bind="text: gc"></td>
+                <td data-bind="text: n50"></td>
+                <td data-bind="text: size"></td>
+            </tr>
+        </tbody>
+    </table>
     
     <div style="text-align: center" data-bind="if: loading">
         <span class="fa fa-refresh fa-spin fa-lg"></span>

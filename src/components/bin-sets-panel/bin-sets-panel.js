@@ -30,6 +30,8 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         
         // Get bins of current selected bin set
         ko.postbox.subscribe('binSet', function(binSet) {
+            self.loading(true);
+            self.bins([]);
             if (!binSet) {
                 self.loading(false);
                 return;
