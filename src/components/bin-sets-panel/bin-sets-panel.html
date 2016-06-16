@@ -7,12 +7,18 @@
     </div>
     
     <ul class="list-group" data-bind="foreach: binSets">
-        <li class="list-group-item">
+        <li class="list-group-item" data-bind="borderColor: color, borderWidth: isSelected() ? '4px' : '2px'">
             <span class="badge" data-bind="text: bins.length + ' bins'"></span>
-            <span data-bind="text: name, visible: isSelected"></span>
+            <b data-bind="text: name, visible: isSelected"></b>
             <a href="#" data-bind="text: name, click: $parent.selectBinSet, visible: !isSelected()"></a>
         </li>
     </ul>
+</div> 
+    
+<div class="panel panel-default">
+    <!--<div class="panel-heading">
+        <strong>Bins</strong>
+    </div>-->
     
     <table class="table table-condensed table-striped">
         <thead>

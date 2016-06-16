@@ -8,6 +8,7 @@ define([
         var self = this;
         self.route = params.route;
         self.assembly = ko.observable().subscribeTo('assembly');
+        self.binSet = ko.observable().subscribeTo('binSet');
     };
     
     return { viewModel: ViewModel, template: template };

@@ -451,12 +451,12 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
         }
     };
     
-
     ko.bindingHandlers.borderColor = {
-        update: function(element, valueAccessor) {
+        update: function(element, valueAccessor, allBindings) {
             var color = ko.unwrap(valueAccessor());
+            var width = allBindings.get('borderWidth') || '4px';
             $(element).css('border-left-color', color);
-            $(element).css('border-left-width', '4px');
+            $(element).css('border-left-width', width);
         }
     };
 });
