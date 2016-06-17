@@ -8,6 +8,7 @@ define([
         var self = this;
         self.route = params.route;
         self.assembly = ko.observable().subscribeTo('assembly');
+        self.assemblyLoading = ko.observable().subscribeTo('assemblyLoading');
         self.binSet = ko.observable().subscribeTo('binSet');
     };
     

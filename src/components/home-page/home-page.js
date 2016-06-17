@@ -13,7 +13,7 @@ define([
         self.assemblies = ko.observableArray([]).syncWith('assemblies');
         self.assembly = ko.observable().syncWith('assembly');
         self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs');
-        self.loading = ko.observable(false);
+        self.assemblyLoading = ko.observable(true).publishOn('assemblyLoading');
         
         self.selectAssembly = function(assembly) { self.assembly(assembly); };
         
@@ -40,7 +40,6 @@ define([
         
         // Get data from server
         $.getJSON('/jobs/', function(data) {
-            self.loading(true);
             var assembliesInJob = [];
             self.assemblyJobs(data.jobs.map(function(job) {
                 assembliesInJob.push(job.meta.assembly);
@@ -53,7 +52,7 @@ define([
                 }); 
                 self.assemblies(assemblies);
                 self.assembly(assemblies[0]);
-                self.loading(false);
+                self.assemblyLoading(false);
             });
         })
     };

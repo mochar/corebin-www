@@ -15,10 +15,11 @@
         <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
     </li>
     <li class="pull-right well well-sm" style="border: 0">
-        <span data-bind="if: assembly">
+        <span data-bind="if: !assemblyLoading() && assembly()">
             Working on assembly <b data-bind="text: assembly().name"></b>
             <span data-bind="if: binSet">, bin set <b data-bind="text: binSet().name"></b></span>
         </span>
-        <span class="fa fa-refresh fa-spin fa-lg" data-bind="visible: !assembly()"></span>
+        <span class="fa fa-refresh fa-spin fa-lg" data-bind="visible: assemblyLoading"></span>
+        <span data-bind="visible: !assemblyLoading() && !assembly()">Upload or select an assembly to begin.</span>
     </li>
 </ul>
