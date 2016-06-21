@@ -7,10 +7,11 @@
     </div>
     
     <ul class="list-group" data-bind="foreach: binSets">
-        <li class="list-group-item" data-bind="borderColor: color, borderWidth: isSelected() ? '4px' : '2px'">
+        <li class="list-group-item" data-bind="borderColor: color, 
+                                               borderWidth: $parent.isSelectedBinSet(id)  ? '4px' : '2px'">
             <span class="badge" data-bind="text: bins.length + ' bins'"></span>
-            <b data-bind="text: name, visible: isSelected"></b>
-            <a href="#" data-bind="text: name, click: $parent.selectBinSet, visible: !isSelected()"></a>
+            <b data-bind="text: name, visible: $parent.isSelectedBinSet(id)"></b>
+            <a href="#" data-bind="text: name, click: $parent.selectBinSet, visible: !$parent.isSelectedBinSet(id)"></a>
         </li>
     </ul>
 </div> 

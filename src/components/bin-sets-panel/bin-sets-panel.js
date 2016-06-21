@@ -7,8 +7,19 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.binSet = ko.observable().publishOn('binSet');
         self.bins = ko.observableArray([]).syncWith('bins');
+        self.bin = ko.observable(); // selected bin
         
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
+        
+        self.isSelectedBinSet = function(binSetId) { 
+            var binSet = self.binSet();
+            return binSet && binSet.id == binSetId;
+        };
+        
+        self.isSelectedBin = function(binId) {
+            var bin = self.bin();
+            return bin && bin.id == binId;
+        };
         
         // Get bin sets of current selected assembly
         ko.postbox.subscribe('assembly', function(assembly) {
@@ -17,13 +28,7 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
             self.loading(true);
             if (!assembly) return;
             $.getJSON('/a/' + assembly.id + '/bs', function(data) {
-                self.binSets(data.binSets.map(function(bs) { 
-                    bs.isSelected = ko.computed(function() {
-                        var binSet = self.binSet();
-                        return binSet && binSet.id == bs.id;
-                    });
-                    return bs;
-                }));
+                self.binSets(data.binSets);
                 self.binSet(data.binSets[0]);
             })
         }, true);
