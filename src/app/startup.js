@@ -11,6 +11,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     
     ko.components.register('bin-set-modal', {require: 'components/bin-set-modal/bin-set-modal'});
     ko.components.register('bin-sets-panel', {require: 'components/bin-sets-panel/bin-sets-panel'});
+    ko.components.register('bin-section', {require: 'components/bin-section/bin-section'});
     
     ko.components.register('home-page', {require: 'components/home-page/home-page'});
     ko.components.register('overview-page', {require: 'components/overview-page/overview-page'});

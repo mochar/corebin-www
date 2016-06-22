@@ -28,6 +28,24 @@
   border-top: 0;
 }
 
+.selected {
+  border-left-width: 4px;
+  color: black !important;
+  font-weight: bold;
+}
+
+.bin-description p {
+  margin-bottom: 0;
+}
+
+.clickable-fa {
+  cursor: pointer;
+}
+
+.clickable-fa:hover {
+  color: #a94442;
+}
+
 .colorBox {
     float: left;
     width: 15px;

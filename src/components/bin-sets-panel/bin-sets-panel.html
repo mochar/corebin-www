@@ -1,8 +1,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">
         <strong>Bin sets</strong>
-        <span class="pull-right" style="cursor: pointer">
-            <span class="fa fa-lg fa-plus" data-bind="click: function() { $('#bin-set-modal').modal() }"></span>
+        <span class="pull-right clickable-fa">
+            <span class="fa fa-lg fa-plus"
+                  data-bind="click: function() { $('#bin-set-modal').modal() }"></span>
         </span>
     </div>
     
@@ -17,30 +18,26 @@
 </div> 
     
 <div class="panel panel-default">
-    <!--<div class="panel-heading">
+    <div class="panel-heading">
         <strong>Bins</strong>
-    </div>-->
-    
-    <table class="table table-condensed table-striped">
-        <thead>
-            <tr>
-                <th>Bin</th>
-                <th>GC</th>
-                <th>N50</th>
-                <th>Contigs</th>
-            </tr>
-        </thead>
-        <tbody data-bind="visible: !loading(), foreach: bins">
-            <tr>
-                <td data-bind="text: name"></td>
-                <td data-bind="text: gc"></td>
-                <td data-bind="text: n50"></td>
-                <td data-bind="text: size"></td>
-            </tr>
-        </tbody>
-    </table>
-    
-    <div style="text-align: center" data-bind="if: loading">
-        <span class="fa fa-refresh fa-spin fa-lg"></span>
     </div>
+
+    <ul class="list-group" data-bind="foreach: bins">
+        <li class="list-group-item" 
+            style="cursor: pointer"
+            data-bind="borderColor: color,
+                        borderWidth: $parent.isSelectedBin(id)  ? '4px' : '2px',
+                        css: { 'selected': $parent.isSelectedBin(id) },
+                        click: function() { $parent.bin($data); }">
+            <div class="row">
+                <div class="col-xs-3">
+                    <p class="list-group-item-text" data-bind="text: 'Bin ' + name()"></p>
+                </div>
+                <div class="col-xs-9">
+                    <p class="list-group-item-text pull-right" data-bind="text: gc"
+                       style="color: #777 !important"></p>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>

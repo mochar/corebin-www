@@ -1,0 +1,46 @@
+<!-- ko with: bin -->
+<div class="panel panel-default" data-bind="borderColor: color">
+    <div class="panel-body">
+        <div class="row" data-bind="visible: !$parent.editing()">
+            <div class="col-xs-10">
+                <p data-bind="text: name" style="margin: 0; font-size: 1.3em"></p>
+            </div>
+            <div class="col-xs-2 clickable-fa">
+                <span class="fa fa-pencil" data-bind="click: $parent.toggleEditing"></span>
+            </div>
+        </div>
+        
+        <div class="row" data-bind="visible: $parent.editing">
+            <form data-bind="submit: $parent.rename">
+                <div class="col-xs-7">
+                    <input type="text" name="name" placeholder="name" class="form-control"
+                           data-bind="value: name, textInput: $parent.newName">
+                </div>
+                <div class="col-xs-3">
+                    <button class="btn btn-default" type="submit">Submit</button>
+                </div>
+                <div class="col-xs-1 clickable-fa">
+                    <span class="fa fa-times" data-bind="click: $parent.toggleEditing">
+                </div>
+            </form>
+        </div>
+        
+        <div class="row bin-description">
+            <hr style="margin-top: .5em">
+            <div class="col-xs-3">
+                <p class="text-right"><strong>GC</strong></p>
+                <p class="text-right"><strong>N50</strong></p>
+                <p class="text-right"><strong>Contigs</strong></p>
+            </div>
+            <div class="col-xs-2" style="padding-left: 0">
+                <p data-bind="text: gc"></p>
+                <p data-bind="text: n50"></p>
+                <p data-bind="text: size"></p>
+            </div>
+            <div class="col-xs-7">
+                <p>cont. & comp. graph here</p>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /ko -->

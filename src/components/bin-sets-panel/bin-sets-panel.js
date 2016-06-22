@@ -7,7 +7,7 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.binSet = ko.observable().publishOn('binSet');
         self.bins = ko.observableArray([]).syncWith('bins');
-        self.bin = ko.observable(); // selected bin
+        self.bin = ko.observable().publishOn('bin');
         
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
         
@@ -30,20 +30,25 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
             $.getJSON('/a/' + assembly.id + '/bs', function(data) {
                 self.binSets(data.binSets);
                 self.binSet(data.binSets[0]);
+                self.bins([]);
+                self.bin(null);
             })
         }, true);
         
         // Get bins of current selected bin set
         ko.postbox.subscribe('binSet', function(binSet) {
             self.loading(true);
-            self.bins([]);
             if (!binSet) {
                 self.loading(false);
                 return;
             }
             var url = '/a/' + binSet.assembly + '/bs/' + binSet.id + '/b';
             $.getJSON(url, function(data) {
-                self.bins(data.bins);
+                self.bins(data.bins.map(function(bin) {
+                    bin.name = ko.observable(bin.name);
+                    return bin;
+                }));
+                if (data.bins.length > 0) self.bin(data.bins[0]);
                 self.loading(false);
             })
         }, true);
