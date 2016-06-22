@@ -17,6 +17,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     ko.components.register('overview-page', {require: 'components/overview-page/overview-page'});
     ko.components.register('compare-page', {require: 'components/compare-page/compare-page'});
     ko.components.register('refine-page', {require: 'components/refine-page/refine-page'});
+    ko.components.register('help-page', {require: 'components/help-page/help-page'});
     
     ko.applyBindings({ route: router.currentRoute });
 });
