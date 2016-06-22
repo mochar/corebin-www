@@ -1,22 +1,23 @@
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <strong>Bins</strong>
-        <div class="pull-right">
-            <button class="btn btn-success btn-xs" data-bind="toggleClick: newBin">
+<div class="panel panel-default" style="border-top: 0">
+    <div class="panel-body">
+        <div class="pull-right" data-bind="visible: !newBin()">
+            <button class="btn btn-success btn-sm" data-bind="toggleClick: newBin">
                 <span class="fa fa-plus"></span>
             </button>
         </div>
-    </div>
-    <div class="panel-body" data-bind="visible: newBin">
         <form class="form-inline" method="post" enctype="multipart/form-data" 
-                data-bind="submit: createBin">
+                data-bind="submit: createBin, visible: newBin">
             <div class="form-group">
                 <input type="text" name="name" class="form-control input-sm" placeholder="New bin..">
             </div>
             <button type="submit" class="btn btn-primary btn-sm">Add</button>
+            <button class="btn btn-default btn-sm pull-right" data-bind="toggleClick: newBin">
+                <span class="fa fa-times"></span>
+            </button>
         </form>
     </div>
-    <table class="table table-condensed table-hover">
+    
+    <table class="table table-condensed table-striped">
         <thead>
             <tr>
                 <th width="5%"></th>

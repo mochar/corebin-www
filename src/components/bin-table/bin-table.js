@@ -10,6 +10,7 @@ define(['knockout', 'text!./bin-table.html', 'knockout-postbox'], function(ko, t
         self.newBin = ko.observable(false);
         
         self.createBin = function(formElement) {
+            if (!self.newBin()) return;
             var binSet = self.binSet();
             if (!binSet) return;
             var formData = new FormData(formElement);
@@ -19,6 +20,7 @@ define(['knockout', 'text!./bin-table.html', 'knockout-postbox'], function(ko, t
                 data: formData,
                 async: false,
                 success: function(data) {
+                    data.name = ko.observable(data.name);
                     self.bins.push(data);
                     formElement.reset();
                     self.newBin(false);
