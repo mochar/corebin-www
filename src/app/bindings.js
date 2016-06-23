@@ -192,7 +192,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
     
     ko.bindingHandlers.histPlot = {
         init: function(element, valueAccessor, allBindings) {
-            var margin = {top: 5, right: 5, bottom: 18, left: 40},
+            var margin = {top: 5, right: 8, bottom: 18, left: 40},
                 width = parseInt(d3.select(element).style('width'), 10)
                 width = width - margin.left - margin.right,
                 height = parseInt(d3.select(element).style('width'), 10) * 0.6
@@ -211,7 +211,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .attr("class", "y axis hist-axis");
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
-            var margin = {top: 5, right: 5, bottom: 18, left: 40},
+            var margin = {top: 5, right: 8, bottom: 18, left: 40},
                 width = parseInt(d3.select(element).style('width'), 10)
                 width = width - margin.left - margin.right,
                 height = parseInt(d3.select(element).style('width'), 10) * 0.6
@@ -220,14 +220,19 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 
             var data = valueAccessor()(),
                 bins = data.bins,
-                data = data.hist;
+                data = data.hist,
+                tickFormat = allBindings.get('tickFormat');
                 
             if (!data) return;
             
+            // Thousands formatter: 23123 -> 23k
+            var thousandsFormat = d3.format(".2s");
+            var format = tickFormat == 'thousands' ? thousandsFormat : d3.format();
+            
             // Setup x and y
-            var x = d3.scale.linear().range([0, width]).domain([0, bins.length]);
+            var x = d3.scale.ordinal().rangePoints([0, width]).domain(bins);
             var y = d3.scale.linear().range([height, 0]).domain([0, d3.max(data)]);
-            var xAxis = d3.svg.axis().scale(x).orient('bottom');//.tickValues(bins);
+            var xAxis = d3.svg.axis().scale(x).orient('bottom').tickFormat(format);
             var yAxis = d3.svg.axis().scale(y).orient('left');
             svg.select('.x').call(xAxis);
             svg.select('.y').call(yAxis);
@@ -241,13 +246,13 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             bar.enter().append('g')
                 .attr('class', 'bar')
                 .attr("transform", function(d, i) { 
-                    return "translate(" + x(i) + "," + y(d) + ")"; 
+                    return "translate(" + x(bins[i]) + "," + y(d) + ")"; 
                 });
                 
             bar.append('rect')
                 .attr('x', 1)
                 .attr('y', height)
-                .attr('width', function(d, i) { return width / bins.length - 1; })
+                .attr('width', function(d, i) { return width / data.length - 1; })
                 .attr('height', function(d) { return height - y(d); });
                 
             bar.selectAll('rect').transition()
