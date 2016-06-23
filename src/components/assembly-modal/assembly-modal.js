@@ -16,7 +16,7 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
         self.onFileChange = function(file) {
             var reader = new FileReader();
             reader.onload = function() {
-                var allTextLines = this.result.split(/\r\n|\n/);
+                var allTextLines = this.result.split(/\r|\r\n|\n/);
                 var headers = allTextLines[0].replace(/\t/g, ',').split(',');
                 self._samples = headers.slice(1);
                 self.samples(self._samples);
