@@ -25,15 +25,14 @@ define([
         setInterval(function() {
             var jobs = self.assemblyJobs();
             jobs.forEach(function(job) {
-                $.getJSON('/jobs/' + job.id, function(data, textStatus) {
-                    if (data.error === undefined) {
-                        job.meta.status(data.meta.status);
-                    } else {
+                $.getJSON(job.location, function(data, textStatus, jqXHR) {
+                    if (jqXHR.status == 201) {
                         self.assemblyJobs.remove(job);
-                        $.getJSON('/a/' + job.meta.assembly, function(data) {
-                            self.assemblies.push(data);
-                        });
-                    }
+                        var location = jqXHR.getResponseHeader('Location');
+                        $.getJSON(location, function(a) { self.assemblies.push(a); });
+                    } else {
+                        job.meta.status(data.status);
+                    };
                 });
             });
         }, 3000);
@@ -42,7 +41,7 @@ define([
         $.getJSON('/jobs/', function(data) {
             var assembliesInJob = [];
             self.assemblyJobs(data.jobs.map(function(job) {
-                assembliesInJob.push(job.meta.assembly);
+                assembliesInJob.push(job.meta.id);
                 job.meta.status = ko.observable(job.meta.status);
                 return job;
             }));

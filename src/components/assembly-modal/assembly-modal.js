@@ -52,9 +52,11 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                 type: 'POST',
                 data: formData,
                 async: false,
-                success: function(data) {
-                    data.meta.status = ko.observable(data.meta.status);
-                    self.assemblyJobs.push(data);
+                success: function(data, textStatus, jqXHR) {
+                    var job = { location: jqXHR.getResponseHeader('Location') };
+                    job.meta = data;
+                    job.meta.status = ko.observable(job.meta.status);
+                    self.assemblyJobs.push(job);
                 },
                 cache: false,
                 contentType: false,
