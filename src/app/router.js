@@ -5,7 +5,8 @@ define(['knockout', 'crossroads', 'hasher', 'knockout-postbox'], function(ko, cr
             { url: 'home', params: { page: 'home-page' } },
             { url: 'overview', params: { page: 'overview-page' } },
             { url: 'compare', params: { page: 'compare-page' } },
-            { url: 'refine', params: { page: 'refine-page' } }
+            { url: 'refine', params: { page: 'refine-page' } },
+            { url: 'help', params: { page: 'help-page' } },
         ]
     });
 
