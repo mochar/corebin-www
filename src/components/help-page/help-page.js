@@ -1,6 +1,6 @@
 define([
 	'knockout',
-	'text!./new-comp.html',
+	'text!./help-page.html',
 	'knockout-postbox'
 ], function(ko, template) { 
 
