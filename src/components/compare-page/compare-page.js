@@ -10,11 +10,7 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         self.otherBins = ko.observableArray([]);
         
         self.dirty = ko.observable(false);
-        self.matrix = [
-            [11975,  5871, 8916, 2868],
-            [ 1951, 10048, 2060, 6171],
-            [ 8010, 16145, 8090, 8045],
-            [ 1013,   990,  940, 6907]];
+        self.matrix = [];
         self.binsIndices = ko.observableArray([]);
         self.otherBinsIndices = ko.observableArray([]);
         

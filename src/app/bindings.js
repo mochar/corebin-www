@@ -5,6 +5,11 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 fullWidth = parseInt(d3.select(element).style('width'), 10),
                 width = fullWidth - margin.left - margin.right,
                 height = fullWidth - margin.top - margin.bottom,
+                innerRadius = Math.min(width, height) * .41,
+                outerRadius = innerRadius * 1.1,
+                arc = d3.svg.arc()
+                    .innerRadius(outerRadius * 1.03).outerRadius(outerRadius * 1.06)
+                    .startAngle(0).endAngle(0),
                 svg = d3.select(element).append('svg')
                     .attr('width', width)
                     .attr('height', height)
@@ -13,10 +18,23 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             svg.append('g').attr('id', 'group');
             svg.append('g').attr('id', 'chord');
+            
+            // The two arcs around the chord groups
+            var arcs = svg.append('g').attr('id', 'arc');
+            arcs.append('path')
+                .attr('id', 'arc1')
+                .style('stroke', '#000000')
+                .attr('d', arc);
+            arcs.append('path')
+                .attr('id', 'arc2')
+                .style('stroke', '#000000')
+                .attr('d', arc);
         },
         update: function(element, valueAccessor, allBindings, viewModel, bindingContext) {
             var dirty = valueAccessor()(),
                 matrix = viewModel.matrix,
+                binSet = viewModel.binSet.peek(),
+                otherBinSet = viewModel.otherBinSet.peek(),
                 bins = viewModel.bins.peek(),
                 otherBins = viewModel.otherBins.peek(),
                 binsIndices = viewModel.binsIndices.peek(),
@@ -94,7 +112,28 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             chordPaths.exit()
                 .transition()
                 .remove();
+                
+            // Update arcs
+            if (matrix.length == 0) {
+                svg.select('#arc').select('#arc1').attr('d', arc.startAngle(0).endAngle(0));
+                svg.select('#arc').select('#arc2').attr('d', arc.startAngle(0).endAngle(0));
+                return;
             }
+
+            svg.select('#arc').select('#arc1')
+                .attr('fill', binSet.color)
+              .transition()
+                .attr('d', arc
+                    .startAngle(chord.groups()[0].startAngle)
+                    .endAngle(chord.groups()[bins.length - 1].endAngle));
+
+            svg.select('#arc').select('#arc2')
+                .attr('fill', otherBinSet.color)
+              .transition()
+                .attr('d', arc
+                    .startAngle(chord.groups()[bins.length].startAngle)
+                    .endAngle(chord.groups()[bins.length + otherBins.length - 1].endAngle));
+        }
     };
 
     ko.bindingHandlers.contigVis = {
