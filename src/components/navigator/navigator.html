@@ -14,6 +14,10 @@
                                              disabled: !assembly()}">
         <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
     </li>
+    <li role="presentation" data-bind="css: {active: route().page === 'refine-page',
+                                             disabled: !assembly()}">
+        <a href="#help"><span class="fa fa-question-circle"></span> Help</a>
+    </li>
     <li class="pull-right well well-sm" style="border: 0">
         <span data-bind="if: !assemblyLoading() && assembly()">
             Working on assembly <b data-bind="text: assembly().name"></b><span data-bind="if: !binSet()">.</span>
