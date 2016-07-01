@@ -6,29 +6,47 @@
             <div class="page-header">
                 <h1>CoReBIN <small>Comparison and Evaluation of metagenomic binning</small></h1>
             </div>
-            <h4>Help</h4>
+
             <p>
-                CoReBIN is a user-friendly web-based tool to compare the results of different binning methods and to aid manual refinement of the bins. The overall binning result of two different methods can be visually compared in a chord diagram. Individual bins can be inspected and refined using GC%, coverage and tetranucleotide frequencies.               
+                CoReBIN is a user-friendly web-based tool to compare the results of different binning methods and to aid manual refinement of the bins. The binning result of two different methods can be visually compared in a chord diagram. Individual bins can be inspected and refined using GC%, coverage and tetranucleotide frequencies.               
             </p>
             
-            <h4>Input data</h4>
+            <h4>Input data formats</h4>
             <p>
+            To start using CoRebin you need to upload the following data. Details on file format are given below.
                 <ul>
-                <li>Metagenomic assembly (fasta format)</li>
-                <li>Coverage table (see format details below) <i>not required</i></li>             
-                <li>One or more binning results (see format details below)</li>
+                <li>Metagenomic assembly</li>
+                <li>Coverage data <i>not required</i></li>             
+                <li>One or more binning results</li>
                 </ul>
             </p>
-
-            <h4>Getting started</h4>
+            
+            <h5>Metagenomic assembly</h5>
             <p>
-            	<ol>
-            	<li><b>Upload your metagenomic assembly (fasta format)</b>. It is beneficial to also upload a table with coverage information on your assembly.</li>
-            	<li>Next you can <b>upload the result of your binning in the "Overview" tab</b>. To do so, you need a file in which the contig ID if followed by the bin number (e.g. contig </t> binID).</li>
-            	</ol>
+            	Fasta format. The headers have to correspond to the contig IDs used in the coverage table and the contig IDs used in the binning table(s).
             </p>
             
-            <h4>Metagenomic binning</h4>
+            <h5>Coverage data</h5>
+            <p>
+            	When you upload an assembly fasta, you can add a file containing coverage information. Sequencing coverage describes the average number of reads that align to, or "cover," your metagenomic assembly. You can determine the coverage by mapping your reads to your assembly using tools such as <a href="http://bio-bwa.sourceforge.net/">BWA</a> and <a href="http://bowtie-bio.sourceforge.net/bowtie2/">Bowtie2</a>. 
+            	</br>
+            	The input file should be a tab separated file with on each line a contigID followed by the coverage in one or more samples, i.e. if you have coverage data on one sample you have one additional column, if you have two different coverages you will need two additional columns. </br></br>
+            	ContigID1 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
+            	ContigID2 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
+            	ContigID3 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
+            	</br>
+            	It is important that the contig IDs are exact matches with the ones in the fasta headers of the assembly.
+            	</br>
+            <h5>Metagenomic Binning Results</h5>
+            <p>	
+            	ContigID1 <i>&lt;tab&gt;</i> BinId </br>
+				ContigID4 <i>&lt;tab&gt;</i> BinId </br>
+				ContigID2 <i>&lt;tab&gt;</i> BinId </br>
+            </br>
+            Again, it is important that the contig IDs are exact matches with the ones in the assembly. Unbinned contigs can be left out in this table and no specific ordering is required.          
+            </br>
+            </p>
+            
             <p>
             Here are some suggestions of recently published metagenomic binning programs and methods:
                 <ul>
@@ -37,14 +55,9 @@
                 <li><a href="http://ecogenomics.github.io/GroopM/">GroopM</a>: Imelfort, Michael, et al. "GroopM: an automated tool for the recovery of population genomes from related metagenomes." <i>PeerJ</i> 2 (2014): e603.</li>
                 <li><a href="https://sourceforge.net/projects/maxbin/">MaxBin 2.0</a>: Wu, Yu-Wei, Blake A. Simmons, and Steven W. Singer. "MaxBin 2.0: an automated binning algorithm to recover genomes from multiple metagenomic datasets." <i>Bioinformatics</i> (2015): btv638.</li>
                 <li><a href="http://claczny.github.io/VizBin/">VizBin</a>: Laczny, Cedric C., et al. "VizBin-an application for reference-independent visualization and human-augmented binning of metagenomic data." <i>Microbiome</i> 3.1 (2015): 1.</li>
+                <li><a href="https://github.com/younglululu/COCACOLA">COCACOLA</a>: Lu, Yang Young, et al. "COCACOLA: binning metagenomic contigs using sequence COmposition, read CoverAge, CO-alignment, and paired-end read LinkAge." <i>Bioinformatics</i> (2016): btw290.</li>
                 </ul>
-            </p>  
-            
-         
+            </p>           
         </div>
     </div>
-</div>
-
-
-
 </div>
