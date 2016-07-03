@@ -1,4 +1,9 @@
-define(['knockout', 'text!./contig-table.html', 'knockout-postbox'], function(ko, template) {
+define([
+    'knockout', 
+    'text!./contig-table.html', 
+    'app/classes',
+    'knockout-postbox'
+], function(ko, template, classes) {
 
     function Pagination(contigs) {
         var self = this;
@@ -45,7 +50,7 @@ define(['knockout', 'text!./contig-table.html', 'knockout-postbox'], function(ko
         
         self.updateBin = function(bin, newBin) {
             delete newBin.contigs;
-            self.bins()[self.bins.indexOf(bin)] = newBin;
+            bin.setData(newBin);
         };
         
         self.updateContigs = function(fromBin, toBin) {

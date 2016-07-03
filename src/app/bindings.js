@@ -503,4 +503,21 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             $(element).css('border-left-width', width);
         }
     };
+    
+    ko.bindingHandlers.popover = {
+        init: function(element, valueAccessor, allBindingsAccessor, viewModel, bindingContext) {
+            var options = ko.utils.unwrapObservable(valueAccessor());
+            var contentSelector = allBindingsAccessor.get('contentSelector');
+            var popoverTemplate = '<div id="ko-popover">' + $(contentSelector).html() + '</div>';
+            options.content = popoverTemplate;
+            options.trigger = 'manual';
+            $(element).popover(options);
+            
+            $(element).click(function() {
+                $(this).popover('toggle');
+                var thePopover = document.getElementById('ko-popover');
+                ko.applyBindings(viewModel, thePopover);
+            });
+        }
+    };
 });

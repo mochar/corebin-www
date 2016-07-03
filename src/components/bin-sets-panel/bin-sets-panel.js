@@ -1,4 +1,9 @@
-define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(ko, template) {
+define([
+    'knockout', 
+    'text!./bin-sets-panel.html', 
+    'app/classes', 
+    'knockout-postbox'
+], function(ko, template, classes) {
 
     function ViewModel(params) {
         var self = this;
@@ -7,7 +12,8 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.binSet = ko.observable().publishOn('binSet');
         self.bins = ko.observableArray([]).syncWith('bins');
-        self.bin = ko.observable().publishOn('bin');
+        self.bin = ko.observable().syncWith('bin');
+        self.hmmerJobs = ko.observableArray([]).subscribeTo('hmmerJobs', true);
         
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
         
@@ -44,11 +50,13 @@ define(['knockout', 'text!./bin-sets-panel.html', 'knockout-postbox'], function(
             }
             var url = '/a/' + binSet.assembly + '/bs/' + binSet.id + '/b';
             $.getJSON(url, function(data) {
-                self.bins(data.bins.map(function(bin) {
-                    bin.name = ko.observable(bin.name);
+                var assessingBins = self.hmmerJobs().map(function(j) { return j.meta.bin });
+                self.bins(data.bins.map(function(bin) { 
+                    var bin = classes.Bin(bin);
+                    if (assessingBins.indexOf(bin.id) > -1) bin.assessing(true);
                     return bin;
                 }));
-                if (data.bins.length > 0) self.bin(data.bins[0]);
+                if (data.bins.length > 0) self.bin(self.bins()[0]);
                 self.loading(false);
             })
         }, true);

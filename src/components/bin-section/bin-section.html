@@ -1,26 +1,26 @@
-<!-- ko with: bin -->
-<div class="panel panel-default" data-bind="borderColor: color">
+<!-- ko if: bin -->
+<div class="panel panel-default" data-bind="borderColor: bin().color">
     <div class="panel-body">
-        <div class="row" data-bind="visible: !$parent.editing()">
+        <div class="row" data-bind="visible: !editing()">
             <div class="col-xs-10">
-                <p data-bind="text: name" style="margin: 0; font-size: 1.3em"></p>
+                <p data-bind="text: bin().name" style="margin: 0; font-size: 1.3em"></p>
             </div>
             <div class="col-xs-2 clickable-fa">
-                <span class="fa fa-pencil" data-bind="click: $parent.toggleEditing"></span>
+                <span class="fa fa-pencil" data-bind="click: toggleEditing"></span>
             </div>
         </div>
         
-        <div class="row" data-bind="visible: $parent.editing">
-            <form data-bind="submit: $parent.rename">
+        <div class="row" data-bind="visible: editing">
+            <form data-bind="submit: rename">
                 <div class="col-xs-7">
                     <input type="text" name="name" placeholder="name" class="form-control"
-                           data-bind="value: name, textInput: $parent.newName">
+                           data-bind="value: bin().name, textInput: newName">
                 </div>
                 <div class="col-xs-3">
                     <button class="btn btn-default" type="submit">Submit</button>
                 </div>
                 <div class="col-xs-1 clickable-fa">
-                    <span class="fa fa-times" data-bind="click: $parent.toggleEditing">
+                    <span class="fa fa-times" data-bind="click: toggleEditing">
                 </div>
             </form>
         </div>
@@ -33,12 +33,40 @@
                 <p class="text-right"><strong>Contigs</strong></p>
             </div>
             <div class="col-xs-2" style="padding-left: 0">
-                <p data-bind="text: gc"></p>
-                <p data-bind="text: n50"></p>
-                <p data-bind="text: size"></p>
+                <p data-bind="text: bin().gc"></p>
+                <p data-bind="text: bin().n50"></p>
+                <p data-bind="text: bin().size"></p>
             </div>
-            <div class="col-xs-7">
-                <p>cont. & comp. graph here</p>
+            <div class="col-xs-7" data-bind="visible: !bin().assessing() && !bin().assessed()">
+                <button class="btn btn-link btn-sm" style="white-space: normal"
+                        data-bind="popover: {html: true, placement: 'bottom'},
+                                   contentSelector: '#assess-form'">
+                    Assess contamination & completeness
+                </button>
+                <div class="container-fluid hide" id="assess-form">
+                    <div class="form-group">
+                        <label>Rank</label>
+                        <select data-bind="options: Object.keys(taxonList()), value: rank" 
+                                class="form-control">
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Taxon</label>
+                        <select data-bind="options: taxons, value: taxon" 
+                                class="form-control">
+                        </select>
+                    </div>
+                    <button class="btn btn-primary btn-block" data-bind="click: assess">Calculate</button>
+                </div>
+            </div>
+            <div class="col-xs-7" style="text-align: center" data-bind="visible: bin().assessing">
+                <span class="fa fa-refresh fa-spin fa-lg"></span>
+            </div>
+            <div class="col-xs-7" data-bind="visible: !bin().assessing() && bin().assessed()">
+                <strong>Contamination</strong>
+                <p data-bind="text: bin().contamination"></p>
+                <strong>Completeness</strong>
+                <p data-bind="text: bin().completeness"></p>
             </div>
         </div>
     </div>

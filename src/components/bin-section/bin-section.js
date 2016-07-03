@@ -1,13 +1,28 @@
-define(['knockout', 'text!./bin-section.html', 'knockout-postbox'], function(ko, template) {
+define([
+    'knockout', 
+    'text!./bin-section.html', 
+    'jquery', 
+    'knockout-postbox', 
+    'bootstrap'
+], function(ko, template, $) {
 
     function ViewModel() {
         var self = this;
         
         self.binSet = ko.observable().subscribeTo('binSet', true);
-        self.bin = ko.observable().subscribeTo('bin', true);
+        self.bin = ko.observable().syncWith('bin', true);
+        self.bins = ko.observableArray().subscribeTo('bins', true);
+        self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs', true);
         self.loading = ko.observable(true);
         self.editing = ko.observable(false);
         self.newName = ko.observable('');
+        
+        self.taxonList = ko.observable({});
+        self.rank = ko.observable('domain');
+        self.taxon = ko.observable('Bacteria');
+        self.taxons = ko.computed(function() {
+            return self.taxonList()[self.rank()];
+        });
         
         self.toggleEditing = function() { self.editing(!self.editing()); };
         
@@ -26,6 +41,19 @@ define(['knockout', 'text!./bin-section.html', 'knockout-postbox'], function(ko,
                 }
             });
         };
+        
+        self.assess = function() {
+            var bin = self.bin();
+            var data = {bin: bin.id, rank: self.rank(), taxon: self.taxon()};
+            $.post('/hmmer', data, function(data, textStatus, jqXHR) {
+                bin.assessing(true);
+                var job = { location: jqXHR.getResponseHeader('Location') };
+                job.meta = data;
+                self.hmmerJobs.push(job);
+            });
+        };
+        
+        $.getJSON('/hmmer', function(data) { self.taxonList(data.taxonList); });
     };
     
     return {

@@ -1,4 +1,9 @@
-define(['knockout', 'text!./bin-table.html', 'knockout-postbox'], function(ko, template) {
+define([
+    'knockout', 
+    'text!./bin-table.html', 
+    'app/classes', 
+    'knockout-postbox'
+], function(ko, template, classes) {
 
     function ViewModel(params) {
         var self = this;
@@ -20,8 +25,7 @@ define(['knockout', 'text!./bin-table.html', 'knockout-postbox'], function(ko, t
                 data: formData,
                 async: false,
                 success: function(data) {
-                    data.name = ko.observable(data.name);
-                    self.bins.push(data);
+                    self.bins.push(classes.Bin(data));
                     formElement.reset();
                     self.newBin(false);
                 },
