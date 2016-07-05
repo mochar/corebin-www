@@ -42,35 +42,6 @@
 </div>
 
 <div class="col-xs-3">
-    <script type="text/html" id="assembly-template">
-        <div class="panel panel-default" data-bind="with: $data">
-            <div class="panel-body">
-                <!-- ko if: $component.assembly() === $data -->
-                <p style="font-size: 1.5em" class="text-center" 
-                   data-bind="text: name"></p>
-                <!-- /ko -->
-                <!-- ko if: $component.assembly() !== $data -->
-                <a style="font-size: 1.5em" class="text-center" href="#"
-                   data-bind="text: name, click: $component.selectAssembly"></a>
-                <!-- /ko -->
-            </div>
-            <ul class="list-group" style="font-size: 90%">
-                <li class="list-group-item">
-                    <i style="color: #777">Contigs</i>
-                    <div class="pull-right">
-                        <p data-bind="text: size"></p>
-                    </div>
-                </li>
-                <li class="list-group-item">
-                    <i style="color: #777">Bin sets</i>
-                    <div class="pull-right">
-                        <p data-bind="text: binSets.length"></p>
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </script> 
-    
     <!-- ko if: assemblyJobs().length > 0 -->
     <div class="alert alert-info">
         <span class="fa fa-refresh fa-spin"></span>
@@ -78,14 +49,6 @@
         <a href="#" class="alert-link pull-right" data-bind="click: function(){}">cancel</a>
     </div>
     <!-- /ko -->
-    
-    <!-- ko if: assembly -->
-    <div data-bind="template: { name: 'assembly-template', data: assembly }"></div>
-    <hr>
-    <!-- /ko -->
-    
-    <div data-bind="template: { name: 'assembly-template', 
-                                foreach: unselectedAssemblies }"></div>
     
     <assembly-upload></assembly-upload>
 </div>

@@ -6,7 +6,7 @@ define([
     'bootstrap'
 ], function(ko, template, $) {
     
-    function ViewModel(params) {
+    function ViewModel() {
         var self = this;
         
         self.route = ko.observable({}).subscribeTo('route');
@@ -18,12 +18,11 @@ define([
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs');
         self.assemblyLoading = ko.observable(true).publishOn('assemblyLoading');
         
-        self.selectAssembly = function(assembly) { self.assembly(assembly); };
-        
-        self.unselectedAssemblies = ko.computed(function() {
-            var assembly = self.assembly();
-            return self.assemblies().filter(function(a) { return a != assembly });
-        });
+        self.addAssembly = function(assembly) {
+            self.assemblies.push(assembly);
+            if (self.assemblies().length === 1)
+                self.assembly(assembly);
+        }
         
         self.checkAssemblyJobs = function() {
             var jobs = self.assemblyJobs();
@@ -32,7 +31,7 @@ define([
                     if (jqXHR.status == 201) {
                         self.assemblyJobs.remove(job);
                         var location = jqXHR.getResponseHeader('Location');
-                        $.getJSON(location, function(a) { self.assemblies.push(a); });
+                        $.getJSON(location, self.addAssembly);
                     } else {
                         job.meta.status(data.status);
                     };

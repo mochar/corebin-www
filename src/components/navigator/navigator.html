@@ -17,12 +17,44 @@
     <li role="presentation" data-bind="css: {active: route().page === 'help-page'}">
         <a href="#help"><span class="fa fa-question-circle"></span> Help</a>
     </li>
-    <li class="pull-right well well-sm" style="border: 0">
-        <span data-bind="if: !assemblyLoading() && assembly()">
-            Working on assembly <b data-bind="text: assembly().name"></b><span data-bind="if: !binSet()">.</span>
-            <span data-bind="if: binSet">/ bin set <b data-bind="text: binSet().name"></b>.</span>
-        </span>
+    
+    <li class="pull-right row" style="border: 0">
         <span class="fa fa-refresh fa-spin fa-lg" data-bind="visible: assemblyLoading"></span>
-        <span data-bind="visible: !assemblyLoading() && !assembly()">Upload or select an assembly to begin.</span>
+        
+        <small data-bind="visible: !assemblyLoading() && !assembly()">Upload or select an assembly to begin.</small>
+        
+        <!-- ko if: !assemblyLoading() && assembly() -->
+        <div class="dropdown col-xs-6">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <strong> Assembly </strong>
+                <span data-bind="text: assembly().name"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" data-bind="foreach: assemblies">
+                <li data-bind="css: {'disabled': $data == $component.assembly()}">
+                    <a href="#" data-bind="click: $component.selectAssembly">
+                        <h4 data-bind="text: name"></h4> 
+                        <strong>Contigs</strong> <span data-bind="text: size"></span>
+                        <strong>Bin sets</strong> <span data-bind="text: binSets.length"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
+        
+        <!-- ko if: !assemblyLoading() && binSet() -->
+        <div class="dropdown col-xs-6">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                <strong> Bin set </strong>
+                <span data-bind="text: binSet().name"></span>
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" data-bind="foreach: binSets">
+                <li data-bind="css: {'disabled': $data == $component.binSet()}">
+                    <a href="#" data-bind="text: name, click: $component.selectBinSet"></a>
+                </li>
+            </ul>
+        </div>
+        <!-- /ko -->
     </li>
 </ul>
