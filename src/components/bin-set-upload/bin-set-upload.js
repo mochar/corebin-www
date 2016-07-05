@@ -1,17 +1,17 @@
-define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(ko, template) {
+define(['knockout', 'text!./bin-set-upload.html', 'knockout-postbox'], function(ko, template) {
 
-    function ViewModel(params) {
+    function ViewModel() {
         var self = this;
         
-        self.binSets = ko.observableArray([]).syncWith('binSets');
-        self.assembly = ko.observable().subscribeTo('assembly');
-        self.binSet = ko.observable().subscribeTo('binSet');
+        self.binSet = ko.observable().syncWith('binSet', true);
+        self.binSets = ko.observableArray([]).syncWith('binSets', true);
+        self.assembly = ko.observable().subscribeTo('assembly', true);
         
         self.uploadBinSet = function(formElement) {
-            var formData = new FormData(formElement);
-            formElement.reset();
             var assembly = self.assembly();
             if (!assembly) return;
+            
+            var formData = new FormData(formElement);
             $.ajax({
                 url: '/a/' + assembly.id + '/bs',
                 type: 'POST',
@@ -23,6 +23,8 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
                         return binSet && binSet.id == data.id;
                     });
                     self.binSets.push(data);
+                    if (self.binSets().length === 1) self.binSet(data);
+                    formElement.reset();
                 },
                 cache: false,
                 contentType: false,
@@ -32,7 +34,7 @@ define(['knockout', 'text!./bin-set-modal.html', 'knockout-postbox'], function(k
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

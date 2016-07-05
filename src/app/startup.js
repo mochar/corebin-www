@@ -9,7 +9,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});
     ko.components.register('assembly-upload', {require: 'components/assembly-upload/assembly-upload'});
     
-    ko.components.register('bin-set-modal', {require: 'components/bin-set-modal/bin-set-modal'});
+    ko.components.register('bin-set-upload', {require: 'components/bin-set-upload/bin-set-upload'});
     ko.components.register('bin-sets-panel', {require: 'components/bin-sets-panel/bin-sets-panel'});
     ko.components.register('bin-section', {require: 'components/bin-section/bin-section'});
     
