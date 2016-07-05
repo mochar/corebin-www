@@ -1,4 +1,4 @@
-define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(ko, template) {
+define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function(ko, template) {
 
     function ViewModel(params) {
         var self = this;
@@ -43,10 +43,6 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                 formData.append('samples[]', samples[i]);
             }
             
-            // Reset form
-            formElement.reset();
-            self.resetForm();
-            
             $.ajax({
                 url: '/a',
                 type: 'POST',
@@ -57,6 +53,10 @@ define(['knockout', 'text!./assembly-modal.html', 'knockout-postbox'], function(
                     job.meta = data;
                     job.meta.status = ko.observable(job.meta.status);
                     self.assemblyJobs.push(job);
+                    
+                    // Reset form
+                    formElement.reset();
+                    self.resetForm();
                 },
                 cache: false,
                 contentType: false,
