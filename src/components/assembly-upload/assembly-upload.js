@@ -3,8 +3,8 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
     function ViewModel(params) {
         var self = this;
         
-        self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs');
-        self.assembly = ko.observable().syncWith('assembly');
+        self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs', true);
+        self.assembly = ko.observable().syncWith('assembly', true);
         
         self.resetForm = function() {
             self.hasHeaders = ko.observable(true);

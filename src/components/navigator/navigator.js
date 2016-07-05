@@ -4,9 +4,10 @@ define([
     'knockout-postbox',
 ], function(ko, template, $) {
     
-    function ViewModel(params) {
+    function ViewModel() {
         var self = this;
-        self.route = params.route;
+        
+        self.route = ko.observable().syncWith('route', true);
         self.assembly = ko.observable().syncWith('assembly');
         self.assemblies = ko.observableArray([]).subscribeTo('assemblies');
         self.assemblyLoading = ko.observable().subscribeTo('assemblyLoading');
@@ -17,5 +18,5 @@ define([
         self.selectBinSet = function(binSet) { self.binSet(binSet); };
     };
     
-    return { viewModel: ViewModel, template: template };
+    return { viewModel: { instance: new ViewModel() }, template: template };
 });
