@@ -32,7 +32,7 @@
             </button>
             <ul class="dropdown-menu" data-bind="foreach: assemblies">
                 <li data-bind="css: {'disabled': $data == $component.assembly()}">
-                    <a href="#" data-bind="click: $component.selectAssembly">
+                    <a href="#overview" data-bind="click: $component.selectAssembly">
                         <h4 data-bind="text: name"></h4> 
                         <strong>Contigs</strong> <span data-bind="text: size"></span>
                         <strong>Bin sets</strong> <span data-bind="text: binSets.length"></span>
@@ -51,7 +51,7 @@
             </button>
             <ul class="dropdown-menu" data-bind="foreach: binSets">
                 <li data-bind="css: {'disabled': $data == $component.binSet()}">
-                    <a href="#" data-bind="text: name, click: $component.selectBinSet"></a>
+                    <a href="#overview" data-bind="text: name, click: $component.selectBinSet"></a>
                 </li>
             </ul>
         </div>

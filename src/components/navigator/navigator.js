@@ -14,8 +14,15 @@ define([
         self.binSet = ko.observable().syncWith('binSet');
         self.binSets = ko.observableArray([]).subscribeTo('binSets');
         
-        self.selectAssembly = function(assembly) { self.assembly(assembly); };
-        self.selectBinSet = function(binSet) { self.binSet(binSet); };
+        self.selectAssembly = function(assembly) { 
+            self.assembly(assembly);
+            return true;
+        };
+        
+        self.selectBinSet = function(binSet) { 
+            self.binSet(binSet); 
+            return true; 
+        };
     };
     
     return { viewModel: { instance: new ViewModel() }, template: template };
