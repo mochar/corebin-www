@@ -1,4 +1,4 @@
-<ul class="nav nav-tabs">
+<ul class="nav nav-pills inverted-nav bg-primary">
     <li role="presentation" data-bind="css: {active: route().page === 'home-page'}">
         <a href="#home"><span class="fa fa-lg fa-home"></span></a>
     </li>
@@ -18,45 +18,37 @@
         <a href="#help"><span class="fa fa-question-circle"></span> Help</a>
     </li>
     
-    <li class="pull-right row" style="border: 0">
-        <span class="fa fa-refresh fa-spin fa-lg" data-bind="visible: assemblyLoading"></span>
-        
-        <small class="text-muted" data-bind="visible: !assemblyLoading() && !assembly()">
-            Upload or select an assembly to begin.
-        </small>
-        
-        <!-- ko if: !assemblyLoading() && assembly() -->
-        <div class="dropdown col-xs-6">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <strong> Assembly </strong>
-                <span data-bind="text: assembly().name"></span>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" data-bind="foreach: assemblies">
-                <li data-bind="css: {'disabled': $data == $component.assembly()}">
-                    <a href="#overview" data-bind="click: $component.selectAssembly">
-                        <span data-bind="text: name"></span> 
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- /ko -->
-        
-        <!-- ko if: !assemblyLoading() && binSet() -->
-        <div class="dropdown col-xs-6">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                <strong> Bin set </strong>
-                <span data-bind="text: binSet().name"></span>
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" data-bind="foreach: binSets">
-                <li data-bind="css: {'disabled': $data == $component.binSet()}">
-                    <a href="#overview" data-bind="click: $component.selectBinSet">
-                        <span data-bind="text: name"></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <!-- /ko -->
+    <li role="presentation" class="pull-right" data-bind="if: assemblyLoading">
+        <span class="fa fa-refresh fa-spin fa-2x"></span>
+    </li>
+    
+    <li role="presentation" class="dropdown pull-right" data-bind="if: !assemblyLoading() && binSet()">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <strong>Bin set </strong>
+            <span data-bind="text: binSet().name"></span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" data-bind="foreach: binSets">
+            <li data-bind="css: {'disabled': $data == $component.binSet()}">
+                <a href="#overview" data-bind="click: $component.selectBinSet">
+                    <span data-bind="text: name"></span>
+                </a>
+            </li>
+        </ul>
+    </li>
+    
+    <li role="presentation" class="dropdown pull-right" data-bind="if: !assemblyLoading() && assembly()">
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <strong>Assembly </strong>
+            <span data-bind="text: assembly().name"></span>
+            <span class="caret"></span>
+        </a>
+        <ul class="dropdown-menu" data-bind="foreach: assemblies">
+            <li data-bind="css: {'disabled': $data == $component.assembly()}">
+                <a href="#overview" data-bind="click: $component.selectAssembly">
+                    <span data-bind="text: name"></span> 
+                </a>
+            </li>
+        </ul>
     </li>
 </ul>

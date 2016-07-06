@@ -38,14 +38,6 @@
   margin-bottom: 0;
 }
 
-.clickable-fa {
-  cursor: pointer;
-}
-
-.clickable-fa:hover {
-  color: #a94442;
-}
-
 .colorBox {
     float: left;
     width: 15px;
@@ -88,6 +80,29 @@
   padding: 4px 0 4px 10px;
   margin-bottom: 30px;
   border: 1px solid #dcdcdc;
+}
+
+/* Nav */
+.inverted-nav a {
+  color: white;
+}
+
+.inverted-nav a:hover,
+.inverted-nav a:focus {
+  color: #555;
+}
+
+.inverted-nav li.active a,
+.inverted-nav li.active a:focus,
+.inverted-nav li.active a:hover {
+  background-color: white;
+  color: #555;
+  font-weight: bold;
+}
+
+.inverted-nav li.disabled a,
+.inverted-nav li.disabled a:hover {
+  color: #31708f;
 }
 
 /*D3 axis*/
