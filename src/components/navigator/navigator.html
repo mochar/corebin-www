@@ -21,7 +21,9 @@
     <li class="pull-right row" style="border: 0">
         <span class="fa fa-refresh fa-spin fa-lg" data-bind="visible: assemblyLoading"></span>
         
-        <small data-bind="visible: !assemblyLoading() && !assembly()">Upload or select an assembly to begin.</small>
+        <small class="text-muted" data-bind="visible: !assemblyLoading() && !assembly()">
+            Upload or select an assembly to begin.
+        </small>
         
         <!-- ko if: !assemblyLoading() && assembly() -->
         <div class="dropdown col-xs-6">
