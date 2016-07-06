@@ -47,6 +47,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
                     fields: 'id,length,gc,name',
                     bins: bin.id,
                     coverages: true,
+                    pca: true,
                     colors: true,
                     items: self.assembly().size
                 };
