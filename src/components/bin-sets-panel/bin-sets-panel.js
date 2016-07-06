@@ -5,22 +5,15 @@ define([
     'knockout-postbox'
 ], function(ko, template, classes) {
 
-    function ViewModel(params) {
+    function ViewModel() {
         var self = this;
         
         self.loading = ko.observable(true);
         self.binSets = ko.observableArray([]).syncWith('binSets');
-        self.binSet = ko.observable().publishOn('binSet');
+        self.binSet = ko.observable().syncWith('binSet');
         self.bins = ko.observableArray([]).syncWith('bins');
         self.bin = ko.observable().syncWith('bin');
         self.hmmerJobs = ko.observableArray([]).subscribeTo('hmmerJobs', true);
-        
-        self.selectBinSet = function(binSet) { self.binSet(binSet); };
-        
-        self.isSelectedBinSet = function(binSetId) { 
-            var binSet = self.binSet();
-            return binSet && binSet.id == binSetId;
-        };
         
         self.isSelectedBin = function(binId) {
             var bin = self.bin();
@@ -31,13 +24,13 @@ define([
         ko.postbox.subscribe('assembly', function(assembly) {
             self.binSets([]);
             self.binSet(null);
+            self.bins([]);
+            self.bin(null);
             self.loading(true);
             if (!assembly) return;
             $.getJSON('/a/' + assembly.id + '/bs', function(data) {
                 self.binSets(data.binSets);
                 self.binSet(data.binSets[0]);
-                self.bins([]);
-                self.bin(null);
             })
         }, true);
         

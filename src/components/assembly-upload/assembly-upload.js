@@ -66,7 +66,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

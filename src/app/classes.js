@@ -21,7 +21,6 @@ define(['knockout'], function(ko) {
         return this.contamination() == null ? false : true;
     }
     
-    
     return {
         Bin: function(data) { return new _Bin(data); } 
     }

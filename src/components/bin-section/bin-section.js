@@ -24,7 +24,7 @@ define([
             return self.taxonList()[self.rank()];
         });
         
-        self.toggleEditing = function() { self.editing(!self.editing()); };
+        self.edit = function() { self.editing(true); };
         
         self.rename = function(element) {
             var binSet = self.binSet();
@@ -57,7 +57,7 @@ define([
     };
     
     return {
-        viewModel: ViewModel,
+        viewModel: { instance: new ViewModel() },
         template: template
     };
 });

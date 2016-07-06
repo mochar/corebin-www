@@ -499,8 +499,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
         update: function(element, valueAccessor, allBindings) {
             var color = ko.unwrap(valueAccessor());
             var width = allBindings.get('borderWidth') || '4px';
-            $(element).css('border-left-color', color);
-            $(element).css('border-left-width', width);
+            $(element).css('border-left', width + ' solid ' + color);
         }
     };
 

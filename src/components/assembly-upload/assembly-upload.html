@@ -1,41 +1,39 @@
 <div class="panel panel-default">
 <div class="panel-heading">
-    <!--<h4>Upload assembly</h4>-->
     Upload assembly
 </div>
 <div class="panel-body">
     <form name="assembly-form" method="post"
         enctype="multipart/form-data" data-bind="submit: uploadAssembly">
-            
+        
         <div class="form-group">
             <label for="name">Assembly name</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control input-sm" name="name">
         </div>
+        
         <div class="form-group">
             <label for="contigs">Contigs (fasta)</label>
-            <input type="file" name="contigs">
+            <input type="file" name="contigs" class="input-sm">
         </div>
+        
         <div class="checkbox">
             <label>
                 <input type="checkbox" name="fourmers"> Calculate tetranucleotide frequencies
             </label>
         </div>
+        
         <div class="form-group">
             <label for="fasta">Sample coverage</label>
             
-            <input type="file" name="coverage" 
+            <input type="file" name="coverage" class="input-sm"
                 data-bind="event: { change: function() { onFileChange($element.files[0]) } }">
                 
             <span data-bind="visible: samples().length > 0">
                 <input type="checkbox" data-bind="checked: hasHeaders" style="margin-top: 12px;"> Headers
             </span>
-            
-            <!--<div data-bind="foreach: samples">
-                <input type="text" class="form-control input-sm" data-bind="value: $data">
-            </div>-->
         </div>
         
-        <button type="submit" class="btn btn-primary pull-right">Save assembly</button>
+        <button type="submit" class="btn btn-primary pull-right btn-sm">Save assembly</button>
     </form>
 </div>
 </div>

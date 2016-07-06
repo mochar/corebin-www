@@ -64,6 +64,32 @@
   text-align: right;
 }
 
+#bin-name {
+  font-size: 1.6em;
+}
+
+#bin-name::before {
+  content: "Bin ";
+  color: #777;
+  font-size: small;
+}
+
+#bin-set-name {
+  font-size: 1.6em;
+}
+
+#bin-set-name::before {
+  content: "Bin set ";
+  color: #777;
+  font-size: small;
+}
+
+.name-div {
+  padding: 4px 0 4px 10px;
+  margin-bottom: 30px;
+  border: 1px solid #dcdcdc;
+}
+
 /*D3 axis*/
 .axis path,
 .axis line {

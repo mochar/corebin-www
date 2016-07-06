@@ -10,6 +10,8 @@ define([
     function ViewModel(params) {
         var self = this;
         
+        self.assembly = ko.observable().subscribeTo('assembly', true);
+        self.binSets = ko.observableArray([]).subscribeTo('binSets', true);
         self.lengthData = ko.observable({'data': [], 'bins': []});
         self.gcData = ko.observable({'data': [], 'bins': []});
         

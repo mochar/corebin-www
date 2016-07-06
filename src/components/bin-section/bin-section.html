@@ -1,74 +1,58 @@
 <!-- ko if: bin -->
-<div class="panel panel-default" data-bind="borderColor: bin().color">
-    <div class="panel-body">
-        <div class="row" data-bind="visible: !editing()">
-            <div class="col-xs-10">
-                <p data-bind="text: bin().name" style="margin: 0; font-size: 1.3em"></p>
-            </div>
-            <div class="col-xs-2 clickable-fa">
-                <span class="fa fa-pencil" data-bind="click: toggleEditing"></span>
-            </div>
-        </div>
-        
-        <div class="row" data-bind="visible: editing">
-            <form data-bind="submit: rename">
-                <div class="col-xs-7">
-                    <input type="text" name="name" placeholder="name" class="form-control"
-                           data-bind="value: bin().name, textInput: newName">
-                </div>
-                <div class="col-xs-3">
-                    <button class="btn btn-default" type="submit">Submit</button>
-                </div>
-                <div class="col-xs-1 clickable-fa">
-                    <span class="fa fa-times" data-bind="click: toggleEditing">
-                </div>
-            </form>
-        </div>
-        
-        <div class="row bin-description">
-            <hr style="margin-top: .5em">
-            <div class="col-xs-3">
-                <p class="text-right"><strong>GC</strong></p>
-                <p class="text-right"><strong>N50</strong></p>
-                <p class="text-right"><strong>Contigs</strong></p>
-            </div>
-            <div class="col-xs-2" style="padding-left: 0">
-                <p data-bind="text: bin().gc"></p>
-                <p data-bind="text: bin().n50"></p>
-                <p data-bind="text: bin().size"></p>
-            </div>
-            <div class="col-xs-7" data-bind="visible: !bin().assessing() && !bin().assessed()">
-                <button class="btn btn-link btn-sm" style="white-space: normal"
-                        data-bind="popover: {html: true, placement: 'bottom'},
-                                   contentSelector: '#assess-form'">
-                    Assess contamination & completeness
-                </button>
-                <div class="container-fluid hide" id="assess-form">
-                    <div class="form-group">
-                        <label>Rank</label>
-                        <select data-bind="options: Object.keys(taxonList()), value: rank" 
-                                class="form-control">
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Taxon</label>
-                        <select data-bind="options: taxons, value: taxon" 
-                                class="form-control">
-                        </select>
-                    </div>
-                    <button class="btn btn-primary btn-block" data-bind="click: assess">Calculate</button>
-                </div>
-            </div>
-            <div class="col-xs-7" style="text-align: center" data-bind="visible: bin().assessing">
-                <span class="fa fa-refresh fa-spin fa-lg"></span>
-            </div>
-            <div class="col-xs-7" data-bind="visible: !bin().assessing() && bin().assessed()">
-                <strong>Contamination</strong>
-                <p data-bind="text: bin().contamination"></p>
-                <strong>Completeness</strong>
-                <p data-bind="text: bin().completeness"></p>
-            </div>
-        </div>
-    </div>
+<div data-bind="borderColor: bin().color" class="name-div">
+    <span id="bin-name" data-bind="text: bin().name"></span>
+    <!--<input data-bind="visible: editing, value: bin().name, textInput: newName, hasFocus: editing" 
+           class="form-control" />-->
+    <button type="button" class="btn btn-link pull-right">
+        <span class="fa fa-trash text-danger"></span>
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-bind="click: edit">
+        <span class="fa fa-pencil text-info"></span>
+    </button>
 </div>
+
+<div class="container-fluid hide" id="assess-form">
+    <div class="form-group">
+        <label>Rank</label>
+        <select data-bind="options: Object.keys(taxonList()), value: rank" 
+                class="form-control">
+        </select>
+    </div>
+    <div class="form-group">
+        <label>Taxon</label>
+        <select data-bind="options: taxons, value: taxon" 
+                class="form-control">
+        </select>
+    </div>
+    <button class="btn btn-primary btn-block" data-bind="click: assess">Calculate</button>
+</div>
+
+
+<h5><span class="fa fa-cog fa-lg fa-pull-right"></span> Actions</h5>
+<hr style="margin-top: 0">
+<ul>
+    <li>
+        <a href="#" data-bind="popover: {html: true, placement: 'bottom'},
+                               contentSelector: '#assess-form',
+                               click: function() {},
+                               visible: !bin().assessing()">
+            Assess quality
+        </a>
+        <span data-bind="visible: bin().assessing()">
+            Assess quality
+            <span class="fa fa-refresh fa-spin fa-pull-right"></span>
+        </span>
+    </li>
+    <li>
+        <a href="#refine">Refine</a>
+    </li>
+    <li>
+        <a href="#compare">Compare</a>
+    </li>
+</ul>
+
+
+<h5 style="margin-top: 23px"><span class="fa fa-tasks fa-lg fa-pull-right"></span> Contigs</h5>
+<hr style="margin-top: 0">
+
 <!-- /ko -->

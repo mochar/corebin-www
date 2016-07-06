@@ -1,6 +1,6 @@
-<div class="panel panel-default">
+<div class="panel panel-default" data-bind="if: assembly">
 <div class="panel-heading">
-    Upload bin set
+    Upload bin set to <i data-bind="text: assembly().name"></i>
 </div>
 <div class="panel-body">
     <form name="bin-set-form" method="post"
@@ -8,15 +8,15 @@
         
         <div class="form-group">
             <label for="name">Bin set name</label>
-            <input type="text" class="form-control" name="name">
+            <input type="text" class="form-control input-sm" name="name">
         </div>
         
         <div class="form-group">
             <label for="bins">Bins</label>
-            <input type="file" name="bins">
+            <input type="file" class="input-sm" name="bins">
         </div>
     
-        <button type="submit" class="btn btn-primary pull-right">Save bin set</button>
+        <button type="submit" class="btn btn-primary pull-right btn-sm">Save bin set</button>
     </form>
 </div>
 </div>
