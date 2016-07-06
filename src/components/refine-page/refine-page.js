@@ -41,15 +41,16 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         
         self.getContigs = function(bin) {
             self.loading(true);
-            var binSet = self.binSet()
-                colorBinSet = self.colorBinSet();
+            var binSet = self.binSet(),
+                assembly = self.assembly(),
+                colorBinSet = self.colorBinSet(),
                 payload = {
                     fields: 'id,length,gc,name',
                     bins: bin.id,
                     coverages: true,
-                    pca: true,
+                    pca: assembly.hasFourmerfreqs,
                     colors: true,
-                    items: self.assembly().size
+                    items: assembly.size
                 };
             $.getJSON('/a/' + binSet.assembly + '/c', payload, function(data) {
                 self.contigs(self.contigs().concat(data.contigs.map(function(contig) {

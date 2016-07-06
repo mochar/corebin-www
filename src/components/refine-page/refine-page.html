@@ -17,9 +17,13 @@
     <div class="col-xs-7">
         <div class="panel panel-default panel-toolbar"><div class="panel-body">
             <div class="btn-toolbar" role="toolbar">
-                <axis-parameter class="btn-group" params="axis: x, samples: assembly().samples, name: 'X'">
+                <axis-parameter class="btn-group" 
+                                params="axis: x, samples: assembly().samples, 
+                                        name: 'X', hasFourmerfreqs: assembly().hasFourmerfreqs">
                 </axis-parameter>
-                <axis-parameter class="btn-group" params="axis: y, samples: assembly().samples, name: 'Y'">
+                <axis-parameter class="btn-group" 
+                                params="axis: y, samples: assembly().samples, 
+                                        name: 'Y', hasFourmerfreqs: assembly().hasFourmerfreqs">
                 </axis-parameter>
                 
                 <div class="btn-group btn-group-sm">

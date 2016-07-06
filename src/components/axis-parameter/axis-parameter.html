@@ -9,15 +9,17 @@
         <li><a href="#" data-bind="click: function() { axis().data('gc') }">GC</a></li>
         <li><a href="#" data-bind="click: function() { axis().data('length') }">Length</a></li>
         
-        <li class="dropdown-header">Coverage</li>
+        <li class="dropdown-header" data-bind="visible: samples().length > 0">Coverage</li>
         <!-- ko foreach: samples -->
         <li><a href="#" data-bind="click: function() { $parent.axis().data($data) }, text: $data"></a></li>
         <!-- /ko -->
         
+        <!-- ko if: hasFourmerfreqs -->
         <li class="dropdown-header">PCA</li>
         <li><a href="#" data-bind="click: function() { axis().data('pc_1') }">PC 1</a></li>
         <li><a href="#" data-bind="click: function() { axis().data('pc_2') }">PC 2</a></li>
         <li><a href="#" data-bind="click: function() { axis().data('pc_3') }">PC 3</a></li>
+        <!-- /ko -->
         
         <li role="separator" class="divider"></li>
         <li>

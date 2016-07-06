@@ -5,6 +5,7 @@ define(['knockout', 'text!./axis-parameter.html', 'knockout-postbox'], function(
         
         self.axis = params.axis;
         self.samples = params.samples;
+        self.hasFourmerfreqs = params.hasFourmerfreqs;
         self.name = params.name || '';
         
         self.toggleLog = function() {
