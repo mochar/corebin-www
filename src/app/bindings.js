@@ -39,7 +39,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 otherBins = viewModel.otherBins.peek(),
                 binsIndices = viewModel.binsIndices.peek(),
                 otherBinsIndices = viewModel.otherBinsIndices.peek();
-            if (!dirty) return;
+            // if (!dirty) return;
             viewModel.dirty(false);
             
             var margin = {top: 5, right: 30, bottom: 60, left: 30},
@@ -71,7 +71,11 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             var groupPaths = svg.select('#group').selectAll('path')
                 .data(chord.groups(), function(d) { return d.index; });
 
-            groupPaths.enter().append("path")
+            groupPaths.enter()
+              .append("path")
+                .style("fill", function(d) {
+                    return indexToBin(d.index).color;
+                })
                 .style("stroke", '#000000')
                 .style('opacity', 0)
                 .on("mouseover", function(d, i) {
@@ -99,7 +103,10 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 .data(chord.chords());
 
             chordPaths.enter()
-                .append('path')
+              .append('path')
+                .style("fill", function(d) {
+                    return indexToBin(d.source.index).color;
+                })
                 .style('opacity', 0);
 
             chordPaths.transition()
@@ -122,14 +129,12 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
 
             svg.select('#arc').select('#arc1')
                 .attr('fill', binSet.color)
-              .transition()
                 .attr('d', arc
                     .startAngle(chord.groups()[0].startAngle)
                     .endAngle(chord.groups()[bins.length - 1].endAngle));
 
             svg.select('#arc').select('#arc2')
                 .attr('fill', otherBinSet.color)
-              .transition()
                 .attr('d', arc
                     .startAngle(chord.groups()[bins.length].startAngle)
                     .endAngle(chord.groups()[bins.length + otherBins.length - 1].endAngle));

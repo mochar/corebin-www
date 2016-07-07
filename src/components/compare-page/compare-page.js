@@ -10,6 +10,7 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         self.otherBins = ko.observableArray([]);
         
         self.dirty = ko.observable(false);
+        self.loading = ko.observable(false);
         self.matrix = [];
         self.binsIndices = ko.observableArray([]);
         self.otherBinsIndices = ko.observableArray([]);
@@ -20,6 +21,7 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         }
         
         self.plot = function() {
+            self.loading(true);
             var binSet = self.binSet(),
                 otherBinSet = self.otherBinSet(),
                 params = {binset1: binSet.id, binset2: otherBinSet.id};
@@ -33,9 +35,21 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
                     self.binsIndices(self.mapIdToIndex(respMatrix[0].bins1, self.bins()));
                     self.otherBinsIndices(self.mapIdToIndex(respMatrix[0].bins2, self.otherBins()));
                     self.dirty(true);
+                    self.loading(false);
                 }
             );
         };
+        
+        // Reset variables on bin set change
+        ko.computed(function() {
+            var binSet = self.binSet();
+            self.otherBinSet(null);
+            self.otherBins([]);
+            self.matrix = [];
+            self.binsIndices([]);
+            self.otherBinsIndices([]);
+            self.dirty(true);
+        });
     };
     
     return {

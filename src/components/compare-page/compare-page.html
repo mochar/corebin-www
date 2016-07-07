@@ -18,10 +18,14 @@
                 </div>
                 
                 <div class="pull-right">
-                    <button class="btn btn-primary btn-sm" data-bind="click: plot">Visualise</button>
+                    <button class="btn btn-primary btn-sm" data-bind="click: plot, disable: loading">
+                        <span class="fa fa-refresh fa-spin" data-bind="visible: loading"></span>
+                        Visualise
+                    </button>
                 </div>
             </div>
         </div></div>
+        
         <div class="well" data-bind="chordPlot: dirty"></div>
     </div>
     
