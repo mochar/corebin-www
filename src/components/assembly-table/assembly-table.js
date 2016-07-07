@@ -11,7 +11,7 @@ define(['knockout', 'text!./assembly-table.html', 'knockout-postbox'], function(
             self.contigs([]);
             self.loading(true);
             if (!bin) return;
-            var data = {items: 15, bins: bin.id};
+            var data = {items: 15, bins: bin.id, fields: 'name,gc,length'};
             $.getJSON('/a/' + self.assembly().id + '/c', data, function(data) {
                 self.contigs(data.contigs);
                 self.loading(false);
