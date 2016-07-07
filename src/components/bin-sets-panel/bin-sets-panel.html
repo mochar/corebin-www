@@ -1,5 +1,5 @@
 <!-- ko with: binSet -->
-<div data-bind="borderColor: color" class="name-div">
+<div data-bind="borderColor: color" class="name-div background">
     <span id="bin-set-name" data-bind="text: name"></span>
     <button type="button" class="btn btn-link pull-right">
         <span class="fa fa-trash text-danger"></span>
@@ -13,31 +13,33 @@
 </div>
 <!-- /ko -->
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th width="5%"></th>
-            <th width="25%">Bin</th>
-            <th width="10%">Size</th>
-            <th width="10%">GC</th>
-            <th width="15%">N50</th>
-            <th width="15%">Cont.</th>
-            <th width="15%">Comp.</th>
-        </tr>
-    </thead>
-    <tbody data-bind="foreach: bins, visible: !loading()">
-        <tr style="cursor: pointer;" data-bind="click: function() { $parent.bin($data); }">
-            <td width="20%">
-                <span data-bind="style: { 'color': color },
-                                 css: $parent.isSelectedBin(id) ? 'fa-circle' : 'fa-circle-o'" 
-                      class="fa fa-circle-o"></span>
-            </td>
-            <td width="25%" data-bind="text: name"></td>
-            <td width="10%" data-bind="text: size"></td>
-            <td width="10%" data-bind="text: gc"></td>
-            <td width="15%" data-bind="text: n50"></td>
-            <td width="15%" data-bind="text: contamination"></td>
-            <td width="15%" data-bind="text: completeness"></td>
-        </tr>
-    </tbody>
-</table>
+<div class="panel panel-default">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th width="5%"></th>
+                <th width="25%">Bin</th>
+                <th width="10%">Size</th>
+                <th width="10%">GC</th>
+                <th width="15%">N50</th>
+                <th width="15%">Cont.</th>
+                <th width="15%">Comp.</th>
+            </tr>
+        </thead>
+        <tbody data-bind="foreach: bins, visible: !loading()">
+            <tr style="cursor: pointer;" data-bind="click: function() { $parent.bin($data); }">
+                <td width="20%">
+                    <span data-bind="style: { 'color': color },
+                                    css: $parent.isSelectedBin(id) ? 'fa-circle' : 'fa-circle-o'" 
+                        class="fa fa-circle-o"></span>
+                </td>
+                <td width="25%" data-bind="text: name"></td>
+                <td width="10%" data-bind="text: size"></td>
+                <td width="10%" data-bind="text: gc"></td>
+                <td width="15%" data-bind="text: n50"></td>
+                <td width="15%" data-bind="text: contamination"></td>
+                <td width="15%" data-bind="text: completeness"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

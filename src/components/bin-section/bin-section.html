@@ -1,5 +1,5 @@
 <!-- ko if: bin -->
-<div data-bind="borderColor: bin().color" class="name-div">
+<div data-bind="borderColor: bin().color" class="name-div background">
     <span id="bin-name" data-bind="text: bin().name"></span>
     <!--<input data-bind="visible: editing, value: bin().name, textInput: newName, hasFocus: editing" 
            class="form-control" />-->
@@ -28,31 +28,34 @@
 </div>
 
 
-<h5><span class="fa fa-cog fa-lg fa-pull-right"></span> Actions</h5>
-<hr style="margin-top: 0">
-<ul>
-    <li>
-        <a href="#" data-bind="popover: {html: true, placement: 'bottom'},
-                               contentSelector: '#assess-form',
-                               click: function() {},
-                               visible: !bin().assessing()">
-            Assess quality
-        </a>
-        <span data-bind="visible: bin().assessing()">
-            Assess quality
-            <span class="fa fa-refresh fa-spin fa-pull-right"></span>
-        </span>
-    </li>
-    <li>
-        <a href="#refine">Refine</a>
-    </li>
-    <li>
-        <a href="#compare">Compare</a>
-    </li>
-</ul>
+<div class="panel panel-default"><div class="panel-body">
+    <h5><span class="fa fa-cog fa-lg fa-pull-right"></span> Actions</h5>
+    <hr style="margin-top: 0">
+    <ul>
+        <li>
+            <a href="#" data-bind="popover: {html: true, placement: 'bottom'},
+                                contentSelector: '#assess-form',
+                                click: function() {},
+                                visible: !bin().assessing()">
+                Assess quality
+            </a>
+            <span data-bind="visible: bin().assessing()">
+                Assess quality
+                <span class="fa fa-refresh fa-spin fa-pull-right"></span>
+            </span>
+        </li>
+        <li>
+            <a href="#refine">Refine</a>
+        </li>
+        <li>
+            <a href="#compare">Compare</a>
+        </li>
+    </ul>
 
 
-<h5 style="margin-top: 23px"><span class="fa fa-tasks fa-lg fa-pull-right"></span> Contigs</h5>
-<hr style="margin-top: 0">
+    <h5 style="margin-top: 23px"><span class="fa fa-tasks fa-lg fa-pull-right"></span> Contigs</h5>
+    <hr style="margin-top: 0">
+    <assembly-table></assembly-table>
+</div></div>
 
 <!-- /ko -->

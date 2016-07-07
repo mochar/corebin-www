@@ -8,6 +8,14 @@
     border-radius: 0 !important;
 }
 
+body {
+  background-color: #eee;
+}
+
+.background {
+  background-color: white;
+}
+
 #page {
     margin-top: 10px;
 }
@@ -78,7 +86,7 @@
 
 .name-div {
   padding: 4px 0 4px 10px;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   border: 1px solid #dcdcdc;
 }
 

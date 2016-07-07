@@ -1,28 +1,36 @@
 <ul class="nav nav-pills inverted-nav bg-primary">
-    <li role="presentation" data-bind="css: {active: route().page === 'home-page'}">
-        <a href="#home"><span class="fa fa-lg fa-home"></span></a>
+    <li data-bind="css: {active: route().page === 'home-page'}">
+        <a href="#home">
+            <span class="fa fa-lg fa-home"></span>
+        </a>
     </li>
-    <li role="presentation" data-bind="css: {active: route().page === 'overview-page',
-                                             disabled: !assembly()}">
-        <a href="#overview"><span class="fa fa-eye"></span> Overview</a>
+    <li data-bind="css: {active: route().page === 'overview-page',
+                         disabled: !assembly()}">
+        <a href="#overview" data-bind="click: function() { return assembly()?true:false }">
+            <span class="fa fa-eye"></span> Overview
+        </a>
     </li>
-    <li role="presentation" data-bind="css: {active: route().page === 'compare-page',
-                                             disabled: !assembly()}">
-        <a href="#compare"><span class="fa fa-balance-scale"></span> Compare</a>
+    <li data-bind="css: {active: route().page === 'compare-page',
+                         disabled: !binSet()}">
+        <a href="#compare" data-bind="click: function() { return binSet()?true:false }">
+            <span class="fa fa-balance-scale"></span> Compare
+        </a>
     </li>
-    <li role="presentation" data-bind="css: {active: route().page === 'refine-page',
-                                             disabled: !assembly()}">
-        <a href="#refine"><span class="fa fa-cog"></span> Refine</a>
+    <li data-bind="css: {active: route().page === 'refine-page',
+                         disabled: !binSet()}">
+        <a href="#refine" data-bind="click: function() { return binSet()?true:false }">
+            <span class="fa fa-cog"></span> Refine
+        </a>
     </li>
-    <li role="presentation" data-bind="css: {active: route().page === 'help-page'}">
+    <li data-bind="css: {active: route().page === 'help-page'}">
         <a href="#help"><span class="fa fa-question-circle"></span> Help</a>
     </li>
     
-    <li role="presentation" class="pull-right" data-bind="if: assemblyLoading">
+    <li class="pull-right" data-bind="if: assemblyLoading">
         <span class="fa fa-refresh fa-spin fa-2x"></span>
     </li>
     
-    <li role="presentation" class="dropdown pull-right" data-bind="if: !assemblyLoading() && binSet()">
+    <li class="dropdown pull-right" data-bind="if: !assemblyLoading() && binSet()">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <strong>Bin set </strong>
             <span data-bind="text: binSet().name"></span>
@@ -37,7 +45,7 @@
         </ul>
     </li>
     
-    <li role="presentation" class="dropdown pull-right" data-bind="if: !assemblyLoading() && assembly()">
+    <li class="dropdown pull-right" data-bind="if: !assemblyLoading() && assembly()">
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <strong>Assembly </strong>
             <span data-bind="text: assembly().name"></span>
