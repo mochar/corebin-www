@@ -110,7 +110,8 @@ body {
 
 .inverted-nav li.disabled a,
 .inverted-nav li.disabled a:hover {
-  color: #31708f;
+  color:#bac0c3;
+}
 }
 
 /*D3 axis*/
