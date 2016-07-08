@@ -14,7 +14,9 @@ define([
         self.assembly = ko.observable().syncWith('assembly');
         self.binSet = ko.observable().syncWith('binSet');
         self.bins = ko.observableArray([]).syncWith('bins');
+        self.binSets = ko.observableArray([]).syncWith('binSets');
         self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs');
+        self.binSetJobs = ko.observableArray([]).syncWith('binSetJobs');
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs');
         self.assemblyLoading = ko.observable(true).publishOn('assemblyLoading');
         
@@ -22,6 +24,14 @@ define([
             self.assemblies.push(assembly);
             if (self.assemblies().length === 1)
                 self.assembly(assembly);
+        }
+        
+        self.addBinSet = function(binSet) {
+            var assembly = self.assembly();
+            if (binSet.assembly != assembly.id) return;
+            self.binSets.push(binSet);
+            if (self.binSets().length === 1)
+                self.binSet(binSet);
         }
         
         self.checkAssemblyJobs = function() {
@@ -60,9 +70,23 @@ define([
             });
         };
         
+        self.checkBinSetJobs = function() {
+            var jobs = self.binSetJobs();
+            jobs.forEach(function(job) {
+                $.getJSON(job.location, function(data, textStatus, jqXHR) {
+                    if (jqXHR.status == 201) {
+                        self.binSetJobs.remove(job);
+                        var location = jqXHR.getResponseHeader('Location');
+                        $.getJSON(location, self.addBinSet);
+                    }
+                });
+            });
+        };
+        
         setInterval(function() {
             self.checkAssemblyJobs();
             self.checkHmmerJobs();
+            self.checkBinSetJobs();
         }, 5000);
         
         // Get data from server
@@ -72,6 +96,9 @@ define([
                 job.meta.status = ko.observable(job.meta.status);
                 return job;
             }));
+            
+            var binSetJobs = data.jobs.filter(function(j) { return j.meta.type == 'B' });
+            self.binSetJobs(binSetJobs);
             
             var hmmerJobs = data.jobs.filter(function(j) { return j.meta.type == 'C' });
             self.hmmerJobs(hmmerJobs);

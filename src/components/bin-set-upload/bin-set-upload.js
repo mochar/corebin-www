@@ -6,6 +6,7 @@ define(['knockout', 'text!./bin-set-upload.html', 'knockout-postbox'], function(
         self.binSet = ko.observable().syncWith('binSet', true);
         self.binSets = ko.observableArray([]).syncWith('binSets', true);
         self.assembly = ko.observable().subscribeTo('assembly', true);
+        self.binSetJobs = ko.observableArray([]).syncWith('binSetJobs', true);
         
         self.uploadBinSet = function(formElement) {
             var assembly = self.assembly();
@@ -17,13 +18,10 @@ define(['knockout', 'text!./bin-set-upload.html', 'knockout-postbox'], function(
                 type: 'POST',
                 data: formData,
                 async: false,
-                success: function(data) {
-                    data.isSelected = ko.computed(function() {
-                        var binSet = self.binSet();
-                        return binSet && binSet.id == data.id;
-                    });
-                    self.binSets.push(data);
-                    if (self.binSets().length === 1) self.binSet(data);
+                success: function(data, textStatus, jqXHR) {
+                    var job = { location: jqXHR.getResponseHeader('Location') };
+                    job.meta = data;
+                    self.binSetJobs.push(job);
                     formElement.reset();
                 },
                 cache: false,

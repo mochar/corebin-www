@@ -52,6 +52,14 @@
     </div>
     <!-- /ko -->
     
+    <!-- ko if: binSetJobs().length > 0 -->
+    <div class="alert alert-info">
+        <span class="fa fa-refresh fa-spin"></span>
+        <span> Saving <strong data-bind="text: binSetJobs().length"></strong> bin sets...</span>
+        <a href="#" class="alert-link pull-right" data-bind="click: function(){}">cancel</a>
+    </div>
+    <!-- /ko -->
+    
     <assembly-upload></assembly-upload>
     <bin-set-upload></bin-set-upload>
 </div>
