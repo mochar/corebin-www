@@ -17,7 +17,8 @@
         </div>
     
         <button type="submit" class="btn btn-primary pull-right btn-sm"
-                data-bind="enable: assembly">
+                data-bind="enable: assembly() && !loading()">
+            <span class="fa fa-refresh fa-spin" data-bind="visible: loading"></span>
             Save bin set
         </button>
     </form>

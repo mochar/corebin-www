@@ -5,6 +5,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
         
         self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs', true);
         self.assembly = ko.observable().syncWith('assembly', true);
+        self.loading = ko.observable(false);
         
         self.resetForm = function() {
             self.hasHeaders = ko.observable(true);
@@ -35,6 +36,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
         });
         
         self.uploadAssembly = function(formElement) {
+            self.loading(true);
             var formData = new FormData(formElement);
             
             // Add sample names
@@ -47,7 +49,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
                 url: '/a',
                 type: 'POST',
                 data: formData,
-                async: false,
+                async: true,
                 success: function(data, textStatus, jqXHR) {
                     var job = { location: jqXHR.getResponseHeader('Location') };
                     job.meta = data;
@@ -57,6 +59,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
                     // Reset form
                     formElement.reset();
                     self.resetForm();
+                    self.loading(false);
                 },
                 cache: false,
                 contentType: false,

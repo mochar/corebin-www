@@ -33,7 +33,10 @@
             </span>
         </div>
         
-        <button type="submit" class="btn btn-primary pull-right btn-sm">Save assembly</button>
+        <button type="submit" class="btn btn-primary pull-right btn-sm" data-bind="disable: loading">
+            <span class="fa fa-refresh fa-spin" data-bind="visible: loading"></span>
+            Save assembly
+        </button>
     </form>
 </div>
 </div>
