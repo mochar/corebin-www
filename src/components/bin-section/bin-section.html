@@ -34,9 +34,10 @@
     <ul>
         <li>
             <a href="#" data-bind="popover: {html: true, placement: 'bottom'},
-                                contentSelector: '#assess-form',
-                                click: function() {},
-                                visible: !bin().assessing()">
+                                   contentSelector: '#assess-form',
+                                   click: function() {},
+                                   visible: !bin().assessing()" 
+               id="a-ssesser">
                 Assess quality
             </a>
             <span data-bind="visible: bin().assessing()">

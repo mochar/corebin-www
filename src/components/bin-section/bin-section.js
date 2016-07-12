@@ -51,6 +51,7 @@ define([
                 job.meta = data;
                 self.hmmerJobs.push(job);
             });
+            $('#a-ssesser').popover('toggle');
         };
         
         $.getJSON('/hmmer', function(data) { self.taxonList(data.taxonList); });
