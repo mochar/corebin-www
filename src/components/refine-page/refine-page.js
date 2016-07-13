@@ -17,6 +17,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.bins = ko.observableArray([]).syncWith('bins', true);
         self.selectedBins = ko.observableArray([]);
         self.selectedContigs = ko.observableArray([]);
+        self.hoveredContig = ko.observable();
         
         self.assembly = ko.observable().subscribeTo('assembly', true);
         self.binSet = ko.observable().subscribeTo('binSet', true);

@@ -144,7 +144,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
     ko.bindingHandlers.contigVis = {
         init: function(element, valueAccessor, allBindings) {
             var width = parseInt(d3.select(element).style('width'), 10),
-                height = width / 16,
+                height = Math.max(width / 16, 16);
                 svg = d3.select(element).append('svg')
                     .attr('width', width)
                     .attr('height', height)
@@ -197,7 +197,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
         },
         update: function(element, valueAccessor, allBindings) {
             var width = parseInt(d3.select(element).style('width'), 10),
-                height = width / 16,
+                height = Math.max(width / 16, 16);
                 svg = d3.select(element).select('svg'),
                 contigs = ko.utils.unwrapObservable(valueAccessor());
             
@@ -379,7 +379,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 y = allBindings.get('y')(),
                 selected = allBindings.get('selected'),
                 colorMethod = allBindings.get('color')(),
-                colorBinSet = allBindings.get('colorBinSet')();
+                colorBinSet = allBindings.get('colorBinSet')()
+                hoveredContig = viewModel.hoveredContig;
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = parseInt(d3.select(element).style('width'), 10)
@@ -387,7 +388,8 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 height = 500 - margin.top - margin.bottom,
                 svg = d3.select(element).select('g'),
                 container = svg.select('svg.container'),
-                rect = svg.select('rect');
+                rect = svg.select('rect')
+                tooltip = d3.select('#tooltip');
 
             var zoom = $(element).data('zoom'),
                 lasso = $(element).data('lasso');
@@ -443,8 +445,18 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                     return colorMethod === 'gc' ? colorScale(d.gc) : d['color_' + colorBinSet.id]; 
                 })
                 .on('mouseover', function(d) {
+                    hoveredContig(d);
+                    tooltip.transition()
+                        .duration(200)
+                        .style('opacity', 0.9);
+                    tooltip
+                        .style('left', d3.event.pageX + 'px')
+                        .style('top', (d3.event.pageY - 28) + 'px');
                 })
                 .on('mouseout', function(d) {
+                    tooltip.transition()
+                        .duration(100)
+                        .style('opacity', 0);
                 })
                 .on('click', function(d) {
                     var isSelected = selected.indexOf(d) > -1; 
