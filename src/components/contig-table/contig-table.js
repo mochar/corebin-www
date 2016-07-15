@@ -34,10 +34,12 @@ define([
         self.bins = params.bins;
         self.selectedBins = params.selectedBins;
         self.loading = params.loading;
+        self.showInfo = ko.observable();
         self.action = ko.observable('');
         self.pagination = new Pagination(self.contigs);
         self.toBin = ko.observable();
         self.binSet = ko.observable().subscribeTo('binSet', true);
+        self.assembly = ko.observable().subscribeTo('assembly', true);
         
         self.fromBin = ko.computed(function() {
             // Get unique bin ids from selected contigs

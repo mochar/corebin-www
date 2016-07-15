@@ -57,6 +57,11 @@ body {
 }
 
 .contig-vis {
+  cursor: pointer;
+}
+
+.contig-vis:hover {
+  background-color: #eee;
 }
 
 .pager-contigs {
@@ -88,6 +93,10 @@ body {
   padding: 4px 0 4px 10px;
   margin-bottom: 20px;
   border: 1px solid #dcdcdc;
+}
+
+table.table-ultra-condensed > tbody > tr > td {
+  padding: 2px;
 }
 
 /* Nav */

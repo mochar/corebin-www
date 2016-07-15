@@ -46,12 +46,37 @@
     <div class="panel-body" data-bind="with: pagination">
         <!-- ko foreach: showContigs -->
         <div class="row contig-vis" style="border-left: 4px solid"
-             data-bind="style: { 'border-left-color': $data['color_' + $parents[1].binSet().id] }">
+             data-bind="style: { 'border-left-color': $data['color_' + $parents[1].binSet().id] },
+                        click: function() { 
+                            $component.showInfo() == $data.id ? 
+                                $component.showInfo(null) : $component.showInfo($data.id) 
+                        }">
             <div class="col-xs-4">
                 <span data-bind="text: name"></span>
             </div>
             <div class="col-xs-8">
                 <div data-bind="contigVis: $data, binSet: $parents[1].binSet"></div>
+            </div>
+            <div class="col-xs-12" data-bind="visible: $component.showInfo() == $data.id">
+                <table class="table table-ultra-condensed table-bordered">
+                    <tbody data-bind="foreach: $component.assembly().samples">
+                        <tr>
+                            <td>
+                                <strong data-bind="text: $data"></strong>
+                            </td>
+                            <td>
+                                <span data-bind="text: $parent[$data]"></span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="pull-right">
+                    <button class="btn btn-link"><span class="text-danger">delete<span></button>
+                    <button class="btn btn-link" 
+                            data-bind="click: function() { 
+                                $component.contigs.remove($data);
+                            }">deselect</button>
+                </div>
             </div>
         </div>
         <!-- /ko -->

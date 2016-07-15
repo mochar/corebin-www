@@ -16,9 +16,7 @@
 </table>
 
 <!--ko foreach: contigs -->
-<div class="contig-vis">
-    <span data-bind="attr: {title: name}">
-        <div data-bind="contigVis: $data"></div>
-    </span>
-</div>
+<span data-bind="attr: {title: name}">
+    <div data-bind="contigVis: $data"></div>
+</span>
 <!-- /ko -->
