@@ -381,6 +381,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
                 colorMethod = allBindings.get('color')(),
                 colorBinSet = allBindings.get('colorBinSet')()
                 hoveredContig = viewModel.hoveredContig;
+            if (!colorBinSet) return;
             
             var margin = {top: 20, right: 20, bottom: 30, left: 50},
                 width = parseInt(d3.select(element).style('width'), 10)

@@ -14,7 +14,6 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.panning = ko.observable(true);
         self.tab = ko.observable('bin-table'); 
         self.color = ko.observable('bin');
-        self.bins = ko.observableArray([]).syncWith('bins', true);
         self.selectedBins = ko.observableArray([]);
         self.selectedContigs = ko.observableArray([]);
         self.hoveredContig = ko.observable();
@@ -22,6 +21,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.assembly = ko.observable().subscribeTo('assembly', true);
         self.binSet = ko.observable().subscribeTo('binSet', true);
         self.binSets = ko.observableArray([]).subscribeTo('binSets', true);
+        self.bins = ko.observableArray([]).syncWith('bins', true);
         self.colorBinSet = ko.observable(self.binSet());
         
         // Plot options
@@ -71,6 +71,12 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         ko.computed(function() {
             var binSet = self.binSet();
             self.colorBinSet(binSet);
+            self.selectedBins([]);
+            self.selectedContigs([]);
+            self.hoveredContig(null);
+            self.contigs([]);
+            self.x = ko.observable(new Axis({data: 'gc', log: false}));
+            self.y = ko.observable(new Axis({data: 'length', log: false}));
         });
     };
     

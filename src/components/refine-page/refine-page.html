@@ -29,7 +29,9 @@
                 <div class="btn-group btn-group-sm">
                     <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
                         <strong>Color: </strong>
+                        <!-- ko if: colorBinSet -->
                         <span data-bind="text: color() == 'gc' ? 'GC' : colorBinSet().name"></span>
+                        <!-- /ko -->
                         <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu">
