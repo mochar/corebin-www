@@ -14,7 +14,7 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         self.panning = ko.observable(true);
         self.tab = ko.observable('bin-table'); 
         self.color = ko.observable('bin');
-        self.selectedBins = ko.observableArray([]);
+        self.selectedBins = ko.observableArray([]).syncWith('selectedBins', true);
         self.selectedContigs = ko.observableArray([]);
         self.hoveredContig = ko.observable();
         
@@ -63,20 +63,18 @@ define(['knockout', 'text!./refine-page.html', 'jquery', 'knockout-postbox'], fu
         };
         
         self.removeContigs = function(bin) {
-            self.contigs(self.contigs().filter(function(contig) {
-                return contig.bin != bin.id;
-            }));
+            self.selectedContigs.remove(function(contig) {
+                return contig.bin == bin.id;
+            });
+            self.contigs.remove(function(contig) {
+                return contig.bin == bin.id;
+            });
         }
         
         ko.computed(function() {
             var binSet = self.binSet();
             self.colorBinSet(binSet);
             self.selectedBins([]);
-            self.selectedContigs([]);
-            self.hoveredContig(null);
-            self.contigs([]);
-            self.x = ko.observable(new Axis({data: 'gc', log: false}));
-            self.y = ko.observable(new Axis({data: 'length', log: false}));
         });
     };
     

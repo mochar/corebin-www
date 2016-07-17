@@ -12,6 +12,7 @@ define([
         self.binSet = ko.observable().subscribeTo('binSet', true);
         self.bin = ko.observable().syncWith('bin', true);
         self.bins = ko.observableArray().subscribeTo('bins', true);
+        self.selectedBins = ko.observableArray().syncWith('selectedBins', true);
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs', true);
         self.loading = ko.observable(true);
         self.editing = ko.observable(false);
@@ -52,6 +53,12 @@ define([
                 self.hmmerJobs.push(job);
             });
             $('#a-ssesser').popover('toggle');
+        };
+        
+        self.refine = function() {
+            self.selectedBins.removeAll();
+            self.selectedBins.push(self.bin());
+            return true;
         };
         
         $.getJSON('/hmmer', function(data) { self.taxonList(data.taxonList); });
