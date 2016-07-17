@@ -441,6 +441,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             dots.enter().append('circle')
                 .attr('class', 'dot')
                 .attr('r', 0)
+                .attr('transform', transform)
                 .style('opacity', 0.5)
                 .style('fill', function(d) { 
                     return colorMethod === 'gc' ? colorScale(d.gc) : d['color_' + colorBinSet.id]; 
