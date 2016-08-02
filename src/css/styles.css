@@ -106,7 +106,8 @@ table.table-ultra-condensed > tbody > tr > td {
 
 .inverted-nav a:hover,
 .inverted-nav a:focus {
-  color: #555;
+  color: #fff;
+  background-color: #337ab7;
 }
 
 .inverted-nav li.active a,
