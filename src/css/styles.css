@@ -104,6 +104,10 @@ table.table-ultra-condensed > tbody > tr > td {
   color: white;
 }
 
+.inverted-nav li a:hover,.inverted-nav li.dropdown a:focus {
+  background-color: steelblue;
+  color: white;
+}
 
 .inverted-nav li.active a,
 .inverted-nav li.active a:focus,
@@ -111,12 +115,6 @@ table.table-ultra-condensed > tbody > tr > td {
   background-color: white;
   color: #555;
   font-weight: bold;
-}
-
-.inverted-nav a:hover,
-.inverted-nav a:focus {
-  color: #555;
-  background-color:#fff;
 }
 
 .inverted-nav li.disabled a,
