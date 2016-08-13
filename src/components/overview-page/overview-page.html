@@ -1,17 +1,15 @@
 <div class="row">
     <div class="col-xs-5">
-        <div class="panel-container">
-            <div class="panel panel-default">
-                <div class="panel-heading">Length</div>
-                <div class="panel-body">
-                    <div data-bind="histPlot: lengthData, tickFormat: 'thousands'" id="lengthChart"></div>
-                </div>
+        <div class="panel panel-default panel-chart">
+            <div class="panel-heading">Length</div>
+            <div class="panel-body">
+                <div data-bind="histPlot: lengthData, tickFormat: 'thousands'" id="lengthChart"></div>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">GC</div>
-                <div class="panel-body" id="gc-chart">
-                    <div data-bind="histPlot: gcData" id="gcChart"></div>
-                </div>
+        </div>
+        <div class="panel panel-default panel-chart">
+            <div class="panel-heading">GC</div>
+            <div class="panel-body" id="gc-chart">
+                <div data-bind="histPlot: gcData" id="gcChart"></div>
             </div>
         </div>
     </div>

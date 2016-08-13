@@ -28,12 +28,12 @@ body {
   padding: 1px;
 }
 
-.panel-container .panel {
-  margin-bottom: 0;
-}
-
-.panel-container .panel:not(:first-child) {
-  border-top: 0;
+.panel-chart > .panel-heading {
+  color: #333;
+  background-color: white;
+  font-size: larger;
+  font-weight: bold;
+  border: 0;
 }
 
 .selected {
