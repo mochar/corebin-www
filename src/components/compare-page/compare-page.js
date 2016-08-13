@@ -11,6 +11,7 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         
         self.dirty = ko.observable(false);
         self.loading = ko.observable(false);
+        self.by = ko.observable('count');
         self.matrix = [];
         self.binsIndices = ko.observableArray([]);
         self.otherBinsIndices = ko.observableArray([]);
@@ -24,7 +25,8 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
             self.loading(true);
             var binSet = self.binSet(),
                 otherBinSet = self.otherBinSet(),
-                params = {binset1: binSet.id, binset2: otherBinSet.id};
+                by = self.by(),
+                params = {binset1: binSet.id, binset2: otherBinSet.id, by: by};
             $.when(
                 $.getJSON('/a/' + binSet.assembly + '/matrix', params),
                 $.getJSON('/a/' + binSet.assembly + '/bs/' + otherBinSet.id + '/b')

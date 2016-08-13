@@ -17,6 +17,18 @@
                     </ul>
                 </div>
                 
+                <div class="btn-group btn-group-sm">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        <strong>By: </strong>
+                        <span data-bind="text: by() == 'count' ? '# shared contigs' : '# bp'"></span>
+                        <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-bind="click: function() { by('count') }"># shared contigs</a></li>
+                        <li><a href="#" data-bind="click: function() { by('bp') }"># bp</a></li>
+                    </ul>
+                </div>
+                
                 <div class="pull-right">
                     <button class="btn btn-primary btn-sm" data-bind="click: plot, disable: loading">
                         <span class="fa fa-refresh fa-spin" data-bind="visible: loading"></span>
