@@ -28,12 +28,13 @@
             <h3>Uploading your data</h3>
             
             <p>
-           Users can upload the following data. Details on file format are given below.
+           Users can upload their own data in the Home-panel. The following data can be uploaded in CoReBIN:
                 <ul>
                 <li>Metagenomic assembly</li>
                 <li>Coverage data <i>not required</i></li>             
-                <li>One or more binning results</li>
+                <li>Metagenomic bins</li> (i.e. metagenomic binning results)
                 </ul>
+            Details on file format are given below.
             </p>
             
             <img src="img/upload.png" style="float:right;margin:15px;"">
@@ -54,6 +55,8 @@
             	ContigID1 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
             	ContigID2 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
             	ContigID3 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
+            	...<i>&lt;tab&gt;</i> ...  <i>&lt;tab&gt;</i>  ...  </br>
+            	...<i>&lt;tab&gt;</i> ...  <i>&lt;tab&gt;</i>  ...  </br>
             	</br>
             	It is important that the contig IDs are exact matches with the ones in the fasta headers of the assembly.
             	</br>
@@ -65,6 +68,8 @@
             	ContigID1 <i>&lt;tab&gt;</i> BinId </br>
 				ContigID4 <i>&lt;tab&gt;</i> BinId </br>
 				ContigID2 <i>&lt;tab&gt;</i> BinId </br>
+				...<i>&lt;tab&gt;</i> ... </br>
+				...<i>&lt;tab&gt;</i> ... </br>
             </br>
             Again, it is important that the contig IDs are exact matches with the ones in the assembly. Unbinned contigs can be left out in this table and no specific ordering is required.          
             </br>
