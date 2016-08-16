@@ -34,7 +34,7 @@
                 <li>Coverage data <i>not required</i></li>             
                 <li>Metagenomic bins</li> (i.e. metagenomic binning results)
                 </ul>
-            Details on file format are given below.
+            First upload your metagenomic assembly and corresponding coverage data if available in the "1. Upload assembly" assembly (this might take a while, be patient!) and subsequently upload your metagenomic bin set in the "2. Upload bin set". </br>Details on file format are given below.
             </p>
             
 
@@ -46,7 +46,10 @@
             <p>
             	Fasta format. The headers have to correspond to the contig IDs used in the coverage table and the contig IDs used in the binning table(s). We have limited the upload of metagenomic assemblies to files up to xxx mb, larger metagenomic assemblies can not be analyzed using CoReBIN.
             </p>
-             <img src="img/upload.png" style="float:right;margin:15px;"">           
+            
+            <img src="img/upload.png" style="float:right;margin:15px;"">
+             
+                        
             <h5>Coverage data</h5>
             <p>
             	You can add a file containing coverage information when uploading a metagenomic assembly. Sequencing coverage describes the average number of reads that align to, or "cover," your metagenomic assembly. You can determine the coverage by mapping your reads to your assembly using tools such as <a href="http://bio-bwa.sourceforge.net/">BWA</a> and <a href="http://bowtie-bio.sourceforge.net/bowtie2/">Bowtie2</a>. Differential coverage information is utilized by many metagenomic binning methods and can be very useful to refine bins.  
