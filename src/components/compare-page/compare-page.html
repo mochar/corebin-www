@@ -50,6 +50,9 @@
     </div>
         
     <div class="col-xs-3">
+    	<!-- ko with: otherBinSet -->
+        <span data-bind="text: name"></span>
+        <!-- /ko -->
         <ul class="list-group" data-bind="foreach: otherBinsIndices">
             <!-- ko with: $parent.otherBins()[$data] -->
             <li class="list-group-item" data-bind="text: name, borderColor: color"></li>
