@@ -1,25 +1,25 @@
 <div class="panel panel-default">
 <div class="panel-heading">
-    2. Upload bin set
+    2. Upload binning results
 </div>
 <div class="panel-body">
     <form name="bin-set-form" method="post"
         enctype="multipart/form-data" data-bind="submit: uploadBinSet">
         
         <div class="form-group">
-            <label for="name">Bin set name</label>
+            <label for="name">Bin-set name</label>
             <input type="text" class="form-control input-sm" name="name">
         </div>
         
         <div class="form-group">
-            <label for="bins">Bins</label>
+            <label for="bins">Bin-set file</label>
             <input type="file" class="input-sm" name="bins">
         </div>
     
         <button type="submit" class="btn btn-primary pull-right btn-sm"
                 data-bind="enable: assembly() && !loading()">
             <span class="fa fa-refresh fa-spin" data-bind="visible: loading"></span>
-            Save bin set
+            Save bin-set
         </button>
     </form>
 </div>
