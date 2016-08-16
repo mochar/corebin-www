@@ -4,7 +4,7 @@
         <div class="panel panel-default panel-toolbar"><div class="panel-body">
             <div class="btn-toolbar" role="toolbar">
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" title="Select binset to compare current binset with">
                         <strong>Compare with: </strong>
                         <!-- ko with: otherBinSet -->
                         <span data-bind="text: name"></span>
@@ -18,7 +18,7 @@
                 </div>
                 
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" title="Compare number of shared contigs or shared number of basepairs">
                         <strong>By: </strong>
                         <span data-bind="text: by() == 'count' ? '# shared contigs' : '# bp'"></span>
                         <span class="caret"></span>
