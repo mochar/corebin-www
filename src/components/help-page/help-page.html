@@ -95,7 +95,10 @@
             
             <h3>Demo data-set</h3>
             <p>
-            A simulated dataset of short sequences consisting of three different samples, each containing 10.000.000  paired-end 100 nt reads, was created using the supplied error model for Illumina GA IIx with TrueSeq SBS Kit v5-GA using GemSim (McElroy, Luciani & Thomas, 2012). Reads were derived from a set of 10 reference genomes and chosen with probability proportional to the species abundance and genome size (see table 1). 
+            A simulated dataset of short sequences consisting of three different samples, each containing 10.000.000  paired-end 100 nt reads, was created using the supplied error model for Illumina GA IIx with TrueSeq SBS Kit v5-GA using GemSim (<a href="http://www.ncbi.nlm.nih.gov/pubmed/22336055" target="_blank">McElroy, Luciani & Thomas, 2012</a>). Reads were derived from a set of 10 reference genomes and chosen with probability proportional to the species abundance and genome size (see table below).
+            </p>
+            <p>
+            Subsequently, the simulated reads were co-assembled using MEGAHIT (<a href="http://www.ncbi.nlm.nih.gov/pubmed/25609793" target="_blank">Li et al, 2015</a>). Coverage for the three different samples was determined using bowtie2 (<a href="http://www.ncbi.nlm.nih.gov/pubmed/22388286" target="_blank">Langmead & Salzberg, 2012</a>). The assembly and differential coverage table was then used as input for two different binning programs (default parameters): MaxBin 2.0 (<a href="http://www.ncbi.nlm.nih.gov/pubmed/26515820" target="_blank">Wu, Simmons and Singer, 2016</a>) and MetaBAT (<a href="https://peerj.com/articles/1165/" target="_blank">Kang et al, 2015</a>).
             
             
 <table style="border-spacing:10px;border-collapse:separate;">
