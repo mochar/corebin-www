@@ -27,7 +27,7 @@
                 </axis-parameter>
                 
                 <div class="btn-group btn-group-sm">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown"  title="Select contig coloring in plot">
                         <strong>Color: </strong>
                         <!-- ko if: colorBinSet -->
                         <span data-bind="text: color() == 'gc' ? 'GC' : colorBinSet().name"></span>
@@ -49,11 +49,11 @@
             
                 <div class="pull-right">
                     <div class="btn-group btn-group-sm" role="group">
-                        <button type="button" class="btn btn-default" title="Move plot"
+                        <button type="button" class="btn btn-default" title="Move and zoom plot"
                                 data-bind="css: { active: panning }, click: function() { panning(true) }">
                             <span class="fa fa-arrows"></span>
                         </button>
-                        <button type="button" class="btn btn-default" title="Select contigs visually"
+                        <button type="button" class="btn btn-default" title="Select contigs in plot"
                                 data-bind="css: { active: !panning() }, click: function() { panning(false) }">
                             <span class="fa fa-pencil"></span>
                         </button>
