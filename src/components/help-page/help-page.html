@@ -8,14 +8,14 @@
             </div>
 			<h3>Introduction</h3>
             <p>
-                CoReBIN is a user-friendly web-based tool to compare the results of different binning methods and to aid manual refinement of the bins. The binning result of two different methods can be visually compared in a chord diagram. Individual bins can be inspected and refined using GC%, coverage and tetranucleotide frequencies.               
+                CoReBIN is a user-friendly web-based tool to compare the results of different metagenomic binning methods and to aid manual refinement of the bins. The binning result of two different methods can be visually compared in a chord diagram. Individual bins can be inspected and refined using GC%, coverage and tetranucleotide frequencies.               
             </p>
             
              <h3>User interface</h3>
             <p>
             <img src="img/interface.png" style="margin:10px;">
             	<ol>
-   					<li><b>Home:</b> Introduction and boxed to upload assemblies and binsets. </li>
+   					<li><b>Home:</b> Introduction and boxes to upload assemblies and binsets. </li>
   					<li><b>Overview:</b> Summary of the selected (selection using 6,) metagenomic assembly (contig lengths, GC% of contigs).</li>
   					<li><b>Compare:</b> Visually compare two different binning results.</li>
    					<li><b>Refine:</b> Visual refinement of bins using GC%, coverage, tetranucleotide frequencies. </li>
@@ -28,7 +28,7 @@
             <h3>Uploading your data</h3>
             
             <p>
-            To start using CoRebin you need to upload the following data. Details on file format are given below.
+           Users can upload the following data. Details on file format are given below.
                 <ul>
                 <li>Metagenomic assembly</li>
                 <li>Coverage data <i>not required</i></li>             
@@ -37,17 +37,19 @@
             </p>
             
             <img src="img/upload.png" style="float:right;margin:15px;"">
-            <h4>Input data formats</h4>
+
+            
+            <h4>1. Metagenomic assembly and Coverage data</h4>
             
             <h5>Metagenomic assembly</h5>
             <p>
-            	Fasta format. The headers have to correspond to the contig IDs used in the coverage table and the contig IDs used in the binning table(s).
+            	Fasta format. The headers have to correspond to the contig IDs used in the coverage table and the contig IDs used in the binning table(s). We have limited the upload of metagenomic assemblies to files up to xxx mb, larger metagenomic assemblies can not be analyzed using CoReBIN.
             </p>
             
             <h5>Coverage data</h5>
             <p>
-            	When you upload an assembly fasta, you can add a file containing coverage information. Sequencing coverage describes the average number of reads that align to, or "cover," your metagenomic assembly. You can determine the coverage by mapping your reads to your assembly using tools such as <a href="http://bio-bwa.sourceforge.net/">BWA</a> and <a href="http://bowtie-bio.sourceforge.net/bowtie2/">Bowtie2</a>. 
-            	</br>
+            	You can add a file containing coverage information when uploading a metagenomic assembly. Sequencing coverage describes the average number of reads that align to, or "cover," your metagenomic assembly. You can determine the coverage by mapping your reads to your assembly using tools such as <a href="http://bio-bwa.sourceforge.net/">BWA</a> and <a href="http://bowtie-bio.sourceforge.net/bowtie2/">Bowtie2</a>. Differential coverage information is utilized by many metagenomic binning methods and can be very useful to refine bins.  
+            	</br></br>
             	The input file should be a tab separated file with on each line a contigID followed by the coverage in one or more samples, i.e. if you have coverage data on one sample you have one additional column, if you have two different coverages you will need two additional columns. </br></br>
             	ContigID1 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
             	ContigID2 <i>&lt;tab&gt;</i> Coverage_sample1  <i>&lt;tab&gt;</i>  Coverage_sample2  </br>
@@ -55,7 +57,10 @@
             	</br>
             	It is important that the contig IDs are exact matches with the ones in the fasta headers of the assembly.
             	</br>
-            <h5>Metagenomic Binning Results</h5>
+            </p>	
+            	
+            
+            <h4>2. Metagenomic bins</h4>
             <p>	
             	ContigID1 <i>&lt;tab&gt;</i> BinId </br>
 				ContigID4 <i>&lt;tab&gt;</i> BinId </br>
@@ -65,8 +70,10 @@
             </br>
             </p>
             
+            
+            <h3>Metagenomic binning</h3>
             <p>
-            Here are some suggestions of recently published metagenomic binning programs and methods:
+            Recently published metagenomic binning programs and methods:
                 <ul>
                 <li><a href="https://github.com/BinPro/CONCOCT">CONCOCT</a>: Alneberg, Johannes, et al. "Binning metagenomic contigs by coverage and composition." <i>Nature methods</i> 11.11 (2014): 1144-1146.</li>
                 <li><a href="https://bitbucket.org/berkeleylab/metabat">MetaBAT</a>: Kang, Dongwan D., et al. "MetaBAT, an efficient tool for accurately reconstructing single genomes from complex microbial communities." <i>PeerJ</i> 3 (2015): e1165.</i>
@@ -75,6 +82,7 @@
                 <li><a href="http://claczny.github.io/VizBin/">VizBin</a>: Laczny, Cedric C., et al. "VizBin-an application for reference-independent visualization and human-augmented binning of metagenomic data." <i>Microbiome</i> 3.1 (2015): 1.</li>
                 <li><a href="https://github.com/younglululu/COCACOLA">COCACOLA</a>: Lu, Yang Young, et al. "COCACOLA: binning metagenomic contigs using sequence COmposition, read CoverAge, CO-alignment, and paired-end read LinkAge." <i>Bioinformatics</i> (2016): btw290.</li>
                 </ul>
+            Most of these methods use differential coverage information. All programs will return a fasta file for each bin that they produce. 
             </p>
             
             <h3>Demo data-set</h3>
