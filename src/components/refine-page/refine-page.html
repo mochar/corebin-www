@@ -49,17 +49,17 @@
             
                 <div class="pull-right">
                     <div class="btn-group btn-group-sm" role="group">
-                        <button type="button" class="btn btn-default" 
+                        <button type="button" class="btn btn-default" title="Move plot"
                                 data-bind="css: { active: panning }, click: function() { panning(true) }">
                             <span class="fa fa-arrows"></span>
                         </button>
-                        <button type="button" class="btn btn-default" 
+                        <button type="button" class="btn btn-default" title="Select contigs visually"
                                 data-bind="css: { active: !panning() }, click: function() { panning(false) }">
                             <span class="fa fa-pencil"></span>
                         </button>
                     </div>
                     
-                    <button type="button" class="btn btn-default btn-sm"
+                    <button type="button" class="btn btn-default btn-sm" title="Save plot as PNG"
                             data-bind="click: function() { alert('not implemented :^)') }">
                         <span class="fa fa-floppy-o"></span>
                     </button>
