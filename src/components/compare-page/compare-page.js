@@ -27,6 +27,10 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
                 otherBinSet = self.otherBinSet(),
                 by = self.by(),
                 params = {binset1: binSet.id, binset2: otherBinSet.id, by: by};
+            if (otherBinSet == null) {
+     			alert("Please select a bin-set to compare with");
+     			return;
+			}
             $.when(
                 $.getJSON('/a/' + binSet.assembly + '/matrix', params),
                 $.getJSON('/a/' + binSet.assembly + '/bs/' + otherBinSet.id + '/b')
