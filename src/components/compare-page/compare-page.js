@@ -22,11 +22,11 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         }
         
         self.plot = function() {
-            self.loading(true);
             if (self.otherBinSet() == null) {
      			alert("Please select a bin-set to compare with");
      			return;
 			}
+            self.loading(true);
             var binSet = self.binSet(),
                 otherBinSet = self.otherBinSet(),
                 by = self.by(),
