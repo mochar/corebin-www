@@ -24,6 +24,11 @@ body {
     margin-top: 10px;
 }
 
+.panel-heading {
+  padding: .5em;
+  padding-left: 1em;
+}
+
 #tab .panel {
     border-top-style: hidden;
 }
@@ -109,6 +114,12 @@ body {
 
 table.table-ultra-condensed > tbody > tr > td {
   padding: 2px;
+}
+
+.bin-list {
+  overflow-x: hidden;
+  overflow-y: scroll;
+  height: 300px;
 }
 
 /* Nav */
