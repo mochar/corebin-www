@@ -28,6 +28,14 @@ body {
     border-top-style: hidden;
 }
 
+.panel-toolbar {
+  margin-bottom: .5em;
+}
+
+.panel-toolbar .btn {
+  border: 0;
+}
+
 .panel-toolbar .panel-body {
   padding: 1px;
 }
