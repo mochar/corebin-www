@@ -1,5 +1,6 @@
 #content {
     margin-top: 10px;
+    padding: 0;
 }
 
 * {
@@ -22,6 +23,10 @@ body {
 
 #page {
     margin-top: 10px;
+}
+
+.panel {
+  margin-bottom: 1em;
 }
 
 .panel-heading {
@@ -86,29 +91,22 @@ body {
   text-align: right;
 }
 
-#bin-name {
+.name {
   font-size: 1.6em;
 }
 
-#bin-name::before {
-  content: "Bin ";
+.name::before {
   color: #777;
   font-size: small;
 }
 
-#bin-set-name {
-  font-size: 1.6em;
-}
-
-#bin-set-name::before {
-  content: "Bin set ";
-  color: #777;
-  font-size: small;
-}
+#assembly-name::before { content: "Assembly "; }
+#bin-set-name::before { content: "Bin set "; }
+#bin-name::before { content: "Bin "; }
 
 .name-div {
   padding: 4px 0 4px 10px;
-  margin-bottom: 20px;
+  margin-bottom: 1em ;
   border: 1px solid #dcdcdc;
 }
 

@@ -1,6 +1,6 @@
 <!-- ko with: binSet -->
 <div data-bind="borderColor: color" class="name-div background">
-    <span id="bin-set-name" data-bind="text: name"></span>
+    <span id="bin-set-name" class="name" data-bind="text: name"></span>
     <button type="button" class="btn btn-link pull-right">
         <span class="fa fa-trash text-danger"></span>
     </button>
@@ -13,7 +13,7 @@
 </div>
 <!-- /ko -->
 
-<div class="panel panel-default">
+<div class="panel panel-default bin-list" style="height: inherit; max-height: 650px;">
     <table class="table table-striped">
         <thead>
             <tr>
