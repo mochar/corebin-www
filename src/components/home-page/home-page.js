@@ -16,7 +16,7 @@ define([
         self.bins = ko.observableArray([]).syncWith('bins');
         self.binSets = ko.observableArray([]).syncWith('binSets');
         self.assemblyJob = ko.observable().syncWith('assemblyJob');
-        self.binSetJobs = ko.observableArray([]).syncWith('binSetJobs');
+        self.binSetJob = ko.observable().syncWith('binSetJob');
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs');
         self.assemblyLoading = ko.observable(true).publishOn('assemblyLoading');
         
@@ -69,36 +69,33 @@ define([
             });
         };
         
-        self.checkBinSetJobs = function() {
-            var jobs = self.binSetJobs();
-            jobs.forEach(function(job) {
-                $.getJSON(job.location, function(data, textStatus, jqXHR) {
-                    if (jqXHR.status == 201) {
-                        self.binSetJobs.remove(job);
-                        var location = jqXHR.getResponseHeader('Location');
-                        $.getJSON(location, self.addBinSet);
-                    }
-                });
+        self.checkBinSetJob = function() {
+            var job = self.binSetJob();
+            $.getJSON(job.location, function(data, textStatus, jqXHR) {
+                if (jqXHR.status == 201) {
+                    self.binSetJob(null);
+                    var location = jqXHR.getResponseHeader('Location');
+                    $.getJSON(location, self.addBinSet);
+                }
             });
         };
         
         setInterval(function() {
             if (self.assemblyJob()) self.checkAssemblyJob();
+            if (self.binSetJob()) self.checkBinSetJob();
             self.checkHmmerJobs();
-            self.checkBinSetJobs();
         }, 5000);
         
         // Get data from server
         $.getJSON('/jobs', function(data) {
             data.jobs.forEach(function(job) {
-                if (job.meta.type == 'A') {
+                if (job.meta.type == 'A') { // assembly job
                     job.meta.status = ko.observable(job.meta.status);
                     self.assemblyJob(job);
+                } else if (job.meta.type == 'B') { // bin set job
+                    self.binSetJob(job);
                 }
             });
-            
-            var binSetJobs = data.jobs.filter(function(j) { return j.meta.type == 'B' });
-            self.binSetJobs(binSetJobs);
             
             var hmmerJobs = data.jobs.filter(function(j) { return j.meta.type == 'C' });
             self.hmmerJobs(hmmerJobs);
