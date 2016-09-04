@@ -3,7 +3,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
     function ViewModel(params) {
         var self = this;
         
-        self.assemblyJobs = ko.observableArray([]).syncWith('assemblyJobs', true);
+        self.assemblyJob = ko.observable().syncWith('assemblyJob', true);
         self.assembly = ko.observable().syncWith('assembly', true);
         self.loading = ko.observable(false);
         
@@ -54,7 +54,7 @@ define(['knockout', 'text!./assembly-upload.html', 'knockout-postbox'], function
                     var job = { location: jqXHR.getResponseHeader('Location') };
                     job.meta = data;
                     job.meta.status = ko.observable(job.meta.status);
-                    self.assemblyJobs.push(job);
+                    self.assemblyJob(job);
                     
                     // Reset form
                     formElement.reset();
