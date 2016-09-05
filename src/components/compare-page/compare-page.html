@@ -43,7 +43,7 @@
     
     <div class="col-xs-4">
         <div class="panel panel-default">
-            <div class="panel-heading" data-bind="text: binSet() ? binSet().name : ''"><button data-bind="style: { 'background-color': binSet() ? binSet().color }" class="colorBox"></button></div>
+            <div class="panel-heading" data-bind="text: binSet() ? binSet().name : ''"></div>
             <ul class="list-group bin-list" data-bind="foreach: binsIndices">
                 <!-- ko with: $parent.bins()[$data] -->
                 <li class="list-group-item" data-bind="text: name, borderColor: color"></li>
