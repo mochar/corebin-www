@@ -4,7 +4,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             var margin = {top: 5, right: 30, bottom: 60, left: 30},
                 fullWidth = parseInt(d3.select(element).style('width'), 10),
                 width = fullWidth - margin.left - margin.right,
-                height = fullWidth - margin.top - margin.bottom,
+                height = (fullWidth * .9) - margin.top - margin.bottom,
                 innerRadius = Math.min(width, height) * .41,
                 outerRadius = innerRadius * 1.1,
                 arc = d3.svg.arc()
@@ -45,7 +45,7 @@ define(['jquery', 'knockout', 'd3', 'd3-lasso'], function($, ko, d3) {
             var margin = {top: 5, right: 30, bottom: 60, left: 30},
                 fullWidth = parseInt(d3.select(element).style('width'), 10),
                 width = fullWidth - margin.left - margin.right,
-                height = fullWidth - margin.top - margin.bottom,
+                height = (fullWidth * .9) - margin.top - margin.bottom,
                 svg = d3.select(element).select('g'),
                 innerRadius = Math.min(width, height) * .41,
                 outerRadius = innerRadius * 1.1,
