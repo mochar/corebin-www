@@ -143,6 +143,26 @@ table.table-ultra-condensed > tbody > tr > td {
   color:#bac0c3;
 }
 
+#ids-popup {
+    position: absolute;
+    right: 2em;
+    bottom: 2em;
+    box-shadow: 0 0 5px #ddd;
+}
+
+.popup-visible {
+    visibility: visible;
+    z-index: 200;
+    opacity: 1;
+    transform: scale(1);
+    transition: all .2s ease-in-out;
+}
+
+.popup-invisible {
+    transform: scale(0);
+    transition: all .2s ease-in-out;
+}
+
 /* D3 axis */
 .axis path,
 .axis line {

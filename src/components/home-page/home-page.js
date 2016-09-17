@@ -20,6 +20,11 @@ define([
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs');
         self.assemblyLoading = ko.observable(true).publishOn('assemblyLoading');
         
+        self.notFound = ko.observable('').syncWith('notFound');
+        self.missing = ko.observable('').syncWith('missing');
+        self.popupVisible = ko.observable(false);
+        self.messageVisible = ko.observable(false);
+        
         self.addAssembly = function(assembly) {
             self.assemblies.push(assembly);
             if (self.assemblies().length === 1)
@@ -32,6 +37,12 @@ define([
             self.binSets.push(binSet);
             if (self.binSets().length === 1)
                 self.binSet(binSet);
+        }
+        
+        self.clean = function() {
+            self.notFound('');
+            self.missing('');
+            self.popupVisible(false);
         }
         
         self.checkAssemblyJob = function() {
@@ -73,7 +84,10 @@ define([
             var job = self.binSetJob();
             $.getJSON(job.location, function(data, textStatus, jqXHR) {
                 if (jqXHR.status == 201) {
+                    self.notFound(data.notfound.join('\n'));
+                    self.missing(data.missing.join('\n'));
                     self.binSetJob(null);
+                    self.messageVisible(true);
                     var location = jqXHR.getResponseHeader('Location');
                     $.getJSON(location, self.addBinSet);
                 }
