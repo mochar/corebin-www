@@ -1,0 +1,32 @@
+<style type='text/css' data-bind="text: beforeContent"></style>
+
+<!-- ko if: object -->
+<div class="name-div background" data-bind="borderColor: object().color || null">
+    <!-- ko if: !renaming() -->
+    <span class="name" data-bind="text: object().name, attr: {id: cssName}"></span>
+    <button type="button" class="btn btn-link pull-right" data-bind="visible: canDelete">
+        <span class="fa fa-trash text-danger"></span>
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-bind="visible: canDownload, click: download">
+        <span class="fa fa-download text-info"></span>
+    </button>
+    <button type="button" class="btn btn-link pull-right" data-bind="visible: canRename, click: toggleRename">
+        <span class="fa fa-pencil text-info"></span>
+    </button>
+    <!-- /ko -->
+    
+    <!-- ko if: renaming -->
+    <div class="input-group">
+        <input type="text" class="form-control" data-bind="value: newName">
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-link" data-bind="click: toggleRename, disable: busyRenaming">
+                Cancel
+            </button>
+            <button class="btn btn-default" type="button" data-bind="click: rename, disable: busyRenaming">
+                OK
+            </button>
+        </span>
+    </div>
+    <!-- /ko -->
+</div>
+<!-- /ko -->

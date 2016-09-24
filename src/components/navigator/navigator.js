@@ -2,7 +2,7 @@ define([
     'knockout',
     'text!./navigator.html',
     'knockout-postbox',
-], function(ko, template, $) {
+], function(ko, template) {
     
     function ViewModel() {
         var self = this;

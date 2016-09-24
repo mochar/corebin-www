@@ -2,9 +2,10 @@ define([
     'knockout',
     'text!./home-page.html',
     'jquery',
+    'app/classes', 
     'knockout-postbox',
     'bootstrap'
-], function(ko, template, $) {
+], function(ko, template, $, classes) {
     
     function ViewModel() {
         var self = this;
@@ -25,15 +26,17 @@ define([
         self.popupVisible = ko.observable(false);
         self.messageVisible = ko.observable(false);
         
-        self.addAssembly = function(assembly) {
+        self.addAssembly = function(a) {
+            var assembly = classes.Assembly(a);
             self.assemblies.push(assembly);
             if (self.assemblies().length === 1)
                 self.assembly(assembly);
         }
         
-        self.addBinSet = function(binSet) {
+        self.addBinSet = function(bs) {
             var assembly = self.assembly();
-            if (binSet.assembly != assembly.id) return;
+            if (bs.assembly != assembly.id) return;
+            var binSet = classes.BinSet(bs);
             self.binSets.push(binSet);
             if (self.binSets().length === 1)
                 self.binSet(binSet);
@@ -115,8 +118,8 @@ define([
             self.hmmerJobs(hmmerJobs);
 
             $.getJSON('/a', function(data) { 
-                self.assemblies(data.assemblies);
-                self.assembly(data.assemblies[0]);
+                self.assemblies(data.assemblies.map(function(a) { return classes.Assembly(a); }));
+                if (data.assemblies.length > 0) self.assembly(self.assemblies()[0]);
                 self.assemblyLoading(false);
             });
         })

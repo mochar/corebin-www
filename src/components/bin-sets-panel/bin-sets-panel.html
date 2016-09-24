@@ -1,16 +1,5 @@
-<!-- ko with: binSet -->
-<div data-bind="borderColor: color" class="name-div background">
-    <span id="bin-set-name" class="name" data-bind="text: name"></span>
-    <button type="button" class="btn btn-link pull-right">
-        <span class="fa fa-trash text-danger"></span>
-    </button>
-    <button type="button" class="btn btn-link pull-right">
-        <span class="fa fa-download text-info"></span>
-    </button>
-    <button type="button" class="btn btn-link pull-right">
-        <span class="fa fa-pencil text-info"></span>
-    </button>
-</div>
+<!-- ko if: binSet -->
+<edit-panel params="object: binSet, name: 'Bin set', canDownload: true"></edit-panel>
 <!-- /ko -->
 
 <div class="panel panel-default bin-list" style="height: inherit; max-height: 650px;">

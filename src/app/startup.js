@@ -5,6 +5,7 @@ define(['knockout', './router', './bindings'], function(ko, router, bindings) {
     ko.components.register('axis-parameter', {require: 'components/axis-parameter/axis-parameter'});
     ko.components.register('contig-table', {require: 'components/contig-table/contig-table'});
     ko.components.register('bin-table', {require: 'components/bin-table/bin-table'});
+    ko.components.register('edit-panel', {require: 'components/edit-panel/edit-panel'});
     
     ko.components.register('assembly-table', {require: 'components/assembly-table/assembly-table'});
     ko.components.register('assembly-upload', {require: 'components/assembly-upload/assembly-upload'});

@@ -1,16 +1,6 @@
 <div class="row">
     <div class="col-xs-5">
-        <!-- ko with: assembly -->
-        <div class="name-div background">
-            <span id="assembly-name" class="name" data-bind="text: name"></span>
-            <button type="button" class="btn btn-link pull-right">
-                <span class="fa fa-trash text-danger"></span>
-            </button>
-            <button type="button" class="btn btn-link pull-right">
-                <span class="fa fa-pencil text-info"></span>
-            </button>
-        </div>
-        <!-- /ko -->
+        <edit-panel params="object: assembly, name: 'Assembly'"></edit-panel>
         
         <div class="panel panel-default panel-chart" style="margin-bottom: .5em;">
             <div class="panel-heading">Contig length</div>

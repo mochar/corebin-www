@@ -1,15 +1,5 @@
 <!-- ko if: bin -->
-<div data-bind="borderColor: bin().color" class="name-div background">
-    <span id="bin-name" class="name" data-bind="text: bin().name"></span>
-    <!--<input data-bind="visible: editing, value: bin().name, textInput: newName, hasFocus: editing" 
-           class="form-control" />-->
-    <button type="button" class="btn btn-link pull-right">
-        <span class="fa fa-trash text-danger"></span>
-    </button>
-    <button type="button" class="btn btn-link pull-right" data-bind="click: edit">
-        <span class="fa fa-pencil text-info"></span>
-    </button>
-</div>
+<edit-panel params="object: bin, name: 'Bin'"></edit-panel>
 
 <div class="container-fluid hide" id="assess-form">
     <div class="form-group">

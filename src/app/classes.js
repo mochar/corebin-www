@@ -1,7 +1,10 @@
 define(['knockout'], function(ko) {
-    function _Bin(data) {
+
+    // Bin
+    function _Bin(data, assembly) {
         this.assessing = ko.observable(false);
-        this.setData(data);
+        this.assembly = assembly;
+        this.setData(data, assembly);
         this.assessed = ko.computed(this.assessed, this);
     }
     
@@ -15,13 +18,37 @@ define(['knockout'], function(ko) {
         this.completeness = ko.observable(data.completeness);
         this.size = data.size;
         this.id = data.id;
+        this.url = '/a/' + this.assembly + '/bs/' + this.bin_set_id + '/b/' + this.id;
     }
     
     _Bin.prototype.assessed = function() {
         return this.contamination() == null ? false : true;
     }
     
+    // Assembly
+    function _Assembly(data) {
+        this.id = data.id;
+        this.name = ko.observable(data.name);
+        this.binSets = data.binSets;
+        this.hasFourmerfreqs = data.hasFourmerfreqs;
+        this.samples = data.samples;
+        this.size = data.size;
+        this.url = '/a/' + data.id;
+    }
+    
+    // Bin set
+    function _BinSet(data) {
+        this.id = data.id;
+        this.name = ko.observable(data.name);
+        this.bins = data.bins;
+        this.color = data.color;
+        this.assembly = data.assembly;
+        this.url = '/a/' + data.assembly + '/bs/' + data.id;
+    }
+    
     return {
-        Bin: function(data) { return new _Bin(data); } 
+        Bin: function(data, assembly) { return new _Bin(data, assembly); },
+        Assembly: function(data) { return new _Assembly(data); },
+        BinSet: function(data) { return new _BinSet(data); }
     }
 });

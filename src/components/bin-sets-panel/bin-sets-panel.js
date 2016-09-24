@@ -29,8 +29,8 @@ define([
             self.loading(true);
             if (!assembly) return;
             $.getJSON('/a/' + assembly.id + '/bs', function(data) {
-                self.binSets(data.binSets);
-                self.binSet(data.binSets[0]);
+                self.binSets(data.binSets.map(function(bs) { return classes.BinSet(bs); }))
+                if (data.binSets.length > 0) self.binSet(self.binSets()[0]);
             })
         }, true);
         
@@ -45,7 +45,7 @@ define([
             $.getJSON(url, function(data) {
                 var assessingBins = self.hmmerJobs().map(function(j) { return j.meta.bin });
                 self.bins(data.bins.map(function(bin) { 
-                    var bin = classes.Bin(bin);
+                    var bin = classes.Bin(bin, binSet.assembly);
                     if (assessingBins.indexOf(bin.id) > -1) bin.assessing(true);
                     return bin;
                 }));

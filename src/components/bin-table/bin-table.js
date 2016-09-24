@@ -25,7 +25,7 @@ define([
                 data: formData,
                 async: false,
                 success: function(data) {
-                    self.bins.push(classes.Bin(data));
+                    self.bins.push(classes.Bin(data, binSet.assembly));
                     formElement.reset();
                     self.newBin(false);
                 },
