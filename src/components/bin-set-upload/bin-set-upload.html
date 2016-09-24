@@ -17,7 +17,7 @@
         </div>
     
         <button type="submit" class="btn btn-default pull-right btn-sm"
-                data-bind="enable: assembly() && (!binSetJob() || !loading())">
+                data-bind="enable: assembly() && !(binSetJob() || loading())">
             <span class="fa fa-refresh fa-spin" data-bind="visible: binSetJob() || loading()"></span>
             Save bin-set
         </button>

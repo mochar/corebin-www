@@ -144,7 +144,7 @@ table.table-ultra-condensed > tbody > tr > td {
 }
 
 #ids-popup {
-    position: absolute;
+    position: fixed;
     right: 2em;
     bottom: 2em;
     box-shadow: 0 0 5px #ddd;
