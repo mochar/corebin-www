@@ -13,6 +13,10 @@ body {
   background-color: #eee;
 }
 
+input[type="file"] {
+  width: 100%;
+}
+
 .background {
   background-color: white;
 }
