@@ -14,9 +14,6 @@ define([
         self.bins = ko.observableArray().subscribeTo('bins', true);
         self.selectedBins = ko.observableArray().syncWith('selectedBins', true);
         self.hmmerJobs = ko.observableArray([]).syncWith('hmmerJobs', true);
-        self.loading = ko.observable(true);
-        self.editing = ko.observable(false);
-        self.newName = ko.observable('');
         
         self.taxonList = ko.observable({});
         self.rank = ko.observable('domain');
@@ -24,24 +21,6 @@ define([
         self.taxons = ko.computed(function() {
             return self.taxonList()[self.rank()];
         });
-        
-        self.edit = function() { self.editing(true); };
-        
-        self.rename = function(element) {
-            var binSet = self.binSet();
-            var bin = self.bin();
-            var newName = self.newName();
-            $.ajax({
-                url: '/a/' + binSet.assembly + '/bs/' + binSet.id + '/b/' + bin.id,
-                type: 'PUT',
-                data: { name: newName },
-                success: function(data) {
-                    self.bin().name(newName);
-                    self.newName('');
-                    self.editing(false);
-                }
-            });
-        };
         
         self.assess = function() {
             var bin = self.bin();
