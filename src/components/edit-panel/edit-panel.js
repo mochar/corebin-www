@@ -15,16 +15,16 @@ define([
 		self.canDelete = params.canDelete || true;
 		self.canDownload = params.canDownload || false;
 		
-        self.assembly = ko.observable().subscribeTo('assembly', true);
-		
 		self.renaming = ko.observable(false);
 		self.newName = ko.observable('');
-		self.busyRenaming = ko.observable(false);
+		self.busy = ko.observable(false);
+		self.deleting = ko.observable(false);
 		
 		self.toggleRename = function() { self.renaming(!self.renaming()); };
+		self.toggleDelete = function() { self.deleting(!self.deleting()); };
 		
 		self.rename = function() {
-			self.busyRenaming(true);
+			self.busy(true);
 			$.ajax({
 				url: self.object().url,
 				type: 'PUT',
@@ -34,7 +34,7 @@ define([
 				},
 				complete: function() { 
 					self.newName('');
-					self.busyRenaming(false); 
+					self.busy(false); 
 					self.renaming(false);
 				}
 			});
@@ -42,6 +42,21 @@ define([
 
 		self.download = function() {
 			// TODO: download
+		};
+		
+		self.remove = function() {
+			self.busy(true);
+			$.ajax({
+				url: self.object().url,
+				type: 'DELETE',
+				success: function() {
+					self.object().remove();
+				},
+				complete: function() {
+					self.busy(false);
+					self.deleting(false);
+				}
+			});
 		};
 	};
 	

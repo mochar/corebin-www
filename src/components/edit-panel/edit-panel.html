@@ -2,9 +2,9 @@
 
 <!-- ko if: object -->
 <div class="name-div background" data-bind="borderColor: object().color || null">
-    <!-- ko if: !renaming() -->
+    <!-- ko if: !renaming() && !deleting() -->
     <span class="name" data-bind="text: object().name, attr: {id: cssName}"></span>
-    <button type="button" class="btn btn-link pull-right" data-bind="visible: canDelete">
+    <button type="button" class="btn btn-link pull-right" data-bind="visible: canDelete, click: toggleDelete">
         <span class="fa fa-trash text-danger"></span>
     </button>
     <button type="button" class="btn btn-link pull-right" data-bind="visible: canDownload, click: download">
@@ -19,10 +19,24 @@
     <div class="input-group">
         <input type="text" class="form-control" data-bind="value: newName">
         <span class="input-group-btn">
-            <button type="button" class="btn btn-link" data-bind="click: toggleRename, disable: busyRenaming">
+            <button type="button" class="btn btn-link" data-bind="click: toggleRename, disable: busy">
                 Cancel
             </button>
-            <button class="btn btn-default" type="button" data-bind="click: rename, disable: busyRenaming">
+            <button class="btn btn-default" type="button" data-bind="click: rename, disable: busy">
+                OK
+            </button>
+        </span>
+    </div>
+    <!-- /ko -->
+    
+    <!-- ko if: deleting -->
+    <div class="input-group">
+        <span>Delete <span data-bind="text: name"></span>?</span>
+        <span class="input-group-btn">
+            <button type="button" class="btn btn-link" data-bind="click: toggleDelete, disable: busy">
+                Cancel
+            </button>
+            <button class="btn btn-default" type="button" data-bind="click: remove, disable: busy">
                 OK
             </button>
         </span>
