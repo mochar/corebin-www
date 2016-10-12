@@ -51,7 +51,7 @@
             </div>
             <ul class="list-group bin-list" data-bind="foreach: binsIndices">
                 <!-- ko with: $parent.bins()[$data] -->
-                <li class="list-group-item" data-bind="text: name, borderColor: color"></li>
+                <li class="list-group-item" data-bind="text: name, borderColor: color"><a href="#refine" data-bind="click: refine">Refine</a></li>
                 <!-- /ko -->
             </ul>
         </div>

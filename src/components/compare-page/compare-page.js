@@ -6,8 +6,11 @@ define(['knockout', 'text!./compare-page.html', 'jquery', 'knockout-postbox'], f
         self.binSets = ko.observable().subscribeTo('binSets', true);
         self.binSet = ko.observable().subscribeTo('binSet', true);
         self.bins = ko.observableArray([]).subscribeTo('bins', true);
+        
         self.otherBinSet = ko.observable();
         self.otherBins = ko.observableArray([]);
+        
+        self.selectedBins = ko.observableArray().syncWith('selectedBins', true);
         
         self.dirty = ko.observable(false);
         self.loading = ko.observable(false);
